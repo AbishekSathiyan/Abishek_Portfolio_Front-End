@@ -1,5 +1,5 @@
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
-console.log("🌐 API Base URL:", BACKEND_BASE_URL); // ✅ Should show the URL
+console.log("🌐 API Base URL:", BACKEND_BASE_URL);
 
 export const submitContactForm = async (formData) => {
   try {
