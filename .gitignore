@@ -1,32 +1,61 @@
-# Node modules
+# ========================
+# Node Modules
+# ========================
 node_modules/
 client/node_modules/
 server/node_modules/
 
-# Build and output directories
+# ========================
+# Build Output
+# ========================
 build/
 dist/
 client/build/
 server/dist/
 
-# Cache folders
+# ========================
+# Cache
+# ========================
 .cache/
 client/.cache/
 server/.cache/
 
-# Environment variable files
+# ========================
+# Environment Variables
+# ========================
 .env
+.env.local
 client/.env
+client/.env.local
 server/.env
+server/.env.local
 
+# ========================
 # Logs
+# ========================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# OS-specific files
+# ========================
+# OS & Editor Files
+# ========================
 .DS_Store
 Thumbs.db
 
-# VSCode settings (optional)
+# ========================
+# IDE/Editor Configs
+# ========================
 .vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ========================
+# Test Coverage
+# ========================
+coverage/
