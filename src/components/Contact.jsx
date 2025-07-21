@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { submitContactForm } from "../services/api";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -26,12 +28,13 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      console.log("📤 Submitting form with:", formData);
       const response = await submitContactForm(formData);
 
-      alert(response?.message || "✅ Message sent successfully!");
+      toast.success(response?.message || "✅ Message sent successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
 
-      // Clear form on success
       setFormData({
         name: "",
         email: "",
@@ -40,13 +43,24 @@ export default function Contact() {
         message: "",
       });
     } catch (error) {
-      console.error("❌ Error submitting form:", error);
+      const msg = error.message?.toLowerCase();
 
-      // Handle duplicate entry error (from MongoDB unique index)
-      if (error.message?.toLowerCase().includes("duplicate")) {
-        alert("⚠️ You have already submitted this message.");
+      if (msg?.includes("duplicate")) {
+        toast.warn("⚠️ You have already submitted this message.", {
+          position: "top-right",
+        });
+      } else if (msg?.includes("validation") || msg?.includes("required")) {
+        toast.error("❌ Please fill all required fields correctly.", {
+          position: "top-right",
+        });
+      } else if (msg?.includes("network")) {
+        toast.error("🌐 Network error. Please check your connection.", {
+          position: "top-right",
+        });
       } else {
-        alert(error?.message || "❌ Failed to send message. Please try again.");
+        toast.error(`❌ ${error.message || "Failed to send message."}`, {
+          position: "top-right",
+        });
       }
     } finally {
       setIsSubmitting(false);
@@ -55,6 +69,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-20 bg-dark text-light">
+      <ToastContainer />
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold mb-4 text-center">
           Get In <span className="text-primary">Touch</span>
@@ -82,11 +97,7 @@ export default function Contact() {
                 <div>
                   <h4 className="font-semibold">Email</h4>
                   <a
-                    href={`mailto:abishek.sathiyan.2002@gmail.com?subject=${encodeURIComponent(
-                      "Regarding Project Inquiry"
-                    )}&body=${encodeURIComponent(
-                      "Hello Abishek,\n\nI wanted to connect regarding Develop New Web Application."
-                    )}`}
+                    href="mailto:abishek.sathiyan.2002@gmail.com"
                     className="text-light hover:underline"
                   >
                     abishek.sathiyan.2002@gmail.com
@@ -160,7 +171,7 @@ export default function Contact() {
                   required
                   minLength={2}
                   maxLength={50}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
                 />
               </div>
 
@@ -175,7 +186,7 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
                 />
               </div>
 
@@ -192,7 +203,7 @@ export default function Contact() {
                   required
                   pattern="[0-9]{10,15}"
                   title="Please enter a valid phone number (10-15 digits)"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
                 />
               </div>
 
@@ -209,7 +220,7 @@ export default function Contact() {
                   required
                   minLength={5}
                   maxLength={100}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
                 />
               </div>
 
@@ -226,7 +237,7 @@ export default function Contact() {
                   required
                   minLength={10}
                   maxLength={500}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
                 ></textarea>
               </div>
 
