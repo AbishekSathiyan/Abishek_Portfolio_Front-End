@@ -1,21 +1,24 @@
-const API_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+// src/services/api.js
+export async function submitContactForm(formData) {
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
-export const submitContactForm = async (formData) => {
   try {
-    const response = await fetch(`${API_URL}/contacts`, {
+    const response = await fetch(`${BASE_URL}/contacts`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to submit form");
+      const errorData = await response.json();
+      throw new Error(errorData?.error || "Failed to submit form");
     }
 
     return await response.json();
   } catch (error) {
+    console.error("❌ Error in submitContactForm:", error.message);
     throw error;
   }
-};
+}
