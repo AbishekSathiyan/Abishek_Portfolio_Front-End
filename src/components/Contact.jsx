@@ -26,6 +26,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
+      console.log("📤 Submitting form with:", formData);
       const response = await submitContactForm(formData);
       alert(response?.message || "Message sent successfully!");
 
