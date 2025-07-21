@@ -43,6 +43,7 @@ export default function Contact() {
       setIsSubmitting(false);
     }
   };
+  console.log("🌐 API Base URL:", process.env.REACT_APP_BACKEND_BASE_URL);
 
   return (
     <section id="contact" className="py-20 bg-dark text-light">
