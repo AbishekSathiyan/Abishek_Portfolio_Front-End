@@ -28,8 +28,10 @@ export default function Contact() {
     try {
       console.log("📤 Submitting form with:", formData);
       const response = await submitContactForm(formData);
-      alert(response?.message || "Message sent successfully!");
 
+      alert(response?.message || "✅ Message sent successfully!");
+
+      // Clear form on success
       setFormData({
         name: "",
         email: "",
@@ -38,13 +40,18 @@ export default function Contact() {
         message: "",
       });
     } catch (error) {
-      console.error("Error submitting form:", error);
-      alert(error?.message || "Failed to send message. Please try again.");
+      console.error("❌ Error submitting form:", error);
+
+      // Handle duplicate entry error (from MongoDB unique index)
+      if (error.message?.toLowerCase().includes("duplicate")) {
+        alert("⚠️ You have already submitted this message.");
+      } else {
+        alert(error?.message || "❌ Failed to send message. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
-  console.log("🌐 API Base URL:", process.env.REACT_APP_BACKEND_BASE_URL);
 
   return (
     <section id="contact" className="py-20 bg-dark text-light">
@@ -150,10 +157,10 @@ export default function Contact() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                   required
                   minLength={2}
                   maxLength={50}
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                 />
               </div>
 
@@ -167,8 +174,8 @@ export default function Contact() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                   required
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                 />
               </div>
 
@@ -182,10 +189,10 @@ export default function Contact() {
                   name="contact"
                   value={formData.contact}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                   required
                   pattern="[0-9]{10,15}"
                   title="Please enter a valid phone number (10-15 digits)"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                 />
               </div>
 
@@ -199,10 +206,10 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                   required
                   minLength={5}
                   maxLength={100}
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                 />
               </div>
 
@@ -216,17 +223,17 @@ export default function Contact() {
                   rows="5"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                   required
                   minLength={10}
                   maxLength={500}
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="bg-primary text-dark px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors w-full md:w-auto"
                 disabled={isSubmitting}
+                className="bg-primary text-dark px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors w-full md:w-auto"
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
               </button>
