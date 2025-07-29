@@ -1,101 +1,128 @@
-import { motion, useAnimation, useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { UilHtml5, UilCss3Simple, UilReact, UilGitlab, UilJavaScript } from '@iconscout/react-unicons';
+import { SiTailwindcss, SiNodedotjs, SiMongodb, SiFigma } from 'react-icons/si';
 
 export default function Skills() {
   const controls = useAnimation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const containerRef = useRef(null);
+  const skillsRef = useRef(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const skills = [
-    { name: "HTML", level: 95 },
-    { name: "CSS", level: 90 },
-    { name: "JavaScript", level: 85 },
-    { name: "React", level: 80 },
-    { name: "Tailwind CSS", level: 85 },
-    { name: "Node JS", level: 70 },
-    { name: "MongoDB", level: 65 },
-    { name: "Git", level: 80 },
-    { name: "UI/UX Design", level: 75 },
+    { name: "HTML", level: 95, icon: <UilHtml5 size="24" />, color: "#E44D26" },
+    { name: "CSS", level: 90, icon: <UilCss3Simple size="24" />, color: "#264DE4" },
+    { name: "JS", level: 85, icon: <UilJavaScript size="24" />, color: "#F0DB4F" },
+    { name: "React", level: 80, icon: <UilReact size="24" />, color: "#61DAFB" },
+    { name: "Tailwind", level: 85, icon: <SiTailwindcss size="24" />, color: "#38B2AC" },
+    { name: "Node", level: 70, icon: <SiNodedotjs size="24" />, color: "#68A063" },
+    { name: "MongoDB", level: 65, icon: <SiMongodb size="24" />, color: "#4DB33D" },
+    { name: "Git", level: 80, icon: <UilGitlab size="24" />, color: "#F34F29" },
+    { name: "Figma", level: 75, icon: <SiFigma size="24" />, color: "#A259FF" },
   ];
 
+  // Double the array for seamless looping
+  const doubledSkills = [...skills, ...skills];
+
   useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
+    const containerWidth = containerRef.current?.offsetWidth || 0;
+    const skillsWidth = skillsRef.current?.offsetWidth || 0;
+    const duration = skills.length * 3; // Adjust speed here
+
+    if (!isPaused) {
+      controls.start({
+        x: [-skillsWidth, 0],
+        transition: {
+          duration: duration,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop"
+        }
+      });
+    } else {
+      controls.stop();
     }
-  }, [isInView, controls]);
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const skillItem = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
-  const progressBar = {
-    hidden: { width: 0 },
-    visible: {
-      width: "100%",
-      transition: { duration: 1.5, ease: "easeOut" },
-    },
-  };
+  }, [controls, isPaused]);
 
   return (
-    <section id="skills" className="py-20 bg-light text-dark" ref={ref}>
+    <section id="skills" className="py-20 bg-light overflow-hidden">
       <div className="container mx-auto px-6">
-        <motion.h2
-          className="text-3xl font-bold mb-4 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
+        <h2 className="text-4xl font-bold mb-4 text-center">
           My <span className="text-primary">Skills</span>
-        </motion.h2>
-        <motion.p
-          className="max-w-2xl mx-auto text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          I've worked with a variety of technologies in the web development
-          world.
-        </motion.p>
+        </h2>
+        
+       
 
-        <motion.div
-          className="max-w-3xl mx-auto"
-          variants={container}
-          initial="hidden"
-          animate={controls}
+        <div 
+          ref={containerRef} 
+          className="relative h-40 overflow-hidden"
         >
-          {skills.map((skill, index) => (
-            <motion.div key={index} className="mb-6" variants={skillItem}>
-              <div className="flex justify-between mb-2">
-                <span className="font-semibold">{skill.name}</span>
-                <span>{skill.level}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
-                <motion.div
-                  className="bg-primary h-2.5 rounded-full"
-                  style={{ width: `${skill.level}%` }}
-                  variants={progressBar}
-                  custom={skill.level}
-                />
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+          <motion.div
+            ref={skillsRef}
+            className="absolute flex items-center gap-8"
+            animate={controls}
+            style={{ left: '100%' }}
+          >
+            {doubledSkills.map((skill, index) => (
+              <motion.div 
+                key={`${skill.name}-${index}`} 
+                className="flex-shrink-0 flex flex-col items-center"
+                style={{ width: '120px' }}
+                whileHover={{ scale: 1.1 }}
+                onHoverStart={() => setIsPaused(true)}
+                onHoverEnd={() => setIsPaused(false)}
+              >
+                <div className="relative">
+                  {/* Logo with circular progress */}
+                  <div className="relative w-20 h-20">
+                    <svg 
+                      className="absolute top-0 left-0 w-full h-full transform -rotate-90"
+                      viewBox="0 0 100 100"
+                    >
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke="#e5e7eb"
+                        strokeWidth="8"
+                      />
+                      <motion.circle
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke={skill.color}
+                        strokeWidth="8"
+                        strokeDasharray="283"
+                        strokeDashoffset={283 - (283 * skill.level / 100)}
+                        initial={{ strokeDashoffset: 283 }}
+                        animate={{ strokeDashoffset: 283 - (283 * skill.level / 100) }}
+                        transition={{ duration: 1.5, delay: 0.5 }}
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      {skill.icon}
+                    </div>
+                  </div>
+                  
+                  {/* Percentage text */}
+                  <div 
+                    className="absolute -bottom-6 left-0 right-0 text-center font-bold"
+                    style={{ color: skill.color }}
+                  >
+                    {skill.level}%
+                  </div>
+                </div>
+                
+                {/* Skill name */}
+                <div className="mt-8 text-sm font-medium text-gray-700">
+                  {skill.name}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
