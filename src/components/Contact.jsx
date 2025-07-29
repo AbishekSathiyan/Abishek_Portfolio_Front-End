@@ -38,7 +38,7 @@ export default function Contact() {
     try {
       const response = await submitContactForm(formData);
 
-      toast.success("✅ Message sent! I'll be in touch shortly.", {
+      toast.success("✅ All done! Your message is saved. The confirmation email is just waiting to go out.", {
         position: "top-right",
         autoClose: 3000,
       });
