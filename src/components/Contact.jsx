@@ -25,12 +25,20 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.contact || !formData.message) {
+      toast.error("❌ All fields are required!", {
+        position: "top-right",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
       const response = await submitContactForm(formData);
 
-      toast.success(response?.message || "✅ Message sent successfully!", {
+      toast.success("✅ Message sent! I'll be in touch shortly.", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -46,19 +54,19 @@ export default function Contact() {
       const msg = error.message?.toLowerCase();
 
       if (msg?.includes("duplicate")) {
-        toast.warn("⚠️ You have already submitted this message.", {
+        toast.warn("⚠️ You've already submitted this message.", {
           position: "top-right",
         });
       } else if (msg?.includes("validation") || msg?.includes("required")) {
-        toast.error("❌ Please fill all required fields correctly.", {
+        toast.error("❌ Please complete all fields properly.", {
           position: "top-right",
         });
       } else if (msg?.includes("network")) {
-        toast.error("🌐 Network error. Please check your connection.", {
+        toast.error("🌐 Network error. Check your internet connection.", {
           position: "top-right",
         });
       } else {
-        toast.error(`❌ ${error.message || "Failed to send message."}`, {
+        toast.error(`❌ Failed to send: ${error.message}`, {
           position: "top-right",
         });
       }
@@ -80,77 +88,70 @@ export default function Contact() {
 
         <div className="flex flex-col md:flex-row gap-12">
           {/* Contact Info */}
-          <div className="md:w-1/2">
-            <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
+          <div className="md:w-1/2 space-y-6">
+            <h3 className="text-2xl font-semibold mb-4">Contact Information</h3>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="text-primary text-xl">📍</div>
-                <div>
-                  <h4 className="font-semibold">Location</h4>
-                  <p>Methalodai, Ramanathapuram, TamilNadu, India</p>
-                </div>
+            <div className="flex items-start gap-4">
+              <div className="text-primary text-xl">📍</div>
+              <div>
+                <h4 className="font-semibold">Location</h4>
+                <p>Methalodai, Ramanathapuram, TamilNadu, India</p>
               </div>
+            </div>
 
-              <div className="flex items-start gap-4">
-                <div className="text-primary text-xl">✉️</div>
-                <div>
-                  <h4 className="font-semibold">Email</h4>
-                  <a
-                    href="mailto:abishek.sathiyan.2002@gmail.com"
-                    className="text-light hover:underline"
-                  >
-                    abishek.sathiyan.2002@gmail.com
-                  </a>
-                </div>
+            <div className="flex items-start gap-4">
+              <div className="text-primary text-xl">✉️</div>
+              <div>
+                <h4 className="font-semibold">Email</h4>
+                <a
+                  href="mailto:abishek.sathiyan.2002@gmail.com"
+                  className="text-light hover:underline"
+                >
+                  abishek.sathiyan.2002@gmail.com
+                </a>
               </div>
+            </div>
 
-              <div className="flex items-start gap-4">
-                <div className="text-primary text-xl">📱</div>
-                <div>
-                  <h4 className="font-semibold">Phone</h4>
-                  <a
-                    href="https://wa.me/917092085864?text=Hello%20Abishek%2C%0A%0AI%20wanted%20to%20connect%20regarding%20Develop%20New%20Web%20Application."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-light hover:underline"
-                  >
-                    +91 7092085864
-                  </a>
-                </div>
+            <div className="flex items-start gap-4">
+              <div className="text-primary text-xl">📱</div>
+              <div>
+                <h4 className="font-semibold">Phone</h4>
+                <a
+                  href="https://wa.me/917092085864"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-light hover:underline"
+                >
+                  +91 7092085864
+                </a>
               </div>
             </div>
 
             {/* Social Links */}
-            <div className="mt-8 flex space-x-6">
+            <div className="mt-6 flex space-x-6">
               <a
                 href="https://github.com/AbishekSathiyan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 hover:text-gray-300 transition-colors"
+                className="hover:text-gray-300"
               >
                 <FaGithub className="text-2xl" />
-                <span>GitHub</span>
               </a>
-
               <a
                 href="https://linkedin.com/in/abishek04"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 hover:text-[#0077b5] transition-colors"
+                className="hover:text-[#0077b5]"
               >
                 <FaLinkedin className="text-2xl" />
-                <span>LinkedIn</span>
               </a>
-
               <a
                 href="https://www.instagram.com/entabilogist_abi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 hover:text-[#e2183d] transition-colors"
+                className="hover:text-[#e2183d]"
               >
                 <FaInstagram className="text-2xl" />
-                <span>Instagram</span>
               </a>
             </div>
           </div>
@@ -158,71 +159,27 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="md:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block mb-2 text-gray-300">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  minLength={2}
-                  maxLength={50}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block mb-2 text-gray-300">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="contact" className="block mb-2 text-gray-300">
-                  Contact Number
-                </label>
-                <input
-                  type="tel"
-                  id="contact"
-                  name="contact"
-                  value={formData.contact}
-                  onChange={handleChange}
-                  required
-                  pattern="[0-9]{10,15}"
-                  title="Please enter a valid phone number (10-15 digits)"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block mb-2 text-gray-300">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  minLength={5}
-                  maxLength={100}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
-                />
-              </div>
+              {[
+                { label: "Your Name", id: "name", type: "text", required: true },
+                { label: "Your Email", id: "email", type: "email", required: true },
+                { label: "Contact Number", id: "contact", type: "tel", required: true },
+                { label: "Subject", id: "subject", type: "text", required: true },
+              ].map(({ label, id, type, required }) => (
+                <div key={id}>
+                  <label htmlFor={id} className="block mb-2 text-gray-300">
+                    {label}
+                  </label>
+                  <input
+                    type={type}
+                    id={id}
+                    name={id}
+                    value={formData[id]}
+                    onChange={handleChange}
+                    required={required}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
+                  />
+                </div>
+              ))}
 
               <div>
                 <label htmlFor="message" className="block mb-2 text-gray-300">
@@ -235,8 +192,6 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  minLength={10}
-                  maxLength={500}
                   className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
                 ></textarea>
               </div>
@@ -244,9 +199,18 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-primary text-dark px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors w-full md:w-auto"
+                className={`flex items-center justify-center gap-2 bg-primary text-dark px-6 py-3 rounded-lg font-semibold transition-all duration-200 w-full md:w-auto ${
+                  isSubmitting ? "opacity-60 cursor-not-allowed" : "hover:bg-opacity-90"
+                }`}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin rounded-full border-2 border-dark border-t-transparent w-5 h-5"></span>
+                    Sending...
+                  </>
+                ) : (
+                  "Send Message"
+                )}
               </button>
             </form>
           </div>
