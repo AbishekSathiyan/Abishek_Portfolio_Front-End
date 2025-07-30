@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   const links = [
     { name: "Home", href: "#home" },
@@ -12,51 +13,139 @@ export default function Header() {
     { name: "Contact", href: "#contact" },
   ];
 
+  const toggleDropdown = (index) => {
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setNavOpen(false);
+        setActiveDropdown(null);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <header className="fixed w-full bg-dark text-light shadow-md z-50">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+    <header className="fixed w-full bg-dark/90 backdrop-blur-sm text-light shadow-md z-50">
+      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         <p className="text-2xl font-bold">
           <span className="text-white">Abishek S</span>{" "}
           <span className="text-primary">Portfolio</span>
         </p>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
-          {links.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="hover:text-primary transition-colors"
-            >
-              {link.name}
-            </a>
+        <nav className="hidden md:flex space-x-6 items-center">
+          {links.map((link, index) => (
+            <div key={link.name} className="relative group">
+              {link.subLinks ? (
+                <>
+                  <button
+                    className="flex items-center px-2 py-2 hover:text-primary transition-colors"
+                    onClick={() => toggleDropdown(index)}
+                    onMouseEnter={() => setActiveDropdown(index)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    {link.name}
+                    <FaChevronDown
+                      className={`ml-1 text-xs transition-transform duration-200 ${
+                        activeDropdown === index ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {activeDropdown === index && (
+                    <div
+                      className="absolute right-0 mt-2 w-48 bg-dark/95 backdrop-blur-sm rounded-md shadow-lg py-1 z-50 animate-slideDown"
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      {link.subLinks.map((subLink) => (
+                        <a
+                          key={subLink.name}
+                          href={subLink.href}
+                          className="block px-4 py-2 hover:bg-primary/10 hover:text-primary transition-colors"
+                        >
+                          {subLink.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <a
+                  href={link.href}
+                  className="relative group px-2 py-2 hover:text-primary transition-colors"
+                >
+                  {link.name}
+                  <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              )}
+            </div>
           ))}
         </nav>
 
-        {/* Mobile Navigation Toggle */}
+        {/* Mobile Nav Toggle */}
         <button
-          className="md:hidden text-xl"
-          onClick={() => setNavOpen(!navOpen)}
+          className="md:hidden text-xl p-2 rounded hover:bg-gray-800 transition-colors"
+          onClick={() => {
+            setNavOpen(!navOpen);
+            setActiveDropdown(null);
+          }}
         >
           {navOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Right Corner Menu */}
       {navOpen && (
-        <div className="md:hidden bg-dark py-4">
-          <nav className="flex flex-col space-y-4 px-6">
-            {links.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="hover:text-primary transition-colors py-2"
-                onClick={() => setNavOpen(false)}
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
+        <div className="md:hidden fixed top-16 right-0 z-40 animate-slideDown">
+          <div className="bg-dark w-64 rounded-l-lg shadow-lg py-4 border-l border-gray-800">
+            <nav className="flex flex-col px-6">
+              {links.map((link, index) => (
+                <div key={link.name} className="border-b border-gray-800">
+                  {link.subLinks ? (
+                    <>
+                      <button
+                        className="flex items-center justify-between w-full py-3 hover:text-primary transition-colors"
+                        onClick={() => toggleDropdown(index)}
+                      >
+                        {link.name}
+                        <FaChevronDown
+                          className={`text-xs transition-transform duration-200 ${
+                            activeDropdown === index ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      {activeDropdown === index && (
+                        <div className="text-right pr-2 pb-2">
+                          {link.subLinks.map((subLink) => (
+                            <a
+                              key={subLink.name}
+                              href={subLink.href}
+                              className="block py-2 hover:text-primary transition-colors"
+                              onClick={() => setNavOpen(false)}
+                            >
+                              {subLink.name}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="block py-3 hover:text-primary transition-colors"
+                      onClick={() => setNavOpen(false)}
+                    >
+                      {link.name}
+                    </a>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
         </div>
       )}
     </header>
