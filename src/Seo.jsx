@@ -6,7 +6,7 @@ export default function Seo({
   name = "Abishek S",
   type = "website",
   image = "/images/social-preview.jpg",
-  url = "https://yourportfolio.com"
+  url = "https://abishek-portfolio-front-end.vercel.app/"
 }) {
   return (
     <Helmet>
