@@ -36,9 +36,16 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await submitContactForm(formData);
+      // Add timestamp to form data before submission
+      const submissionWithDate = {
+        ...formData,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
 
-      toast.success("✅ All done! Your message is saved. The confirmation email is just waiting to go out.", {
+      const response = await submitContactForm(submissionWithDate);
+
+      toast.success("✅ Message sent successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
