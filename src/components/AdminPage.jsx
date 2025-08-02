@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const formatDate = (dateString) => {
   if (!dateString) return "Unknown date";
-  
+
   const date = new Date(dateString);
   if (isNaN(date.getTime())) return "Invalid date";
-  
+
   return date.toLocaleString("en-US", {
     year: "numeric",
     month: "short",
@@ -29,8 +29,8 @@ const AdminPage = () => {
       try {
         const response = await axios.get("http://localhost:5000/api/contacts");
         // Sort by date (newest first)
-        const sortedSubmissions = response.data.sort((a, b) => 
-          new Date(b.createdAt) - new Date(a.createdAt)
+        const sortedSubmissions = response.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
         setSubmissions(sortedSubmissions);
       } catch (err) {
@@ -43,16 +43,17 @@ const AdminPage = () => {
     fetchSubmissions();
   }, []);
 
-  const filteredSubmissions = submissions.filter(submission =>
-    submission.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    submission.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    submission.message.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSubmissions = submissions.filter(
+    (submission) =>
+      submission.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      submission.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      submission.message.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/contacts/${id}`);
-      setSubmissions(submissions.filter(sub => sub._id !== id));
+      setSubmissions(submissions.filter((sub) => sub._id !== id));
       if (selectedSubmission?._id === id) {
         setSelectedSubmission(null);
       }
@@ -63,20 +64,24 @@ const AdminPage = () => {
 
   const markAsRead = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/api/contacts/${id}`, { 
+      await axios.patch(`http://localhost:5000/api/contacts/${id}`, {
         isRead: true,
-        updatedAt: new Date().toISOString() 
+        updatedAt: new Date().toISOString(),
       });
-      
-      setSubmissions(submissions.map(sub => 
-        sub._id === id ? { ...sub, isRead: true, updatedAt: new Date().toISOString() } : sub
-      ));
-      
+
+      setSubmissions(
+        submissions.map((sub) =>
+          sub._id === id
+            ? { ...sub, isRead: true, updatedAt: new Date().toISOString() }
+            : sub
+        )
+      );
+
       if (selectedSubmission?._id === id) {
-        setSelectedSubmission({ 
-          ...selectedSubmission, 
+        setSelectedSubmission({
+          ...selectedSubmission,
           isRead: true,
-          updatedAt: new Date().toISOString()
+          updatedAt: new Date().toISOString(),
         });
       }
     } catch (err) {
@@ -84,17 +89,19 @@ const AdminPage = () => {
     }
   };
 
-  if (loading) return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="text-xl">Loading submissions...</div>
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-xl">Loading submissions...</div>
+      </div>
+    );
 
-  if (error) return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="text-xl text-red-600">Error: {error}</div>
-    </div>
-  );
+  if (error)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-xl text-red-600">Error: {error}</div>
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -121,25 +128,36 @@ const AdminPage = () => {
                 Messages ({filteredSubmissions.length})
               </h2>
             </div>
-            <div className="overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
+            <div
+              className="overflow-y-auto"
+              style={{ maxHeight: "calc(100vh - 200px)" }}
+            >
               <ul className="divide-y divide-gray-200">
-                {filteredSubmissions.map(submission => (
+                {filteredSubmissions.map((submission) => (
                   <li
                     key={submission._id}
                     className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
                       !submission.isRead ? "bg-blue-50" : ""
                     } ${
-                      selectedSubmission?._id === submission._id ? "bg-gray-100" : ""
+                      selectedSubmission?._id === submission._id
+                        ? "bg-gray-100"
+                        : ""
                     }`}
                     onClick={() => setSelectedSubmission(submission)}
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium text-gray-900">{submission.name}</h3>
-                        <p className="text-sm text-gray-500">{submission.email}</p>
+                        <h3 className="font-medium text-gray-900">
+                          {submission.name}
+                        </h3>
+                        <p className="text-sm text-gray-500">
+                          {submission.email}
+                        </p>
                       </div>
                       <span className="text-xs text-gray-400">
-                        {formatDate(submission.updatedAt || submission.createdAt)}
+                        {formatDate(
+                          submission.updatedAt || submission.createdAt
+                        )}
                       </span>
                     </div>
                     <p className="mt-2 text-sm text-gray-600 truncate">
@@ -171,18 +189,24 @@ const AdminPage = () => {
                         {selectedSubmission.subject}
                       </h2>
                       <p className="text-sm text-gray-500 mt-1">
-                        From: {selectedSubmission.name} &lt;{selectedSubmission.email}&gt;
+                        From: {selectedSubmission.name} &lt;
+                        {selectedSubmission.email}&gt;
                       </p>
                     </div>
                     <div className="text-sm text-gray-500">
-                      {formatDate(selectedSubmission.updatedAt || selectedSubmission.createdAt)}
+                      {formatDate(
+                        selectedSubmission.updatedAt ||
+                          selectedSubmission.createdAt
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <div className="flex-1 p-6 overflow-y-auto">
                   <div className="prose max-w-none">
-                    <p className="whitespace-pre-line">{selectedSubmission.message}</p>
+                    <p className="whitespace-pre-line">
+                      {selectedSubmission.message}
+                    </p>
                   </div>
                 </div>
 

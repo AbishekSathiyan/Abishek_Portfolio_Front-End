@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AdminPage from "./components/AdminPage";
 import NotFound from "./components/NotFound"; // 👈 Import
+import { BrowserRouter } from "react-router-dom";
 
 function HomePage() {
   return (
