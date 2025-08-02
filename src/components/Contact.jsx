@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react"; // ✅ Correct
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { submitContactForm } from "../services/api";
 import { toast, ToastContainer } from "react-toastify";
@@ -26,7 +26,12 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.contact || !formData.message) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.contact ||
+      !formData.message
+    ) {
       toast.error("❌ All fields are required!", {
         position: "top-right",
       });
@@ -40,7 +45,7 @@ export default function Contact() {
       const submissionWithDate = {
         ...formData,
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       };
 
       const response = await submitContactForm(submissionWithDate);
@@ -167,10 +172,30 @@ export default function Contact() {
           <div className="md:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-6">
               {[
-                { label: "Your Name", id: "name", type: "text", required: true },
-                { label: "Your Email", id: "email", type: "email", required: true },
-                { label: "Contact Number", id: "contact", type: "tel", required: true },
-                { label: "Subject", id: "subject", type: "text", required: true },
+                {
+                  label: "Your Name",
+                  id: "name",
+                  type: "text",
+                  required: true,
+                },
+                {
+                  label: "Your Email",
+                  id: "email",
+                  type: "email",
+                  required: true,
+                },
+                {
+                  label: "Contact Number",
+                  id: "contact",
+                  type: "tel",
+                  required: true,
+                },
+                {
+                  label: "Subject",
+                  id: "subject",
+                  type: "text",
+                  required: true,
+                },
               ].map(({ label, id, type, required }) => (
                 <div key={id}>
                   <label htmlFor={id} className="block mb-2 text-gray-300">
@@ -207,7 +232,9 @@ export default function Contact() {
                 type="submit"
                 disabled={isSubmitting}
                 className={`flex items-center justify-center gap-2 bg-primary text-dark px-6 py-3 rounded-lg font-semibold transition-all duration-200 w-full md:w-auto ${
-                  isSubmitting ? "opacity-60 cursor-not-allowed" : "hover:bg-opacity-90"
+                  isSubmitting
+                    ? "opacity-60 cursor-not-allowed"
+                    : "hover:bg-opacity-90"
                 }`}
               >
                 {isSubmitting ? (

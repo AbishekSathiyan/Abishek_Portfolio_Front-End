@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react"; // ✅ Only once
 import {
   motion,
   useAnimation,
@@ -6,10 +6,10 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { FaGithub, FaLinkedin, FaFileAlt } from "react-icons/fa";
-import { FaDownload } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFileAlt, FaDownload } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import Mine from "./assets/Mine.jpeg";
+
 
 export default function Hero() {
   const [nameText, setNameText] = useState("");

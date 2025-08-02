@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; // ✅ Correct
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 
 export default function Header() {

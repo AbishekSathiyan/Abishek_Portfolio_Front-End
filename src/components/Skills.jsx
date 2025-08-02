@@ -1,5 +1,5 @@
 import { motion, useAnimation } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { UilHtml5, UilCss3Simple, UilReact, UilGitlab, UilJavaScript } from '@iconscout/react-unicons';
 import { SiTailwindcss, SiNodedotjs, SiMongodb, SiFigma } from 'react-icons/si';
 
