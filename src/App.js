@@ -8,8 +8,7 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AdminPage from "./components/AdminPage";
-import NotFound from "./components/NotFound"; // 👈 Import
-import { BrowserRouter } from "react-router-dom";
+import NotFound from "./components/NotFound";
 
 function HomePage() {
   return (
@@ -38,7 +37,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/admin" element={<AdminPage />} />
-      <Route path="*" element={<NotFound />} /> {/* 👈 Catch-all */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
