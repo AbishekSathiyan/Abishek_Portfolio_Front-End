@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AdminPage from "./components/AdminPage";
 import NotFound from "./components/NotFound";
+import SecureAdmin from "./components/SecureAdmin";
 
 function HomePage() {
   return (
@@ -36,7 +37,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/admin" element={<AdminPage />} />
+<Route path="/admin" element={<SecureAdmin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
