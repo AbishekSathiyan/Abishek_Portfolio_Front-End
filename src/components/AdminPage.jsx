@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react"; // ✅ Correct
 import axios from "axios";
 
+// ✅ Pick BASE_URL from environment variable
+const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+
 const formatDate = (dateString) => {
   if (!dateString) return "Unknown date";
 
@@ -27,7 +30,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/contacts");
+        const response = await axios.get(`${BASE_URL}/contacts`);
         // Sort by date (newest first)
         const sortedSubmissions = response.data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -52,7 +55,7 @@ const AdminPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/contacts/${id}`);
+      await axios.delete(`${BASE_URL}/contacts/${id}`);
       setSubmissions(submissions.filter((sub) => sub._id !== id));
       if (selectedSubmission?._id === id) {
         setSelectedSubmission(null);
@@ -64,7 +67,7 @@ const AdminPage = () => {
 
   const markAsRead = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/api/contacts/${id}`, {
+      await axios.patch(`${BASE_URL}/contacts/${id}`, {
         isRead: true,
         updatedAt: new Date().toISOString(),
       });
@@ -122,6 +125,7 @@ const AdminPage = () => {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left sidebar */}
           <div className="lg:col-span-1 bg-white rounded-lg shadow overflow-hidden">
             <div className="p-4 border-b border-gray-200">
               <h2 className="text-lg font-semibold text-gray-800">
@@ -179,6 +183,7 @@ const AdminPage = () => {
             </div>
           </div>
 
+          {/* Right panel */}
           <div className="lg:col-span-2 bg-white rounded-lg shadow overflow-hidden">
             {selectedSubmission ? (
               <div className="h-full flex flex-col">
