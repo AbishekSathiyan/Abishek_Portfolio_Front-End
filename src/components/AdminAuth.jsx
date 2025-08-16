@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_BACKEND_BASE_URL; // use env variable
+// Use environment variable with fallback
+const API_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const AdminAuth = ({ onSuccess }) => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [step, setStep] = useState("email");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(60); // 1 minute timer
+  const [timeLeft, setTimeLeft] = useState(60); // 1 min timer
   const inputsRef = useRef([]);
 
   // Countdown timer
@@ -19,6 +20,7 @@ const AdminAuth = ({ onSuccess }) => {
     }
   }, [timeLeft, step]);
 
+  // Send OTP
   const sendOtp = async () => {
     setLoading(true);
     setMessage("");
@@ -27,31 +29,34 @@ const AdminAuth = ({ onSuccess }) => {
       if (res.data.success) {
         setMessage("✅ OTP sent to admin email!");
         setStep("otp");
-        setTimeLeft(60); // reset timer
+        setTimeLeft(60);
         setOtp(Array(6).fill(""));
-        inputsRef.current[0].focus();
+        inputsRef.current[0]?.focus();
       } else {
         setMessage(`❌ ${res.data.message}`);
       }
-    } catch {
+    } catch (err) {
+      console.error(err);
       setMessage("❌ Error sending OTP");
     }
     setLoading(false);
   };
 
+  // Handle OTP input change
   const handleChange = (e, index) => {
-    const value = e.target.value.replace(/\D/, ""); // only digits
+    const value = e.target.value.replace(/\D/, "");
     if (!value) return;
     const newOtp = [...otp];
     newOtp[index] = value[0];
     setOtp(newOtp);
-    if (index < 5) inputsRef.current[index + 1].focus();
+    if (index < 5) inputsRef.current[index + 1]?.focus();
   };
 
+  // Handle Backspace
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
-      if (otp[index] === "") {
-        if (index > 0) inputsRef.current[index - 1].focus();
+      if (otp[index] === "" && index > 0) {
+        inputsRef.current[index - 1]?.focus();
       } else {
         const newOtp = [...otp];
         newOtp[index] = "";
@@ -60,6 +65,7 @@ const AdminAuth = ({ onSuccess }) => {
     }
   };
 
+  // Verify OTP
   const verifyOtp = async () => {
     const enteredOtp = otp.join("");
     if (enteredOtp.length < 6) {
@@ -82,7 +88,8 @@ const AdminAuth = ({ onSuccess }) => {
       } else {
         setMessage("❌ Invalid OTP");
       }
-    } catch {
+    } catch (err) {
+      console.error(err);
       setMessage("❌ Error verifying OTP");
     }
     setLoading(false);
@@ -125,6 +132,7 @@ const AdminAuth = ({ onSuccess }) => {
   );
 };
 
+// Inline styles
 const styles = {
   container: {
     maxWidth: "400px",
