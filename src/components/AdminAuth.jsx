@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_BACKEND_BASE_URL; // use env variable
+
 const AdminAuth = ({ onSuccess }) => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [step, setStep] = useState("email");
@@ -21,7 +23,7 @@ const AdminAuth = ({ onSuccess }) => {
     setLoading(true);
     setMessage("");
     try {
-      const res = await axios.post("http://localhost:5000/api/admin/send-otp");
+      const res = await axios.post(`${API_URL}/admin/send-otp`);
       if (res.data.success) {
         setMessage("✅ OTP sent to admin email!");
         setStep("otp");
@@ -43,7 +45,6 @@ const AdminAuth = ({ onSuccess }) => {
     const newOtp = [...otp];
     newOtp[index] = value[0];
     setOtp(newOtp);
-    // Move focus
     if (index < 5) inputsRef.current[index + 1].focus();
   };
 
@@ -72,7 +73,9 @@ const AdminAuth = ({ onSuccess }) => {
     setLoading(true);
     setMessage("");
     try {
-      const res = await axios.post("http://localhost:5000/api/admin/verify-otp", { otp: enteredOtp });
+      const res = await axios.post(`${API_URL}/admin/verify-otp`, {
+        otp: enteredOtp,
+      });
       if (res.data.success) {
         setMessage("✅ OTP verified! Redirecting...");
         setTimeout(() => onSuccess(), 1000);
@@ -94,7 +97,9 @@ const AdminAuth = ({ onSuccess }) => {
         </button>
       ) : (
         <>
-          <p style={styles.instruction}>Enter the 6-digit OTP sent to your email</p>
+          <p style={styles.instruction}>
+            Enter the 6-digit OTP sent to your email
+          </p>
           <div style={styles.otpBox}>
             {otp.map((digit, idx) => (
               <input
@@ -131,9 +136,18 @@ const styles = {
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     background: "#fff",
   },
-  title: { marginBottom: "20px", fontSize: "24px", fontWeight: "600", color: "#333" },
+  title: {
+    marginBottom: "20px",
+    fontSize: "24px",
+    fontWeight: "600",
+    color: "#333",
+  },
   instruction: { marginBottom: "20px", fontSize: "16px", color: "#555" },
-  otpBox: { display: "flex", justifyContent: "space-between", marginBottom: "15px" },
+  otpBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "15px",
+  },
   otpInput: {
     width: "40px",
     height: "50px",
