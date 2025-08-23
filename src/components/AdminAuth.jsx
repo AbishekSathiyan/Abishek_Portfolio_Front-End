@@ -585,7 +585,7 @@ const AdminAuth = ({ onSuccess }) => {
                   maxLength="1"
                   value={digit}
                   onChange={(e) => handleChange(e, idx)}
-                  onKeyDown={(e极) => handleKeyDown(e, idx)}
+                  onKeyDown={(e) => handleKeyDown(e, idx)}
                   className="w-10 h-12 md:w-12 md:h-14 text-center text-xl md:text-2xl font-semibold bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 />
               ))}
