@@ -428,8 +428,8 @@ const AdminAuth = ({ onSuccess }) => {
         </div>
       )}
 
-      <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-8 transition-all duration-300 border border-gray-200">
-        <div className="text-center mb-8">
+      <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-6 md:p-8 transition-all duration-300 border border-gray-200">
+        <div className="text-center mb-6 md:mb-8">
           <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-indigo-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -442,11 +442,11 @@ const AdminAuth = ({ onSuccess }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-极a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
               />
             </svg>
           </div>
-          <h2 className="text-3极 font-bold text-gray-800">Admin Portal</h2>
+          <h2 className="text-3xl font-bold text-gray-800">Admin Portal</h2>
           <p className="text-gray-500 mt-2">Secure access for administrators</p>
 
           {/* Voice control buttons */}
@@ -460,10 +460,10 @@ const AdminAuth = ({ onSuccess }) => {
                 )
               }
               className="p-2 bg-blue-100 rounded-full hover:bg-blue-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label="Repeat instructions"
+              aria-label="Repeat Instructions"
             >
               <svg
-                xmlns极="http://www.w3.org/2000/svg"
+                xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-blue-600"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -473,7 +473,7 @@ const AdminAuth = ({ onSuccess }) => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-极V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                 />
               </svg>
             </button>
@@ -508,9 +508,9 @@ const AdminAuth = ({ onSuccess }) => {
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-green-600"
+                    className="h-5 w-5 text-green-极"
                     fill="none"
-                    viewBox="0 极 24 24"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
                     <path
@@ -585,8 +585,8 @@ const AdminAuth = ({ onSuccess }) => {
                   maxLength="1"
                   value={digit}
                   onChange={(e) => handleChange(e, idx)}
-                  onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="w-12 h-14 text-center text-2xl font-semibold bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                  onKeyDown={(e极) => handleKeyDown(e, idx)}
+                  className="w-10 h-12 md:w-12 md:h-14 text-center text-xl md:text-2xl font-semibold bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                 />
               ))}
             </div>
@@ -608,7 +608,7 @@ const AdminAuth = ({ onSuccess }) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 8极4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
                 Time remaining: {timeLeft}s
@@ -627,7 +627,7 @@ const AdminAuth = ({ onSuccess }) => {
               {loading ? (
                 <div className="flex items-center justify-center">
                   <svg
-                    className="animate极-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -643,7 +643,7 @@ const AdminAuth = ({ onSuccess }) => {
                     <path
                       className="opacity-75"
                       fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 极 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c极 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                   </svg>
                   Verifying...
@@ -696,7 +696,7 @@ const AdminAuth = ({ onSuccess }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                d="M19 11a7 7 0 01极7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8极4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
               />
             </svg>
             Listening... Speak your 6-digit code now
