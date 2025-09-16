@@ -300,7 +300,7 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                 >
-                  I'm a passionate frontend developer with 9 Months of Hands on experience
+                  I'm a passionate MernStack Developer with 9 Months of Hands on experience
                   building responsive and user-friendly web applications. I
                   specialize in React, JavaScript, and modern CSS frameworks.
                 </motion.p>
