@@ -14,7 +14,7 @@ const techLogos = {
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   "Firebase Authentication":
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-  "NodeMailer":
+  NodeMailer:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   Razorpay: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/razorpay.svg",
   "Tailwind CSS":
@@ -22,7 +22,8 @@ const techLogos = {
   Cloudinary:
     "https://res.cloudinary.com/cloudinary/image/upload/v1591941977/cloudinary_logo_for_white_bg.svg",
   JWT: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jsonwebtokens.svg",
-  Multer: "https://tamediacdn.techaheadcorp.com/wp-content/uploads/2023/09/16045813/Multer-js.webp",
+  Multer:
+    "https://tamediacdn.techaheadcorp.com/wp-content/uploads/2023/09/16045813/Multer-js.webp",
   Vite: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
   "OpenWeatherMap API":
     "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/openweathermap.svg",
@@ -53,14 +54,14 @@ const projects = [
       "Tailwind CSS",
     ],
     githubLink: "https://github.com/AbishekSathiyan/AS_Ecommerce",
-    demoLink: "https://as-ecommerce-demo.vercel.app/",
+    demoLink: "https://github.com/AbishekSathiyan/AS_Ecommerce",
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&w=400&h=300&fit=crop",
     featured: true,
   },
   {
     id: 2,
-    title: "Methalodai Community",
+    title: "Methalodai Village Community",
     description:
       "Instagram-like community platform for village communication with posts, follows, likes, and comments.",
     technologies: [
@@ -73,7 +74,7 @@ const projects = [
       "Tailwind CSS",
     ],
     githubLink: "https://github.com/AbishekSathiyan/Methalodai-Community",
-    demoLink: "https://methalodai-community.vercel.app/",
+    demoLink: "https://github.com/AbishekSathiyan/Methalodai-Community",
     image: Village,
     featured: true,
   },
@@ -93,7 +94,7 @@ const projects = [
       "Tailwind CSS",
     ],
     githubLink: "https://github.com/AbishekSathiyan/Campus-Lost-and-Found",
-    demoLink: "https://campus-lost-found.vercel.app/",
+    demoLink: "https://github.com/AbishekSathiyan/Campus-Lost-and-Found",
     image:
       "https://th.bing.com/th/id/OIP.GuBsosCzWL62CBbvCgyrsAHaFQ?w=254&h=180&c=7&r=0&o=7&pid=1.7",
   },
