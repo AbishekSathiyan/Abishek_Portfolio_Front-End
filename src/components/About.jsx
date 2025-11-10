@@ -300,7 +300,7 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                 >
-                  I'm a passionate MernStack Developer with 9 Months of Hands on experience
+                  I'm a passionate frontend developer with 3 years of experience
                   building responsive and user-friendly web applications. I
                   specialize in React, JavaScript, and modern CSS frameworks.
                 </motion.p>
@@ -345,10 +345,19 @@ export default function About() {
                   title: "MERN Stack Developer",
                   subtitle: "Error Makes Clever",
                 },
+                {
+                  title: "Namate JavaScript Completion",
+                  subtitle: "NamasteDev",
+                },
+
                 { title: "Mastering Python", subtitle: "Infosys" },
                 {
                   title: "National Conference on Data Science & Analytics",
                   subtitle: "TCS iON",
+                },
+                {
+                  title: "AI for All",
+                  subtitle: "Digital India | Intel",
                 },
               ]}
               backgroundAnimation={sectionBackgrounds.certifications}
@@ -365,6 +374,13 @@ export default function About() {
                   meta: "Aug 2024 – Sep 2024",
                   description: "React.js, Next.js, Tailwind CSS",
                   link: "https://skillmate.ai/",
+                },
+                {
+                  title: "Data Structures and Algorithms – Learning DSA",
+                  subtitle: "kaashiv Inftech",
+                  meta: "April 2025",
+                  description: "Programming, DataStructures, Algrithms",
+                  link: "www.kaashivinfotech.com/",
                 },
               ]}
               backgroundAnimation={sectionBackgrounds.internships}
