@@ -50,7 +50,7 @@ export default function Contact() {
 
       const response = await submitContactForm(submissionWithDate);
 
-      toast.success("✅ Message sent successfully!", {
+      toast.success("Message sent successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
