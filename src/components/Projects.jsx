@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FiGithub, FiExternalLink, FiStar, FiCode } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiStar, FiMonitor } from "react-icons/fi";
 import Village from "../components/assets/Village.png";
 
 // Technology logos mapping - fixed Cloudinary URL
@@ -251,8 +251,8 @@ export default function Projects() {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
-            <FiCode className="text-blue-400" />
-            <span className="text-blue-400 text-sm font-medium">My Work</span>
+            <FiMonitor className="text-blue-400" />
+            <span className="text-blue-400 text-sm font-medium">My Works</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             Featured Projects
@@ -370,6 +370,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
           className="mt-16 text-center"
         >
           <h3 className="text-2xl font-bold mb-8 text-white">
@@ -405,6 +406,7 @@ export default function Projects() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
+          viewport={{ once: true }}
           className="text-center mt-12"
         >
           <p className="text-gray-500 text-sm">

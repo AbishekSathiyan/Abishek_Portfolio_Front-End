@@ -1,24 +1,34 @@
-import { useState, useEffect, useRef } from "react"; // ✅ Only once
-import {
-  motion,
-  useAnimation,
-  useInView,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
-import { FaGithub, FaLinkedin, FaFileAlt, FaDownload } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { FaGithub, FaLinkedin, FaFileAlt } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import Mine from "./assets/Mine.jpeg";
-
+import Mine2 from "./assets/Mine.jpg";
 
 export default function Hero() {
   const [nameText, setNameText] = useState("");
   const [titleText, setTitleText] = useState("");
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const fullName = "Abishek S";
   const fullTitle = "MERN Stack Developer";
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // Array of images to cycle through
+  const images = [Mine, Mine2];
+
+  // Image cycling effect with hover pause
+  useEffect(() => {
+    if (isInView && !isHovered) {
+      const interval = setInterval(() => {
+        setCurrentImage((prev) => (prev + 1) % images.length);
+      }, 3000); // Change image every 3 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isInView, isHovered, images.length]);
 
   // Animation orchestration
   useEffect(() => {
@@ -88,6 +98,30 @@ export default function Hero() {
         damping: 15,
         duration: 1.2,
         delay: 0.4,
+      },
+    },
+  };
+
+  // Simple crossfade transition
+  const imageTransitionVariants = {
+    enter: {
+      opacity: 0,
+      scale: 0.95,
+    },
+    center: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 1.05,
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut",
       },
     },
   };
@@ -174,6 +208,21 @@ export default function Hero() {
     },
   };
 
+  // Image container hover variants
+  const imageContainerVariants = {
+    normal: {
+      scale: 1,
+    },
+    hover: {
+      scale: 1.05,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 25,
+      },
+    },
+  };
+
   return (
     <section
       id="home"
@@ -220,14 +269,22 @@ export default function Hero() {
           variants={container}
         >
           <motion.div className="mb-8" variants={textItem}>
-            <motion.p
-              className="text-lg text-blue-400 font-mono mb-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              Hello, my name is
-            </motion.p>
+            <motion.div className="mb-2">
+              <motion.p
+                className="text-lg text-blue-400 font-medium inline-block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                Hello, My Name is
+              </motion.p>
+              <motion.div
+                className="h-0.5 bg-gradient-to-r from-blue-400 to-purple-500"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              />
+            </motion.div>
             <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 leading-tight">
               <span className="text-gray-100">{nameText}</span>
               {isInView && (
@@ -362,13 +419,27 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
         >
-          <div className="relative">
-            <motion.img
-              src={Mine}
-              alt="Abishek S"
-              className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-blue-400/30 shadow-xl"
-              whileHover={{ scale: 1.02 }}
-            />
+          <motion.div
+            className="relative cursor-pointer" // Added cursor-pointer here
+            variants={imageContainerVariants}
+            initial="normal"
+            whileHover="hover"
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
+          >
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-400/30 shadow-xl relative">
+              <motion.img
+                key={currentImage}
+                src={images[currentImage]}
+                alt="Abishek S"
+                className="w-full h-full object-cover"
+                initial="enter"
+                animate="center"
+                exit="exit"
+                variants={imageTransitionVariants}
+              />
+            </div>
+
             <motion.div
               className="absolute inset-0 rounded-full border-4 border-transparent"
               animate={{
@@ -399,7 +470,7 @@ export default function Hero() {
                 ease: "easeInOut",
               }}
             />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 

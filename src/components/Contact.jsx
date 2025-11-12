@@ -1,5 +1,13 @@
-import React, { useState, useEffect } from "react"; // ✅ Correct
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { 
+  FaGithub, 
+  FaInstagram, 
+  FaLinkedin, 
+  FaMapMarkerAlt, 
+  FaEnvelope, 
+  FaPhone,
+  FaPaperPlane
+} from "react-icons/fa";
 import { submitContactForm } from "../services/api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,7 +40,7 @@ export default function Contact() {
       !formData.contact ||
       !formData.message
     ) {
-      toast.error("❌ All fields are required!", {
+      toast.error("All fields are required!", {
         position: "top-right",
       });
       return;
@@ -66,19 +74,19 @@ export default function Contact() {
       const msg = error.message?.toLowerCase();
 
       if (msg?.includes("duplicate")) {
-        toast.warn("⚠️ You've already submitted this message.", {
+        toast.warn("You've already submitted this message.", {
           position: "top-right",
         });
       } else if (msg?.includes("validation") || msg?.includes("required")) {
-        toast.error("❌ Please complete all fields properly.", {
+        toast.error("Please complete all fields properly.", {
           position: "top-right",
         });
       } else if (msg?.includes("network")) {
-        toast.error("🌐 Network error. Check your internet connection.", {
+        toast.error("Network error. Check your internet connection.", {
           position: "top-right",
         });
       } else {
-        toast.error(`❌ Failed to send: ${error.message}`, {
+        toast.error(`Failed to send: ${error.message}`, {
           position: "top-right",
         });
       }
@@ -104,7 +112,9 @@ export default function Contact() {
             <h3 className="text-2xl font-semibold mb-4">Contact Information</h3>
 
             <div className="flex items-start gap-4">
-              <div className="text-primary text-xl">📍</div>
+              <div className="text-primary text-xl mt-1">
+                <FaMapMarkerAlt />
+              </div>
               <div>
                 <h4 className="font-semibold">Location</h4>
                 <p>Methalodai, Ramanathapuram, TamilNadu, India</p>
@@ -112,7 +122,9 @@ export default function Contact() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="text-primary text-xl">✉️</div>
+              <div className="text-primary text-xl mt-1">
+                <FaEnvelope />
+              </div>
               <div>
                 <h4 className="font-semibold">Email</h4>
                 <a
@@ -125,7 +137,9 @@ export default function Contact() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="text-primary text-xl">📱</div>
+              <div className="text-primary text-xl mt-1">
+                <FaPhone />
+              </div>
               <div>
                 <h4 className="font-semibold">Phone</h4>
                 <a
@@ -145,7 +159,7 @@ export default function Contact() {
                 href="https://github.com/AbishekSathiyan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gray-300"
+                className="hover:text-gray-300 transition-colors duration-200"
               >
                 <FaGithub className="text-2xl" />
               </a>
@@ -153,7 +167,7 @@ export default function Contact() {
                 href="https://linkedin.com/in/abishek04"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#0077b5]"
+                className="hover:text-[#0077b5] transition-colors duration-200"
               >
                 <FaLinkedin className="text-2xl" />
               </a>
@@ -161,7 +175,7 @@ export default function Contact() {
                 href="https://www.instagram.com/entabilogist_abi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#e2183d]"
+                className="hover:text-[#e2183d] transition-colors duration-200"
               >
                 <FaInstagram className="text-2xl" />
               </a>
@@ -208,7 +222,7 @@ export default function Contact() {
                     value={formData[id]}
                     onChange={handleChange}
                     required={required}
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors duration-200"
                   />
                 </div>
               ))}
@@ -224,7 +238,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors duration-200"
                 ></textarea>
               </div>
 
@@ -234,7 +248,7 @@ export default function Contact() {
                 className={`flex items-center justify-center gap-2 bg-primary text-dark px-6 py-3 rounded-lg font-semibold transition-all duration-200 w-full md:w-auto ${
                   isSubmitting
                     ? "opacity-60 cursor-not-allowed"
-                    : "hover:bg-opacity-90"
+                    : "hover:bg-opacity-90 hover:scale-105"
                 }`}
               >
                 {isSubmitting ? (
@@ -243,7 +257,10 @@ export default function Contact() {
                     Sending...
                   </>
                 ) : (
-                  "Send Message"
+                  <>
+                    <FaPaperPlane className="text-sm" />
+                    Send Message
+                  </>
                 )}
               </button>
             </form>
