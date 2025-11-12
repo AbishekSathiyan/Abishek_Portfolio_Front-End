@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // ⬅️ removed useEffect
+import React, { useState } from "react";
 import {
   FaGithub,
   FaInstagram,
@@ -34,28 +34,22 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.contact ||
-      !formData.message
-    ) {
-      toast.error("All fields are required!", {
-        position: "top-right",
-      });
+    const { name, email, contact, message } = formData;
+    if (!name || !email || !contact || !message) {
+      toast.error("All fields are required!", { position: "top-right" });
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const submissionWithDate = {
+      const submission = {
         ...formData,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
 
-      await submitContactForm(submissionWithDate); // ⬅️ removed unused 'response'
+      await submitContactForm(submission);
 
       toast.success("Message sent successfully!", {
         position: "top-right",
@@ -70,24 +64,15 @@ export default function Contact() {
         message: "",
       });
     } catch (error) {
-      const msg = error.message?.toLowerCase();
-
-      if (msg?.includes("duplicate")) {
-        toast.warn("You've already submitted this message.", {
-          position: "top-right",
-        });
-      } else if (msg?.includes("validation") || msg?.includes("required")) {
-        toast.error("Please complete all fields properly.", {
-          position: "top-right",
-        });
-      } else if (msg?.includes("network")) {
-        toast.error("Network error. Check your internet connection.", {
-          position: "top-right",
-        });
+      const msg = error?.message?.toLowerCase() || "";
+      if (msg.includes("duplicate")) {
+        toast.warn("You've already submitted this message.", { position: "top-right" });
+      } else if (msg.includes("validation") || msg.includes("required")) {
+        toast.error("Please complete all fields properly.", { position: "top-right" });
+      } else if (msg.includes("network")) {
+        toast.error("Network error. Check your internet connection.", { position: "top-right" });
       } else {
-        toast.error(`Failed to send: ${error.message}`, {
-          position: "top-right",
-        });
+        toast.error(`Failed to send: ${error.message}`, { position: "top-right" });
       }
     } finally {
       setIsSubmitting(false);
@@ -116,7 +101,7 @@ export default function Contact() {
               </div>
               <div>
                 <h4 className="font-semibold">Location</h4>
-                <p>Methalodai, Ramanathapuram, TamilNadu, India</p>
+                <p>Methalodai, Ramanathapuram, Tamil Nadu, India</p>
               </div>
             </div>
 
@@ -183,12 +168,9 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="md:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {[ "name", "email", "contact", "subject" ].map((field) => (
+              {["name", "email", "contact", "subject"].map((field) => (
                 <div key={field}>
-                  <label
-                    htmlFor={field}
-                    className="block mb-2 text-gray-300 capitalize"
-                  >
+                  <label htmlFor={field} className="block mb-2 text-gray-300 capitalize">
                     {field === "contact"
                       ? "Contact Number"
                       : field === "subject"
@@ -219,7 +201,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors duration-200"
-                ></textarea>
+                />
               </div>
 
               <button
@@ -233,7 +215,7 @@ export default function Contact() {
               >
                 {isSubmitting ? (
                   <>
-                    <span className="animate-spin rounded-full border-2 border-dark border-t-transparent w-5 h-5"></span>
+                    <span className="animate-spin rounded-full border-2 border-dark border-t-transparent w-5 h-5" />
                     Sending...
                   </>
                 ) : (

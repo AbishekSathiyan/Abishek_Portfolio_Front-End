@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react"; // ✅ Correct
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// ✅ Pick BASE_URL from environment variable
-const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+// ✅ Fix BASE_URL
+const BASE_URL =
+  process.env.REACT_APP_BACKEND_BASE_URL ||
+  "https://portfollio-backend-cto1.onrender.com/api";
+
+console.log("✅ Using Backend:", BASE_URL);
 
 const formatDate = (dateString) => {
   if (!dateString) return "Unknown date";
