@@ -2,6 +2,7 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@iconscout/react-unicons": "^2.2.5",
     "@lottiefiles/react-lottie-player": "^3.6.0",
