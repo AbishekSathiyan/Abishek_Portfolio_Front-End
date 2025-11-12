@@ -138,66 +138,68 @@ const AdminAuth = ({ onSuccess }) => {
   const warningSoundIntervalRef = useRef(null);
 
   // Initialize speech recognition & synthesis
-  useEffect(() => {
-    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-      const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.lang = "en-US";
+ useEffect(() => {
+  if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognitionRef.current = new SpeechRecognition();
+    recognitionRef.current.continuous = false;
+    recognitionRef.current.interimResults = false;
+    recognitionRef.current.lang = "en-US";
 
-      recognitionRef.current.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.replace(/\D/g, "");
-        if (transcript.length === 6) {
-          const newOtp = transcript.split("");
-          setOtp(newOtp);
-          speakText(
-            "Verification code received. Please click verify to continue."
-          );
-        } else {
-          speakText("Please speak a 6 digit code clearly.");
-        }
-        setIsManualStop(false);
-        setIsListening(false);
-      };
-
-      recognitionRef.current.onerror = (event) => {
-        console.error("Speech recognition error", event.error);
-        setIsManualStop(false);
-        setIsListening(false);
-        if (event.error === "not-allowed") {
-          speakText(
-            "Microphone access is not allowed. Please enable microphone permissions in your browser settings."
-          );
-        }
-      };
-
-      recognitionRef.current.onend = () => {
-        if (!isManualStop && isListening) {
-          speakText("Voice input stopped. Please type your code or try again.");
-        }
-        setIsListening(false);
-        setIsManualStop(false);
-      };
-    }
-
-    if ("speechSynthesis" in window) {
-      speechSynthesisRef.current = window.speechSynthesis;
-      const loadVoices = () => {
-        const voices = speechSynthesisRef.current.getVoices();
-        if (!voices.length) setTimeout(loadVoices, 100);
-      };
-      loadVoices();
-    }
-
-    return () => {
-      if (recognitionRef.current) recognitionRef.current.stop();
-      if (speechSynthesisRef.current) speechSynthesisRef.current.cancel();
-      if (warningSoundIntervalRef.current)
-        clearInterval(warningSoundIntervalRef.current);
+    recognitionRef.current.onresult = (event) => {
+      const transcript = event.results[0][0].transcript.replace(/\D/g, "");
+      if (transcript.length === 6) {
+        const newOtp = transcript.split("");
+        setOtp(newOtp);
+        speakText(
+          "Verification code received. Please click verify to continue."
+        );
+      } else {
+        speakText("Please speak a 6 digit code clearly.");
+      }
+      setIsManualStop(false);
+      setIsListening(false);
     };
-  }, []);
+
+    recognitionRef.current.onerror = (event) => {
+      console.error("Speech recognition error", event.error);
+      setIsManualStop(false);
+      setIsListening(false);
+      if (event.error === "not-allowed") {
+        speakText(
+          "Microphone access is not allowed. Please enable microphone permissions in your browser settings."
+        );
+      }
+    };
+
+    recognitionRef.current.onend = () => {
+      if (!isManualStop && isListening) {
+        speakText("Voice input stopped. Please type your code or try again.");
+      }
+      setIsListening(false);
+      setIsManualStop(false);
+    };
+  }
+
+  if ("speechSynthesis" in window) {
+    speechSynthesisRef.current = window.speechSynthesis;
+    const loadVoices = () => {
+      const voices = speechSynthesisRef.current.getVoices();
+      if (!voices.length) setTimeout(loadVoices, 100);
+    };
+    loadVoices();
+  }
+
+  return () => {
+    if (recognitionRef.current) recognitionRef.current.stop();
+    if (speechSynthesisRef.current) speechSynthesisRef.current.cancel();
+    if (warningSoundIntervalRef.current)
+      clearInterval(warningSoundIntervalRef.current);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isListening, isManualStop]);
+
 
   // Text-to-speech
   const speakText = (text, isWarning = false) => {

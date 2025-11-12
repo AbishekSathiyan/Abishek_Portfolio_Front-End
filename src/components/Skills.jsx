@@ -49,24 +49,27 @@ export default function Skills() {
 
   const doubledSkills = [...skills, ...skills];
 
-  useEffect(() => {
-    const skillsWidth = skillsRef.current?.offsetWidth || 0;
-    const duration = skills.length * 3;
+useEffect(() => {
+  const skillsWidth = skillsRef.current?.offsetWidth || 0;
+  const duration = skills.length * 3;
 
-    if (!isPaused) {
-      controls.start({
-        x: [-skillsWidth, 0],
-        transition: {
-          duration: duration,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop",
-        },
-      });
-    } else {
-      controls.stop();
-    }
-  }, [controls, isPaused]);
+  if (!isPaused) {
+    controls.start({
+      x: [-skillsWidth, 0],
+      transition: {
+        duration: duration,
+        ease: "linear",
+        repeat: Infinity,
+        repeatType: "loop",
+      },
+    });
+  } else {
+    controls.stop();
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [controls, isPaused, skills.length]);
+
 
   return (
     <section id="skills" className="py-20 bg-gray-900 text-white overflow-hidden">

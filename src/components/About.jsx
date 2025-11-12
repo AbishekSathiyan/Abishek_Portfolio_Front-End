@@ -9,14 +9,11 @@ import {
   FaPython,
 } from "react-icons/fa";
 import {
-  SiNextdotjs,
   SiTailwindcss,
   SiTypescript,
   SiMongodb,
   SiRedux,
   SiFirebase,
-  SiGraphql,
-  SiDocker,
 } from "react-icons/si";
 import { motion } from "framer-motion";
 import { Player } from "@lottiefiles/react-lottie-player";

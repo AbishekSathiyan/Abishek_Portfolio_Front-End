@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { 
-  FaGithub, 
-  FaInstagram, 
-  FaLinkedin, 
-  FaMapMarkerAlt, 
-  FaEnvelope, 
+import React, { useState } from "react"; // ⬅️ removed useEffect
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaEnvelope,
   FaPhone,
-  FaPaperPlane
+  FaPaperPlane,
 } from "react-icons/fa";
 import { submitContactForm } from "../services/api";
 import { toast, ToastContainer } from "react-toastify";
@@ -49,14 +49,13 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // Add timestamp to form data before submission
       const submissionWithDate = {
         ...formData,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
 
-      const response = await submitContactForm(submissionWithDate);
+      await submitContactForm(submissionWithDate); // ⬅️ removed unused 'response'
 
       toast.success("Message sent successfully!", {
         position: "top-right",
@@ -153,7 +152,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Social Links */}
             <div className="mt-6 flex space-x-6">
               <a
                 href="https://github.com/AbishekSathiyan"
@@ -185,43 +183,25 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="md:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {[
-                {
-                  label: "Your Name",
-                  id: "name",
-                  type: "text",
-                  required: true,
-                },
-                {
-                  label: "Your Email",
-                  id: "email",
-                  type: "email",
-                  required: true,
-                },
-                {
-                  label: "Contact Number",
-                  id: "contact",
-                  type: "tel",
-                  required: true,
-                },
-                {
-                  label: "Subject",
-                  id: "subject",
-                  type: "text",
-                  required: true,
-                },
-              ].map(({ label, id, type, required }) => (
-                <div key={id}>
-                  <label htmlFor={id} className="block mb-2 text-gray-300">
-                    {label}
+              {[ "name", "email", "contact", "subject" ].map((field) => (
+                <div key={field}>
+                  <label
+                    htmlFor={field}
+                    className="block mb-2 text-gray-300 capitalize"
+                  >
+                    {field === "contact"
+                      ? "Contact Number"
+                      : field === "subject"
+                      ? "Subject"
+                      : `Your ${field}`}
                   </label>
                   <input
-                    type={type}
-                    id={id}
-                    name={id}
-                    value={formData[id]}
+                    type={field === "email" ? "email" : "text"}
+                    id={field}
+                    name={field}
+                    value={formData[field]}
                     onChange={handleChange}
-                    required={required}
+                    required
                     className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors duration-200"
                   />
                 </div>
