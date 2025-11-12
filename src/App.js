@@ -1,5 +1,4 @@
-import { Routes, Route } from "react-router-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Seo from "./Seo";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
