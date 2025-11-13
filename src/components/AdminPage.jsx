@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// ✅ Fix BASE_URL
-const BASE_URL = " http://localhost:5000/api";
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 console.log("✅ Using Backend:", BASE_URL);
 
 const formatDate = (dateString) => {

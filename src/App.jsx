@@ -7,9 +7,12 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import AdminLogin from "./components/AdminLogin";
 import AdminPage from "./components/AdminPage";
 import NotFound from "./components/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
 
+// 🏠 HomePage layout
 function HomePage() {
   return (
     <div className="font-sans">
@@ -26,12 +29,21 @@ function HomePage() {
   );
 }
 
+// 🌐 Main App
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
