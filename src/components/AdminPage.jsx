@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // ✅ Fix BASE_URL
-const BASE_URL =
-  process.env.REACT_APP_BACKEND_BASE_URL ||
-  "https://portfollio-backend-cto1.onrender.com/api";
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 console.log("✅ Using Backend:", BASE_URL);
 
@@ -279,6 +277,3 @@ const AdminPage = () => {
 };
 
 export default AdminPage;
-
-
-

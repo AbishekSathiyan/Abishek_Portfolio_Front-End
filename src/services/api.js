@@ -1,8 +1,10 @@
 // services/api.js
 export async function submitContactForm(formData) {
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
   try {
+    console.log("📤 Sending contact form data:", formData);
+
     const response = await fetch(`${BASE_URL}/contacts`, {
       method: "POST",
       headers: {
@@ -11,23 +13,42 @@ export async function submitContactForm(formData) {
       body: JSON.stringify(formData),
     });
 
-    const responseText = await response.text(); // get full response
     console.log("🌐 Response status:", response.status);
-    console.log("🌐 Response body:", responseText);
 
     if (!response.ok) {
-      // Try to parse JSON error from backend
+      let errorMessage = `HTTP error! status: ${response.status}`;
+
       try {
-        const errorData = JSON.parse(responseText);
-        throw new Error(errorData?.error || "Failed to submit form");
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorData.error || errorMessage;
       } catch {
-        throw new Error(responseText || "Failed to submit form");
+        const text = await response.text();
+        errorMessage = text || errorMessage;
       }
+
+      throw new Error(errorMessage);
     }
 
-    return JSON.parse(responseText);
+    const result = await response.json();
+    console.log("✅ Form submitted successfully:", result);
+    return result;
   } catch (error) {
-    console.error("❌ Error in submitContactForm:", error.message);
+    console.error("❌ Error in submitContactForm:", error);
+
+    // Enhanced error messages
+    if (
+      error.name === "TypeError" &&
+      error.message.includes("Failed to fetch")
+    ) {
+      throw new Error(
+        "Network error: Unable to connect to server. Please check your internet connection."
+      );
+    }
+
+    if (error.message.includes("CORS")) {
+      throw new Error("CORS error: Please check backend CORS configuration.");
+    }
+
     throw error;
   }
 }

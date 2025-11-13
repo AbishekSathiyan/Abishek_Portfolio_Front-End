@@ -9,8 +9,10 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 import { submitContactForm } from "../services/api";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -22,6 +24,91 @@ export default function Contact() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const showAlert = (icon, title, text, timer = 3000) => {
+    MySwal.fire({
+      icon,
+      title,
+      text,
+      timer,
+      timerProgressBar: true,
+      showConfirmButton: false,
+      background: '#1f2937',
+      color: '#f9fafb',
+      customClass: {
+        popup: 'rounded-2xl border border-gray-600',
+        title: 'text-xl font-bold',
+        timerProgressBar: 'bg-primary'
+      }
+    });
+  };
+
+  const showSuccess = () => {
+    MySwal.fire({
+      title: "🎉 Message Sent!",
+      text: "Thank you for your message! I'll get back to you soon.",
+      icon: "success",
+      background: '#1f2937',
+      color: '#f9fafb',
+      confirmButtonText: "Awesome!",
+      confirmButtonColor: "#3B82F6",
+      customClass: {
+        popup: 'rounded-2xl border border-gray-600',
+        confirmButton: 'px-6 py-2 rounded-lg font-semibold',
+        title: 'text-2xl font-bold'
+      }
+    });
+  };
+
+  const showError = (message) => {
+    MySwal.fire({
+      title: "😕 Oops...",
+      text: message,
+      icon: "error",
+      background: '#1f2937',
+      color: '#f9fafb',
+      confirmButtonText: "Try Again",
+      confirmButtonColor: "#EF4444",
+      customClass: {
+        popup: 'rounded-2xl border border-gray-600',
+        confirmButton: 'px-6 py-2 rounded-lg font-semibold'
+      }
+    });
+  };
+
+  const showWarning = (message) => {
+    MySwal.fire({
+      title: "⚠️ Notice",
+      text: message,
+      icon: "warning",
+      background: '#1f2937',
+      color: '#f9fafb',
+      confirmButtonText: "Understood",
+      confirmButtonColor: "#F59E0B",
+      customClass: {
+        popup: 'rounded-2xl border border-gray-600',
+        confirmButton: 'px-6 py-2 rounded-lg font-semibold'
+      }
+    });
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    const { name, email, contact, message } = formData;
+
+    if (!name.trim()) newErrors.name = "Name is required";
+    if (!email.trim()) newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Invalid email format";
+    
+    if (!contact.trim()) newErrors.contact = "Phone number is required";
+    else if (!/^[0-9]{10}$/.test(contact.replace(/\D/g, ''))) newErrors.contact = "Invalid 10-digit phone number";
+    
+    if (!message.trim()) newErrors.message = "Message is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,16 +116,38 @@ export default function Contact() {
       ...prev,
       [name]: value,
     }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, contact, message } = formData;
-    if (!name || !email || !contact || !message) {
-      toast.error("All fields are required!", { position: "top-right" });
+    if (!validateForm()) {
+      showAlert("error", "Validation Error", "Please fix the errors in the form.");
       return;
     }
+
+    // Show loading alert
+    const loadingAlert = MySwal.fire({
+      title: "Sending Message...",
+      text: "Please wait while we send your message.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        MySwal.showLoading();
+      },
+      background: '#1f2937',
+      color: '#f9fafb',
+      customClass: {
+        popup: 'rounded-2xl border border-gray-600'
+      }
+    });
 
     setIsSubmitting(true);
 
@@ -51,11 +160,13 @@ export default function Contact() {
 
       await submitContactForm(submission);
 
-      toast.success("Message sent successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      // Close loading alert
+      await loadingAlert.close();
+      
+      // Show success alert
+      showSuccess();
 
+      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -63,16 +174,24 @@ export default function Contact() {
         subject: "General Inquiry",
         message: "",
       });
+      setErrors({});
+
     } catch (error) {
+      // Close loading alert
+      await loadingAlert.close();
+      
+      console.error("Submission error:", error);
+      
       const msg = error?.message?.toLowerCase() || "";
+      
       if (msg.includes("duplicate")) {
-        toast.warn("You've already submitted this message.", { position: "top-right" });
+        showWarning("You've already submitted a similar message recently.");
       } else if (msg.includes("validation") || msg.includes("required")) {
-        toast.error("Please complete all fields properly.", { position: "top-right" });
-      } else if (msg.includes("network")) {
-        toast.error("Network error. Check your internet connection.", { position: "top-right" });
+        showError("Please check your information and try again.");
+      } else if (msg.includes("network") || msg.includes("failed to fetch") || msg.includes("cors")) {
+        showError("Network error. Please check your internet connection and try again.");
       } else {
-        toast.error(`Failed to send: ${error.message}`, { position: "top-right" });
+        showError(error.message || "Something went wrong. Please try again.");
       }
     } finally {
       setIsSubmitting(false);
@@ -80,69 +199,69 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-dark text-light">
-      <ToastContainer />
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-4 text-center">
-          Get In <span className="text-primary">Touch</span>
+    <section id="contact" className="py-20 bg-gray-900 text-white">
+      <div className="container mx-auto px-4 sm:px-6">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+          Get In <span className="text-blue-500">Touch</span>
         </h2>
-        <p className="max-w-2xl mx-auto text-center mb-12">
+        <p className="max-w-2xl mx-auto text-center text-gray-300 mb-12 text-lg">
           Have a project in mind or want to chat? Feel free to reach out!
         </p>
 
-        <div className="flex flex-col md:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Contact Info */}
-          <div className="md:w-1/2 space-y-6">
-            <h3 className="text-2xl font-semibold mb-4">Contact Information</h3>
+          <div className="lg:w-1/2 space-y-6">
+            <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
 
-            <div className="flex items-start gap-4">
-              <div className="text-primary text-xl mt-1">
+            <div className="flex items-start gap-4 p-4 bg-gray-800 rounded-lg">
+              <div className="text-blue-500 text-xl mt-1 flex-shrink-0">
                 <FaMapMarkerAlt />
               </div>
               <div>
-                <h4 className="font-semibold">Location</h4>
-                <p>Methalodai, Ramanathapuram, Tamil Nadu, India</p>
+                <h4 className="font-semibold text-white">Location</h4>
+                <p className="text-gray-300">Methalodai, Ramanathapuram, Tamil Nadu, India</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="text-primary text-xl mt-1">
+            <div className="flex items-start gap-4 p-4 bg-gray-800 rounded-lg">
+              <div className="text-blue-500 text-xl mt-1 flex-shrink-0">
                 <FaEnvelope />
               </div>
               <div>
-                <h4 className="font-semibold">Email</h4>
+                <h4 className="font-semibold text-white">Email</h4>
                 <a
                   href="mailto:abishek.sathiyan.2002@gmail.com"
-                  className="text-light hover:underline"
+                  className="text-gray-300 hover:text-blue-400 transition-all duration-200"
                 >
                   abishek.sathiyan.2002@gmail.com
                 </a>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="text-primary text-xl mt-1">
+            <div className="flex items-start gap-4 p-4 bg-gray-800 rounded-lg">
+              <div className="text-blue-500 text-xl mt-1 flex-shrink-0">
                 <FaPhone />
               </div>
               <div>
-                <h4 className="font-semibold">Phone</h4>
+                <h4 className="font-semibold text-white">Phone</h4>
                 <a
                   href="https://wa.me/917092085864"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-light hover:underline"
+                  className="text-gray-300 hover:text-blue-400 transition-all duration-200"
                 >
                   +91 7092085864
                 </a>
               </div>
             </div>
 
-            <div className="mt-6 flex space-x-6">
+            <div className="mt-8 flex space-x-6 justify-center lg:justify-start">
               <a
                 href="https://github.com/AbishekSathiyan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gray-300 transition-colors duration-200"
+                className="text-gray-400 hover:text-white transition-all duration-200 transform hover:scale-110"
+                aria-label="GitHub"
               >
                 <FaGithub className="text-2xl" />
               </a>
@@ -150,7 +269,8 @@ export default function Contact() {
                 href="https://linkedin.com/in/abishek04"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#0077b5] transition-colors duration-200"
+                className="text-gray-400 hover:text-[#0077b5] transition-all duration-200 transform hover:scale-110"
+                aria-label="LinkedIn"
               >
                 <FaLinkedin className="text-2xl" />
               </a>
@@ -158,7 +278,8 @@ export default function Contact() {
                 href="https://www.instagram.com/entabilogist_abi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#e2183d] transition-colors duration-200"
+                className="text-gray-400 hover:text-[#e2183d] transition-all duration-200 transform hover:scale-110"
+                aria-label="Instagram"
               >
                 <FaInstagram className="text-2xl" />
               </a>
@@ -166,31 +287,41 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <div className="md:w-1/2">
+          <div className="lg:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {["name", "email", "contact", "subject"].map((field) => (
-                <div key={field}>
-                  <label htmlFor={field} className="block mb-2 text-gray-300 capitalize">
-                    {field === "contact"
-                      ? "Contact Number"
-                      : field === "subject"
-                      ? "Subject"
-                      : `Your ${field}`}
-                  </label>
-                  <input
-                    type={field === "email" ? "email" : "text"}
-                    id={field}
-                    name={field}
-                    value={formData[field]}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors duration-200"
-                  />
-                </div>
-              ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {["name", "email", "contact", "subject"].map((field) => (
+                  <div key={field} className={field === "subject" ? "md:col-span-2" : ""}>
+                    <label htmlFor={field} className="block mb-2 text-gray-300 capitalize font-medium">
+                      {field === "contact" ? "Phone Number" : field === "subject" ? "Subject" : `Your ${field}`}
+                    </label>
+                    <input
+                      type={field === "email" ? "email" : "text"}
+                      id={field}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleChange}
+                      required
+                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
+                        errors[field] ? "border-red-500" : "border-gray-700"
+                      }`}
+                      placeholder={
+                        field === "contact" 
+                          ? "Enter your 10-digit phone number" 
+                          : field === "subject"
+                          ? "Select a subject"
+                          : `Enter your ${field}`
+                      }
+                    />
+                    {errors[field] && (
+                      <p className="text-red-400 text-sm mt-1">{errors[field]}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
 
               <div>
-                <label htmlFor="message" className="block mb-2 text-gray-300">
+                <label htmlFor="message" className="block mb-2 text-gray-300 font-medium">
                   Your Message
                 </label>
                 <textarea
@@ -200,22 +331,28 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 text-light border border-gray-700 focus:border-primary focus:outline-none transition-colors duration-200"
+                  className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 resize-vertical ${
+                    errors.message ? "border-red-500" : "border-gray-700"
+                  }`}
+                  placeholder="Tell me about your project or inquiry..."
                 />
+                {errors.message && (
+                  <p className="text-red-400 text-sm mt-1">{errors.message}</p>
+                )}
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`flex items-center justify-center gap-2 bg-primary text-dark px-6 py-3 rounded-lg font-semibold transition-all duration-200 w-full md:w-auto ${
+                className={`flex items-center justify-center gap-3 bg-blue-500 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 w-full ${
                   isSubmitting
                     ? "opacity-60 cursor-not-allowed"
-                    : "hover:bg-opacity-90 hover:scale-105"
+                    : "hover:bg-blue-600 hover:scale-105 shadow-lg hover:shadow-blue-500/25"
                 }`}
               >
                 {isSubmitting ? (
                   <>
-                    <span className="animate-spin rounded-full border-2 border-dark border-t-transparent w-5 h-5" />
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
                     Sending...
                   </>
                 ) : (

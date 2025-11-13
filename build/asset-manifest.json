@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "./static/css/main.f4db12f8.css",
+    "main.js": "./static/js/main.e2508d4d.js",
+    "static/media/Mine.jpg": "./static/media/Mine.b9fbd5711a697d674ac7.jpg",
+    "static/media/Village.png": "./static/media/Village.0a6494c426ebf48c22de.png",
+    "static/media/Banner.png": "./static/media/Banner.84e87bdc049fe31dbdde.png",
+    "static/media/Mine.jpeg": "./static/media/Mine.e88a20fd6d07171978df.jpeg",
+    "index.html": "./index.html",
+    "main.f4db12f8.css.map": "./static/css/main.f4db12f8.css.map",
+    "main.e2508d4d.js.map": "./static/js/main.e2508d4d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f4db12f8.css",
+    "static/js/main.e2508d4d.js"
+  ]
+}
