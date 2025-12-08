@@ -19,17 +19,6 @@ export default function Hero() {
   // Array of images to cycle through
   const images = [Mine, Mine2];
 
-  // Image cycling effect with hover pause
-  useEffect(() => {
-    if (isInView && !isHovered) {
-      const interval = setInterval(() => {
-        setCurrentImage((prev) => (prev + 1) % images.length);
-      }, 3000); // Change image every 3 seconds
-
-      return () => clearInterval(interval);
-    }
-  }, [isInView, isHovered, images.length]);
-
   // Animation orchestration
   useEffect(() => {
     if (isInView) {
