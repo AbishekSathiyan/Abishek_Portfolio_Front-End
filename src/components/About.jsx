@@ -424,7 +424,7 @@ export default function About() {
                 Get My Full Profile
               </h4>
               <motion.a
-                href="resume.pdf"
+                href="Abishek S UAE Fresher Mern Stack Developer Resume.pdf"
                 download="Abishek S UAE Fresher Mern Stack Developer Resume.pdf"
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
                 whileHover={{
