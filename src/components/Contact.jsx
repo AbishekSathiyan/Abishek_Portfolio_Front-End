@@ -7,6 +7,7 @@ import {
   FaEnvelope,
   FaPhone,
   FaPaperPlane,
+  FaWhatsapp, // Added WhatsApp icon
 } from "react-icons/fa";
 import { submitContactForm } from "../services/api";
 import Swal from "sweetalert2";
@@ -34,13 +35,13 @@ export default function Contact() {
       timer,
       timerProgressBar: true,
       showConfirmButton: false,
-      background: '#1f2937',
-      color: '#f9fafb',
+      background: "#1f2937",
+      color: "#f9fafb",
       customClass: {
-        popup: 'rounded-2xl border border-gray-600',
-        title: 'text-xl font-bold',
-        timerProgressBar: 'bg-primary'
-      }
+        popup: "rounded-2xl border border-gray-600",
+        title: "text-xl font-bold",
+        timerProgressBar: "bg-primary",
+      },
     });
   };
 
@@ -49,15 +50,15 @@ export default function Contact() {
       title: "🎉 Message Sent!",
       text: "Thank you for your message! I'll get back to you soon.",
       icon: "success",
-      background: '#1f2937',
-      color: '#f9fafb',
+      background: "#1f2937",
+      color: "#f9fafb",
       confirmButtonText: "Awesome!",
       confirmButtonColor: "#3B82F6",
       customClass: {
-        popup: 'rounded-2xl border border-gray-600',
-        confirmButton: 'px-6 py-2 rounded-lg font-semibold',
-        title: 'text-2xl font-bold'
-      }
+        popup: "rounded-2xl border border-gray-600",
+        confirmButton: "px-6 py-2 rounded-lg font-semibold",
+        title: "text-2xl font-bold",
+      },
     });
   };
 
@@ -66,14 +67,14 @@ export default function Contact() {
       title: "😕 Oops...",
       text: message,
       icon: "error",
-      background: '#1f2937',
-      color: '#f9fafb',
+      background: "#1f2937",
+      color: "#f9fafb",
       confirmButtonText: "Try Again",
       confirmButtonColor: "#EF4444",
       customClass: {
-        popup: 'rounded-2xl border border-gray-600',
-        confirmButton: 'px-6 py-2 rounded-lg font-semibold'
-      }
+        popup: "rounded-2xl border border-gray-600",
+        confirmButton: "px-6 py-2 rounded-lg font-semibold",
+      },
     });
   };
 
@@ -82,14 +83,14 @@ export default function Contact() {
       title: "⚠️ Notice",
       text: message,
       icon: "warning",
-      background: '#1f2937',
-      color: '#f9fafb',
+      background: "#1f2937",
+      color: "#f9fafb",
       confirmButtonText: "Understood",
       confirmButtonColor: "#F59E0B",
       customClass: {
-        popup: 'rounded-2xl border border-gray-600',
-        confirmButton: 'px-6 py-2 rounded-lg font-semibold'
-      }
+        popup: "rounded-2xl border border-gray-600",
+        confirmButton: "px-6 py-2 rounded-lg font-semibold",
+      },
     });
   };
 
@@ -99,11 +100,13 @@ export default function Contact() {
 
     if (!name.trim()) newErrors.name = "Name is required";
     if (!email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Invalid email format";
-    
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      newErrors.email = "Invalid email format";
+
     if (!contact.trim()) newErrors.contact = "Phone number is required";
-    else if (!/^[0-9]{10}$/.test(contact.replace(/\D/g, ''))) newErrors.contact = "Invalid 10-digit phone number";
-    
+    else if (!/^[0-9]{10}$/.test(contact.replace(/\D/g, "")))
+      newErrors.contact = "Invalid 10-digit phone number";
+
     if (!message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
@@ -116,12 +119,12 @@ export default function Contact() {
       ...prev,
       [name]: value,
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ""
+        [name]: "",
       }));
     }
   };
@@ -130,7 +133,11 @@ export default function Contact() {
     e.preventDefault();
 
     if (!validateForm()) {
-      showAlert("error", "Validation Error", "Please fix the errors in the form.");
+      showAlert(
+        "error",
+        "Validation Error",
+        "Please fix the errors in the form."
+      );
       return;
     }
 
@@ -142,11 +149,11 @@ export default function Contact() {
       didOpen: () => {
         MySwal.showLoading();
       },
-      background: '#1f2937',
-      color: '#f9fafb',
+      background: "#1f2937",
+      color: "#f9fafb",
       customClass: {
-        popup: 'rounded-2xl border border-gray-600'
-      }
+        popup: "rounded-2xl border border-gray-600",
+      },
     });
 
     setIsSubmitting(true);
@@ -162,7 +169,7 @@ export default function Contact() {
 
       // Close loading alert
       await loadingAlert.close();
-      
+
       // Show success alert
       showSuccess();
 
@@ -175,21 +182,26 @@ export default function Contact() {
         message: "",
       });
       setErrors({});
-
     } catch (error) {
       // Close loading alert
       await loadingAlert.close();
-      
+
       console.error("Submission error:", error);
-      
+
       const msg = error?.message?.toLowerCase() || "";
-      
+
       if (msg.includes("duplicate")) {
         showWarning("You've already submitted a similar message recently.");
       } else if (msg.includes("validation") || msg.includes("required")) {
         showError("Please check your information and try again.");
-      } else if (msg.includes("network") || msg.includes("failed to fetch") || msg.includes("cors")) {
-        showError("Network error. Please check your internet connection and try again.");
+      } else if (
+        msg.includes("network") ||
+        msg.includes("failed to fetch") ||
+        msg.includes("cors")
+      ) {
+        showError(
+          "Network error. Please check your internet connection and try again."
+        );
       } else {
         showError(error.message || "Something went wrong. Please try again.");
       }
@@ -213,87 +225,98 @@ export default function Contact() {
           <div className="lg:w-1/2 space-y-6">
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
 
-            <div className="flex items-start gap-4 p-4 bg-gray-800 rounded-lg">
-              <div className="text-blue-500 text-xl mt-1 flex-shrink-0">
-                <FaMapMarkerAlt />
+            <div className="space-y-4">
+              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg">
+                <div className="text-blue-500 text-xl flex-shrink-0">
+                  <FaMapMarkerAlt />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white mb-1">Location</h4>
+                  <p className="text-gray-300">Al Ain, Dubai</p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold text-white">Location</h4>
-                <p className="text-gray-300">Al Ain , UAE</p>
+
+              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg">
+                <div className="text-blue-500 text-xl flex-shrink-0">
+                  <FaEnvelope />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white mb-1">Email</h4>
+                  <a
+                    href="mailto:abishek.sathiyan.2002@gmail.com"
+                    className="text-gray-300 hover:text-blue-400 transition-all duration-200 break-words"
+                  >
+                    abishek.sathiyan.2002@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg">
+                <div className="text-blue-500 text-xl flex-shrink-0">
+                  <FaPhone />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white mb-1">Phone</h4>
+                  <a
+                    href="tel:+917092085864"
+                    className="text-gray-300 hover:text-blue-400 transition-all duration-200"
+                  >
+                    +91 7092085864
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg">
+                <div className="text-blue-500 text-xl flex-shrink-0">
+                  <FaWhatsapp />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white mb-1">WhatsApp</h4>
+                  <a
+                    href="https://wa.me/917092085864"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-300 hover:text-blue-400 transition-all duration-200"
+                  >
+                    Message on WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-4 bg-gray-800 rounded-lg">
-              <div className="text-blue-500 text-xl mt-1 flex-shrink-0">
-                <FaEnvelope />
-              </div>
-              <div>
-                <h4 className="font-semibold text-white">Email</h4>
+            <div className="mt-8">
+              <h4 className="font-semibold text-white mb-4 text-center lg:text-left">
+                Connect with me
+              </h4>
+              <div className="flex space-x-6 justify-center lg:justify-start">
                 <a
-                  href="mailto:abishek.sathiyan.2002@gmail.com"
-                  className="text-gray-300 hover:text-blue-400 transition-all duration-200"
-                >
-                  abishek.sathiyan.2002@gmail.com
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 p-4 bg-gray-800 rounded-lg">
-              <div className="text-blue-500 text-xl mt-1 flex-shrink-0">
-                <FaPhone />
-              </div>
-              <div>
-                <h4 className="font-semibold text-white">WhatsApp</h4>
-                <a
-                  href="https://wa.me/917092085864"
+                  href="https://github.com/AbishekSathiyan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-blue-400 transition-all duration-200"
+                  className="text-gray-400 hover:text-white transition-all duration-200 transform hover:scale-110"
+                  aria-label="GitHub"
                 >
-                  +91 7092085864
+                  <FaGithub className="text-2xl" />
                 </a>
-              </div>
-               <div>
-                <h4 className="font-semibold text-white">Phone</h4>
                 <a
-                  <a href="tel:+971556053387">971556053387</a>
+                  href="https://linkedin.com/in/abishek04"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-blue-400 transition-all duration-200"
+                  className="text-gray-400 hover:text-[#0077b5] transition-all duration-200 transform hover:scale-110"
+                  aria-label="LinkedIn"
                 >
-                  +91 7092085864
+                  <FaLinkedin className="text-2xl" />
+                </a>
+                <a
+                  href="https://www.instagram.com/entabilogist_abi/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-[#e2183d] transition-all duration-200 transform hover:scale-110"
+                  aria-label="Instagram"
+                >
+                  <FaInstagram className="text-2xl" />
                 </a>
               </div>
-            </div>
-
-            <div className="mt-8 flex space-x-6 justify-center lg:justify-start">
-              <a
-                href="https://github.com/AbishekSathiyan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-all duration-200 transform hover:scale-110"
-                aria-label="GitHub"
-              >
-                <FaGithub className="text-2xl" />
-              </a>
-              <a
-                href="https://linkedin.com/in/abishek04"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-[#0077b5] transition-all duration-200 transform hover:scale-110"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin className="text-2xl" />
-              </a>
-              <a
-                href="https://www.instagram.com/entabilogist_abi/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-[#e2183d] transition-all duration-200 transform hover:scale-110"
-                aria-label="Instagram"
-              >
-                <FaInstagram className="text-2xl" />
-              </a>
             </div>
           </div>
 
@@ -301,38 +324,106 @@ export default function Contact() {
           <div className="lg:w-1/2">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {["name", "email", "contact", "subject"].map((field) => (
-                  <div key={field} className={field === "subject" ? "md:col-span-2" : ""}>
-                    <label htmlFor={field} className="block mb-2 text-gray-300 capitalize font-medium">
-                      {field === "contact" ? "Phone Number" : field === "subject" ? "Subject" : `Your ${field}`}
-                    </label>
-                    <input
-                      type={field === "email" ? "email" : "text"}
-                      id={field}
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleChange}
-                      required
-                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
-                        errors[field] ? "border-red-500" : "border-gray-700"
-                      }`}
-                      placeholder={
-                        field === "contact" 
-                          ? "Enter your 10-digit phone number" 
-                          : field === "subject"
-                          ? "Select a subject"
-                          : `Enter your ${field}`
-                      }
-                    />
-                    {errors[field] && (
-                      <p className="text-red-400 text-sm mt-1">{errors[field]}</p>
-                    )}
-                  </div>
-                ))}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block mb-2 text-gray-300 font-medium"
+                  >
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
+                      errors.name ? "border-red-500" : "border-gray-700"
+                    }`}
+                    placeholder="Enter your name"
+                  />
+                  {errors.name && (
+                    <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-gray-300 font-medium"
+                  >
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
+                      errors.email ? "border-red-500" : "border-gray-700"
+                    }`}
+                    placeholder="Enter your email"
+                  />
+                  {errors.email && (
+                    <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="contact"
+                    className="block mb-2 text-gray-300 font-medium"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="contact"
+                    name="contact"
+                    value={formData.contact}
+                    onChange={handleChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
+                      errors.contact ? "border-red-500" : "border-gray-700"
+                    }`}
+                    placeholder="Enter your 10-digit phone number"
+                  />
+                  {errors.contact && (
+                    <p className="text-red-400 text-sm mt-1">{errors.contact}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="subject"
+                    className="block mb-2 text-gray-300 font-medium"
+                  >
+                    Subject
+                  </label>
+                  <select
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none transition-all duration-200"
+                  >
+                    <option value="General Inquiry">General Inquiry</option>
+                    <option value="Project Proposal">Project Proposal</option>
+                    <option value="Freelance Work">Freelance Work</option>
+                    <option value="Collaboration">Collaboration</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
               </div>
 
               <div>
-                <label htmlFor="message" className="block mb-2 text-gray-300 font-medium">
+                <label
+                  htmlFor="message"
+                  className="block mb-2 text-gray-300 font-medium"
+                >
                   Your Message
                 </label>
                 <textarea
@@ -379,5 +470,4 @@ export default function Contact() {
       </div>
     </section>
   );
-
 }
