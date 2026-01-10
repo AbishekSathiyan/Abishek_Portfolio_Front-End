@@ -258,10 +258,10 @@ export default function Contact() {
                 <div>
                   <h4 className="font-semibold text-white mb-1">Phone</h4>
                   <a
-                    href="tel:+917092085864"
+                    href="tel:+971556053387"
                     className="text-gray-300 hover:text-blue-400 transition-all duration-200"
                   >
-                    +91 7092085864
+                    +971 556053387
                   </a>
                 </div>
               </div>
@@ -392,7 +392,9 @@ export default function Contact() {
                     placeholder="Enter your 10-digit phone number"
                   />
                   {errors.contact && (
-                    <p className="text-red-400 text-sm mt-1">{errors.contact}</p>
+                    <p className="text-red-400 text-sm mt-1">
+                      {errors.contact}
+                    </p>
                   )}
                 </div>
 
