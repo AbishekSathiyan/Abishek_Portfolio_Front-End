@@ -219,7 +219,7 @@ export default function Contact() {
               </div>
               <div>
                 <h4 className="font-semibold text-white">Location</h4>
-                <p className="text-gray-300">Methalodai, Ramanathapuram, Tamil Nadu, India</p>
+                <p className="text-gray-300">Al Ain , UAE</p>
               </div>
             </div>
 
@@ -243,9 +243,20 @@ export default function Contact() {
                 <FaPhone />
               </div>
               <div>
-                <h4 className="font-semibold text-white">Phone</h4>
+                <h4 className="font-semibold text-white">WhatsApp</h4>
                 <a
                   href="https://wa.me/917092085864"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-blue-400 transition-all duration-200"
+                >
+                  +91 7092085864
+                </a>
+              </div>
+               <div>
+                <h4 className="font-semibold text-white">Phone</h4>
+                <a
+                  <a href="tel:+971556053387">971556053387</a>
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-blue-400 transition-all duration-200"
@@ -368,4 +379,5 @@ export default function Contact() {
       </div>
     </section>
   );
+
 }
