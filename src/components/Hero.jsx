@@ -3,7 +3,6 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import { FaGithub, FaLinkedin, FaFileAlt } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import Mine from "./assets/Mine.jpeg";
-import Mine2 from "./assets/Mine.jpg";
 
 export default function Hero() {
   const [nameText, setNameText] = useState("");
@@ -17,12 +16,11 @@ export default function Hero() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   // Array of images to cycle through
-  const images = [Mine, Mine2];
+  const images = [Mine];
 
   // Animation orchestration
   useEffect(() => {
     if (isInView) {
-      // Sequence for text animations
       const sequence = async () => {
         await controls.start("visible");
 
@@ -91,7 +89,6 @@ export default function Hero() {
     },
   };
 
-  // Simple crossfade transition
   const imageTransitionVariants = {
     enter: {
       opacity: 0,
@@ -127,7 +124,6 @@ export default function Hero() {
     },
   };
 
-  // Button animations
   const buttonVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: (i) => ({
@@ -152,7 +148,6 @@ export default function Hero() {
     tap: { scale: 0.95 },
   };
 
-  // Social icon animations
   const socialVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: (i) => ({
@@ -176,7 +171,6 @@ export default function Hero() {
     },
   };
 
-  // Scroll indicator animation
   const scrollIndicator = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -197,7 +191,6 @@ export default function Hero() {
     },
   };
 
-  // Image container hover variants
   const imageContainerVariants = {
     normal: {
       scale: 1,
@@ -211,6 +204,17 @@ export default function Hero() {
       },
     },
   };
+
+  // Add image rotation effect
+  useEffect(() => {
+    if (isInView) {
+      const interval = setInterval(() => {
+        setCurrentImage((prev) => (prev + 1) % images.length);
+      }, 4000); // Change image every 4 seconds
+      
+      return () => clearInterval(interval);
+    }
+  }, [isInView, images.length]);
 
   return (
     <section
@@ -409,7 +413,7 @@ export default function Hero() {
           animate="visible"
         >
           <motion.div
-            className="relative cursor-pointer" // Added cursor-pointer here
+            className="relative cursor-pointer"
             variants={imageContainerVariants}
             initial="normal"
             whileHover="hover"
