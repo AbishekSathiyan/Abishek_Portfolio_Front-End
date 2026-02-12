@@ -10,7 +10,7 @@ export default function Hero() {
   const [titleText, setTitleText] = useState("");
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const fullName = "Abishek S";
+  const fullName = "Abishek Sathiyan";
   const fullTitle = "MERN Stack Developer";
   const controls = useAnimation();
   const ref = useRef(null);
