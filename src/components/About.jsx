@@ -297,10 +297,12 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                 >
-                  I'm a passionate FullStack Developer with 10 Months of Hands
-                  on Experience building responsive and user-friendly web
-                  applications. I specialize in React, JavaScript, and modern
-                  CSS frameworks.
+                  I’m a passionate Full-Stack Developer from Methalodai,
+                  Ramanathapuram, Tamil Nadu, India, with 1 year of hands-on
+                  experience building responsive and user-friendly web
+                  applications. I specialize in React, JavaScript, AI-based
+                  chatbots, and modern CSS frameworks, creating elegant
+                  solutions and seamless user experiences.
                 </motion.p>
                 <motion.p
                   className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"

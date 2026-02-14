@@ -1,7 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { FaGithub, FaLinkedin, FaFileAlt } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaFileAlt,
+  FaMapMarkerAlt,
+  FaGlobeAsia,
+} from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
+import { FiArrowRight } from "react-icons/fi";
 import Mine from "./assets/Mine.jpeg";
 
 export default function Hero() {
@@ -9,8 +16,11 @@ export default function Hero() {
   const [titleText, setTitleText] = useState("");
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [showLocationSplit, setShowLocationSplit] = useState(false);
+
   const fullName = "Abishek Sathiyan";
-  const fullTitle = "MERN Stack Developer";
+  const fullTitle = "Full Stack Developer (MERN)";
+
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -40,6 +50,18 @@ export default function Hero() {
       sequence();
     }
   }, [isInView, controls]);
+
+  // Split location effect - shows after some time
+  useEffect(() => {
+    if (isInView) {
+      // After name and title are typed, show split location
+      const timer = setTimeout(() => {
+        setShowLocationSplit(true);
+      }, 4000); // Show split after 4 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isInView]);
 
   // Animation variants
   const container = {
@@ -205,13 +227,80 @@ export default function Hero() {
     },
   };
 
+  const splitLocationVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const locationItemVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+    },
+    visible: (i) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: 0.2 + i * 0.1,
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+      },
+    }),
+    hover: {
+      scale: 1.05,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10,
+      },
+    },
+  };
+
+  const arrowVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0,
+      x: -10,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      transition: {
+        delay: 0.5,
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+      },
+    },
+    bounce: {
+      x: [0, 8, 0],
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   // Add image rotation effect
   useEffect(() => {
     if (isInView) {
       const interval = setInterval(() => {
         setCurrentImage((prev) => (prev + 1) % images.length);
-      }, 4000); // Change image every 4 seconds
-      
+      }, 4000);
+
       return () => clearInterval(interval);
     }
   }, [isInView, images.length]);
@@ -278,26 +367,104 @@ export default function Hero() {
                 transition={{ delay: 0.8, duration: 0.8 }}
               />
             </motion.div>
-            <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 leading-tight">
-              <span className="text-gray-100">{nameText}</span>
-              {isInView && (
+
+            {/* Name with Blue+Green Gradient */}
+            <motion.div className="flex flex-col gap-2">
+              <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 leading-tight">
                 <motion.span
-                  className="inline-block h-10 w-1 bg-blue-400 ml-1"
-                  initial={{ opacity: 0 }}
+                  className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-500 bg-clip-text text-transparent"
+                  style={{
+                    backgroundSize: "200% 200%",
+                  }}
                   animate={{
-                    opacity: [0, 0, 1, 1],
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
                   transition={{
-                    duration: 1,
+                    duration: 6,
                     repeat: Infinity,
-                    repeatDelay: 0,
                     ease: "linear",
-                    delay: 0.5,
                   }}
-                  style={{ verticalAlign: "middle" }}
-                />
+                >
+                  {nameText}
+                </motion.span>
+                {isInView && (
+                  <motion.span
+                    className="inline-block h-10 w-1 bg-gradient-to-r from-blue-400 to-green-400 ml-1"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: [0, 0, 1, 1],
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      repeatDelay: 0,
+                      ease: "linear",
+                      delay: 0.5,
+                    }}
+                    style={{ verticalAlign: "middle" }}
+                  />
+                )}
+              </motion.h1>
+
+              {/* Split Location - Methalodai → Al Ain (Same Size) */}
+              {showLocationSplit ? (
+                <motion.div
+                  className="flex items-center justify-start gap-2 sm:gap-3 md:gap-4 flex-wrap"
+                  variants={splitLocationVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  {/* Methalodai - Starting Point */}
+                  <motion.div
+                    className="flex items-center gap-1.5 bg-purple-500/10 px-4 py-2 rounded-full border border-purple-500/30"
+                    variants={locationItemVariants}
+                    custom={0}
+                    whileHover="hover"
+                  >
+                    <FaMapMarkerAlt className="text-purple-400 text-sm" />
+                    <span className="text-sm font-medium text-purple-300">
+                      Methalodai, India
+                    </span>
+                  </motion.div>
+
+                  {/* Single Animated Arrow */}
+                  <motion.div
+                    variants={arrowVariants}
+                    initial="hidden"
+                    animate={["visible", "bounce"]}
+                    className="text-blue-400"
+                  >
+                    <FiArrowRight className="text-xl" />
+                  </motion.div>
+
+                  {/* Al Ain - Destination (Same Size) */}
+                  <motion.div
+                    className="flex items-center gap-1.5 bg-blue-500/10 px-4 py-2 rounded-full border border-blue-500/30"
+                    variants={locationItemVariants}
+                    custom={1}
+                    whileHover="hover"
+                  >
+                    <FaGlobeAsia className="text-blue-400 text-sm" />
+                    <span className="text-sm font-medium text-blue-300">
+                      Al Ain, UAE
+                    </span>
+                  </motion.div>
+                </motion.div>
+              ) : (
+                /* Initial Full Location */
+                <motion.div
+                  className="flex items-center gap-1.5 text-gray-400"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2.2, duration: 0.5 }}
+                >
+                  <FaMapMarkerAlt className="text-blue-400 text-xs sm:text-sm" />
+                  <span className="text-xs sm:text-sm font-light tracking-wide">
+                    Methalodai, Ramanathapuram, Tamil Nadu, India
+                  </span>
+                </motion.div>
               )}
-            </motion.h1>
+            </motion.div>
           </motion.div>
 
           <motion.h2
@@ -338,9 +505,9 @@ export default function Hero() {
             className="text-lg text-gray-300 mb-10 max-w-lg leading-relaxed"
             variants={textItem}
           >
-            I specialize in building responsive, performant web applications
-            with modern technologies. Passionate about creating elegant
-            solutions to complex problems.
+            I specialize in building responsive, high-performance web
+            applications using modern technologies. I am passionate about
+            creating elegant solutions to complex problems.
           </motion.p>
 
           <motion.div className="flex flex-wrap gap-4 mb-12">

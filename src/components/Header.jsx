@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"; // ✅ Correct
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
@@ -31,10 +32,47 @@ export default function Header() {
   return (
     <header className="fixed w-full bg-dark/90 backdrop-blur-sm text-light shadow-md z-50">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        <p className="text-2xl font-bold">
-          <span className="text-white">Abishek S</span>{" "}
-          <span className="text-primary">Portfolio</span>
-        </p>
+        {/* Animated Name with Blue+Green Gradient */}
+        <motion.p 
+          className="text-2xl font-bold cursor-pointer flex items-center flex-wrap gap-1"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
+          <motion.span 
+            className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-500 bg-clip-text text-transparent inline-block"
+            style={{
+              backgroundSize: "200% 200%",
+            }}
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            Abishek Sathiyan
+          </motion.span>{" "}
+          
+          {/* Portfolio with Blue to Purple Gradient (matching Full Stack Developer) */}
+          <motion.span 
+            className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent inline-block"
+            style={{
+              backgroundSize: "200% 200%",
+            }}
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            Portfolio
+          </motion.span>
+        </motion.p>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6 items-center">
@@ -79,7 +117,7 @@ export default function Header() {
                   className="relative group px-2 py-2 hover:text-primary transition-colors"
                 >
                   {link.name}
-                  <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-gradient-to-r from-blue-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               )}
             </div>
