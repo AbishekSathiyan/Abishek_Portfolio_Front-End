@@ -15,7 +15,6 @@ export default function Hero() {
   const [nameText, setNameText] = useState("");
   const [titleText, setTitleText] = useState("");
   const [currentImage, setCurrentImage] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
   const [showLocationSplit, setShowLocationSplit] = useState(false);
 
   const fullName = "Abishek Sathiyan";
