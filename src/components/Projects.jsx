@@ -332,6 +332,9 @@ const projects = [
 ];
 
 export default function Projects() {
+  // ✅ ADD THIS - State for tracking logo errors
+  const [logoErrors, setLogoErrors] = React.useState({});
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -574,35 +577,37 @@ export default function Projects() {
 
           {/* Mobile: 3 columns, Tablet: 4 columns, Desktop: 6 columns */}
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2 sm:gap-3 md:gap-4 max-w-5xl mx-auto px-2">
-            {uniqueTechStack.map((tech) => {
-              const [logoError, setLogoError] = React.useState(false);
-
-              return (
-                <motion.div
-                  key={tech.name}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
-                >
-                  {!logoError ? (
-                    <img
-                      src={tech.logo}
-                      alt={tech.name}
-                      className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                      onError={() => setLogoError(true)}
-                    />
-                  ) : (
-                    <span className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
-                      {tech.icon}
-                    </span>
-                  )}
-                  <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium text-center">
-                    {tech.name.includes(" ")
-                      ? tech.name.split(" ")[0]
-                      : tech.name}
+            {uniqueTechStack.map((tech) => (
+              <motion.div
+                key={tech.name}
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+              >
+                {!logoErrors[tech.name] ? (
+                  <img
+                    src={tech.logo}
+                    alt={tech.name}
+                    className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+                    onError={() =>
+                      setLogoErrors((prev) => ({
+                        ...prev,
+                        [tech.name]: true,
+                      }))
+                    }
+                  />
+                ) : (
+                  <span className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
+                    {tech.icon}
                   </span>
-                </motion.div>
-              );
-            })}
+                )}
+
+                <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium text-center">
+                  {tech.name.includes(" ")
+                    ? tech.name.split(" ")[0]
+                    : tech.name}
+                </span>
+              </motion.div>
+            ))}
           </div>
 
           {/* Additional Tech Row for remaining items */}
