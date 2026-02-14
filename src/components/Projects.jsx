@@ -25,7 +25,7 @@ import {
   FiFileText,
   FiCpu,
   FiZap,
-  FiFeather,
+  // FiFeather,  // <-- REMOVED this unused import
   FiBox,
   FiLayers,
 } from "react-icons/fi";
@@ -332,7 +332,7 @@ const projects = [
 ];
 
 export default function Projects() {
-  // ✅ ADD THIS - State for tracking logo errors
+  // State for tracking logo errors
   const [logoErrors, setLogoErrors] = React.useState({});
 
   const containerVariants = {
