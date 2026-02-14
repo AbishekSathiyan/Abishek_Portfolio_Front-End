@@ -26,9 +26,8 @@
     "web-vitals": "^5.1.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "react-scripts build",
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -51,7 +50,7 @@
     ]
   },
   "devDependencies": {
-    "baseline-browser-mapping": "^2.9.19",
-    "tailwindcss": "^3.4.18"
+    "tailwindcss": "^3.4.18",
+    "baseline-browser-mapping": "^2.9.19"
   }
 }
