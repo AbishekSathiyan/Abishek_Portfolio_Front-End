@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.18",
-    "baseline-browser-mapping": "^2.9.19"
+    "baseline-browser-mapping": "^2.9.19",
+     "react-scripts": "5.0.1"
   }
 }
