@@ -23,8 +23,8 @@ function HomePage() {
         <Projects />
         <Skills />
         <Contact />
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 }
