@@ -39,7 +39,7 @@
   },
   "engines": {
   "node": "24.x"
-},
+}
   "browserslist": {
     "production": [
       ">0.2%",
