@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
-
   "engines": {
     "node": "20.x"
   },
-
   "dependencies": {
     "@iconscout/react-unicons": "^2.2.5",
     "@lottiefiles/react-lottie-player": "^3.6.0",
@@ -26,30 +24,26 @@
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
-    "sweetalert2": "^11.26.3",
-    "sweetalert2-react-content": "^5.1.0",
+    "sweetalert2": "^11.26.18",
+    "sweetalert2-react-content": "^5.1.1",
     "web-vitals": "^5.1.0"
   },
-
   "devDependencies": {
-    "tailwindcss": "^3.4.18",
-    "baseline-browser-mapping": "^2.9.19"
+    "baseline-browser-mapping": "^2.9.19",
+    "tailwindcss": "^3.4.18"
   },
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
   },
-
   "browserslist": {
     "production": [
       ">0.2%",

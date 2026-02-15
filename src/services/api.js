@@ -1,54 +1,56 @@
 // services/api.js
-export async function submitContactForm(formData) {
-  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-  try {
-    console.log("📤 Sending contact form data:", formData);
+export const submitContactForm = async (formData) => {
+    try {
+        // Remove any fields that shouldn't be sent to backend
+        const { createdAt, updatedAt, ...submitData } = formData;
+        
+        const response = await fetch(`${API_BASE_URL}/contact/submit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(submitData)
+        });
 
-    const response = await fetch(`${BASE_URL}/contacts`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+        const data = await response.json();
 
-    console.log("🌐 Response status:", response.status);
+        if (!response.ok) {
+            // Handle validation errors
+            if (data.errors) {
+                const errorMessages = data.errors.map(err => err.msg).join(', ');
+                throw new Error(errorMessages);
+            }
+            throw new Error(data.message || 'Failed to send message');
+        }
 
-    if (!response.ok) {
-      let errorMessage = `HTTP error! status: ${response.status}`;
-
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.message || errorData.error || errorMessage;
-      } catch {
-        const text = await response.text();
-        errorMessage = text || errorMessage;
-      }
-
-      throw new Error(errorMessage);
+        return data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
     }
+};
 
-    const result = await response.json();
-    console.log("✅ Form submitted successfully:", result);
-    return result;
-  } catch (error) {
-    console.error("❌ Error in submitContactForm:", error);
+// Optional: Add function to get all contacts (for admin panel)
+export const getContacts = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/contact/all`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-    // Enhanced error messages
-    if (
-      error.name === "TypeError" &&
-      error.message.includes("Failed to fetch")
-    ) {
-      throw new Error(
-        "Network error: Unable to connect to server. Please check your internet connection."
-      );
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to fetch contacts');
+        }
+
+        return data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
     }
-
-    if (error.message.includes("CORS")) {
-      throw new Error("CORS error: Please check backend CORS configuration.");
-    }
-
-    throw error;
-  }
-}
+};

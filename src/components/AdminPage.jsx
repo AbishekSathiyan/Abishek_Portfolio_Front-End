@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
-
+const BASE_URL = process.env.REACT_APP_API_URL;
 console.log("✅ Using Backend:", BASE_URL);
 
+// Helper to format dates
 const formatDate = (dateString) => {
   if (!dateString) return "Unknown date";
-
   const date = new Date(dateString);
   if (isNaN(date.getTime())) return "Invalid date";
-
   return date.toLocaleString("en-US", {
     year: "numeric",
     month: "short",
@@ -28,15 +27,17 @@ const AdminPage = () => {
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Fetch all submissions on mount
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/contacts`);
-        // Sort by date (newest first)
-        const sortedSubmissions = response.data.sort(
+        const response = await axios.get(`${BASE_URL}/contact/all`);
+        const contacts = response.data?.contacts || [];
+
+        const sorted = contacts.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-        setSubmissions(sortedSubmissions);
+        setSubmissions(sorted);
       } catch (err) {
         setError(err.message || "Failed to fetch submissions");
       } finally {
@@ -47,49 +48,93 @@ const AdminPage = () => {
     fetchSubmissions();
   }, []);
 
+  // Filter submissions by search
   const filteredSubmissions = submissions.filter(
-    (submission) =>
-      submission.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      submission.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      submission.message.toLowerCase().includes(searchTerm.toLowerCase())
+    (sub) =>
+      sub.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sub.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sub.message.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // DELETE submission with SweetAlert2
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${BASE_URL}/contacts/${id}`);
-      setSubmissions(submissions.filter((sub) => sub._id !== id));
-      if (selectedSubmission?._id === id) {
-        setSelectedSubmission(null);
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const res = await axios.delete(`${BASE_URL}/contact/${id}`);
+        if (res.data.success) {
+          setSubmissions((prev) => prev.filter((c) => c._id !== id));
+          if (selectedSubmission?._id === id) setSelectedSubmission(null);
+
+          Swal.fire("Deleted!", res.data.message, "success");
+        } else {
+          Swal.fire("Error!", res.data.message || "Could not delete", "error");
+        }
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error!", "Server error while deleting", "error");
       }
-    } catch (err) {
-      setError(err.message || "Failed to delete submission");
     }
   };
 
+  // MARK AS READ submission with SweetAlert2
   const markAsRead = async (id) => {
-    try {
-      await axios.patch(`${BASE_URL}/contacts/${id}`, {
-        isRead: true,
-        updatedAt: new Date().toISOString(),
-      });
+    const result = await Swal.fire({
+      title: "Mark as read?",
+      text: "This message will be marked as read.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, mark as read",
+    });
 
-      setSubmissions(
-        submissions.map((sub) =>
-          sub._id === id
-            ? { ...sub, isRead: true, updatedAt: new Date().toISOString() }
-            : sub
-        )
-      );
-
-      if (selectedSubmission?._id === id) {
-        setSelectedSubmission({
-          ...selectedSubmission,
+    if (result.isConfirmed) {
+      try {
+        const updatedAt = new Date().toISOString();
+        const res = await axios.patch(`${BASE_URL}/contact/${id}`, {
           isRead: true,
-          updatedAt: new Date().toISOString(),
+          updatedAt,
         });
+
+        if (res.data.success) {
+          const updated = submissions.map((sub) =>
+            sub._id === id ? { ...sub, isRead: true, updatedAt } : sub
+          );
+          setSubmissions(updated);
+
+          if (selectedSubmission?._id === id) {
+            setSelectedSubmission({
+              ...selectedSubmission,
+              isRead: true,
+              updatedAt,
+            });
+          }
+
+          Swal.fire({
+            icon: "success",
+            title: "Marked as read",
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire("Error!", res.data.message || "Could not mark as read", "error");
+        }
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error!", "Server error while updating", "error");
       }
-    } catch (err) {
-      setError(err.message || "Failed to mark as read");
     }
   };
 
@@ -138,41 +183,33 @@ const AdminPage = () => {
               style={{ maxHeight: "calc(100vh - 200px)" }}
             >
               <ul className="divide-y divide-gray-200">
-                {filteredSubmissions.map((submission) => (
+                {filteredSubmissions.map((sub) => (
                   <li
-                    key={submission._id}
+                    key={sub._id}
                     className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
-                      !submission.isRead ? "bg-blue-50" : ""
+                      !sub.isRead ? "bg-blue-50" : ""
                     } ${
-                      selectedSubmission?._id === submission._id
-                        ? "bg-gray-100"
-                        : ""
+                      selectedSubmission?._id === sub._id ? "bg-gray-100" : ""
                     }`}
-                    onClick={() => setSelectedSubmission(submission)}
+                    onClick={() => setSelectedSubmission(sub)}
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium text-gray-900">
-                          {submission.name}
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                          {submission.email}
-                        </p>
+                        <h3 className="font-medium text-gray-900">{sub.name}</h3>
+                        <p className="text-sm text-gray-500">{sub.email}</p>
                       </div>
                       <span className="text-xs text-gray-400">
-                        {formatDate(
-                          submission.updatedAt || submission.createdAt
-                        )}
+                        {formatDate(sub.updatedAt || sub.createdAt)}
                       </span>
                     </div>
                     <p className="mt-2 text-sm text-gray-600 truncate">
-                      {submission.message.substring(0, 60)}...
+                      {sub.message.substring(0, 60)}...
                     </p>
                     <div className="mt-2 flex items-center justify-between">
                       <span className="text-xs font-medium px-2 py-1 rounded-full bg-blue-100 text-blue-800">
-                        {submission.subject}
+                        {sub.subject}
                       </span>
-                      {!submission.isRead && (
+                      {!sub.isRead && (
                         <span className="text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">
                           Unread
                         </span>
@@ -188,59 +225,49 @@ const AdminPage = () => {
           <div className="lg:col-span-2 bg-white rounded-lg shadow overflow-hidden">
             {selectedSubmission ? (
               <div className="h-full flex flex-col">
-                <div className="p-6 border-b border-gray-200">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h2 className="text-xl font-bold text-gray-900">
-                        {selectedSubmission.subject}
-                      </h2>
-                      <p className="text-sm text-gray-500 mt-1">
-                        From: {selectedSubmission.name} &lt;
-                        {selectedSubmission.email}&gt;
-                      </p>
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {formatDate(
-                        selectedSubmission.updatedAt ||
-                          selectedSubmission.createdAt
-                      )}
-                    </div>
+                <div className="p-6 border-b border-gray-200 flex justify-between items-start">
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900">
+                      {selectedSubmission.subject}
+                    </h2>
+                    <p className="text-sm text-gray-500 mt-1">
+                      From: {selectedSubmission.name} &lt;{selectedSubmission.email}&gt;
+                    </p>
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {formatDate(
+                      selectedSubmission.updatedAt || selectedSubmission.createdAt
+                    )}
                   </div>
                 </div>
 
                 <div className="flex-1 p-6 overflow-y-auto">
-                  <div className="prose max-w-none">
-                    <p className="whitespace-pre-line">
-                      {selectedSubmission.message}
-                    </p>
-                  </div>
+                  <p className="whitespace-pre-line">{selectedSubmission.message}</p>
                 </div>
 
-                <div className="p-4 border-t border-gray-200 bg-gray-50">
-                  <div className="flex justify-between items-center">
-                    <div className="flex space-x-3">
-                      <button
-                        onClick={() => handleDelete(selectedSubmission._id)}
-                        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-                      >
-                        Delete
-                      </button>
-                      {!selectedSubmission.isRead && (
-                        <button
-                          onClick={() => markAsRead(selectedSubmission._id)}
-                          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                        >
-                          Mark as Read
-                        </button>
-                      )}
-                    </div>
-                    <a
-                      href={`mailto:${selectedSubmission.email}`}
-                      className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                <div className="p-4 border-t border-gray-200 bg-gray-50 flex justify-between items-center">
+                  <div className="flex space-x-3">
+                    <button
+                      onClick={() => handleDelete(selectedSubmission._id)}
+                      className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
                     >
-                      Reply
-                    </a>
+                      Delete
+                    </button>
+                    {!selectedSubmission.isRead && (
+                      <button
+                        onClick={() => markAsRead(selectedSubmission._id)}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                      >
+                        Mark as Read
+                      </button>
+                    )}
                   </div>
+                  <a
+                    href={`mailto:${selectedSubmission.email}`}
+                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                  >
+                    Reply
+                  </a>
                 </div>
               </div>
             ) : (

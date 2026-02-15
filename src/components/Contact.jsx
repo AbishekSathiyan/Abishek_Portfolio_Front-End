@@ -27,24 +27,6 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const showAlert = (icon, title, text, timer = 3000) => {
-    MySwal.fire({
-      icon,
-      title,
-      text,
-      timer,
-      timerProgressBar: true,
-      showConfirmButton: false,
-      background: "#1f2937",
-      color: "#f9fafb",
-      customClass: {
-        popup: "rounded-2xl border border-gray-600",
-        title: "text-xl font-bold",
-        timerProgressBar: "bg-primary",
-      },
-    });
-  };
-
   const showSuccess = () => {
     MySwal.fire({
       title: "🎉 Message Sent!",
@@ -110,7 +92,20 @@ export default function Contact() {
     e.preventDefault();
 
     if (!validateForm()) {
-      showAlert("error", "Validation Error", "Please fix the errors in the form.");
+      MySwal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Please fix the errors in the form.",
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        background: "#1f2937",
+        color: "#f9fafb",
+        customClass: {
+          popup: "rounded-2xl border border-gray-600",
+          timerProgressBar: "bg-primary",
+        },
+      });
       return;
     }
 
@@ -127,30 +122,48 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const submission = {
-        ...formData,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+      // Send only the required fields to backend
+      const submissionData = {
+        name: formData.name,
+        email: formData.email,
+        contact: formData.contact,
+        subject: formData.subject,
+        message: formData.message
       };
 
-      await submitContactForm(submission);
+      const response = await submitContactForm(submissionData);
 
       await loadingAlert.close();
-      showSuccess();
-
-      setFormData({
-        name: "",
-        email: "",
-        contact: "",
-        subject: "General Inquiry",
-        message: "",
-      });
-      setErrors({});
+      
+      if (response.success) {
+        showSuccess();
+        
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          contact: "",
+          subject: "General Inquiry",
+          message: "",
+        });
+        setErrors({});
+      } else {
+        showError(response.message || "Something went wrong. Please try again.");
+      }
     } catch (error) {
       await loadingAlert.close();
       console.error("Submission error:", error);
 
-      showError(error.message || "Something went wrong. Please try again.");
+      // Handle specific error messages
+      let errorMessage = "Something went wrong. Please try again.";
+      
+      if (error.message.includes("Failed to fetch")) {
+        errorMessage = "Cannot connect to server. Please check if the backend is running.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      showError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -290,6 +303,7 @@ export default function Contact() {
                       errors.name ? "border-red-500" : "border-gray-700"
                     }`}
                     placeholder="Enter your name"
+                    disabled={isSubmitting}
                   />
                   {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
                 </div>
@@ -309,6 +323,7 @@ export default function Contact() {
                       errors.email ? "border-red-500" : "border-gray-700"
                     }`}
                     placeholder="Enter your email"
+                    disabled={isSubmitting}
                   />
                   {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
                 </div>
@@ -328,6 +343,7 @@ export default function Contact() {
                       errors.contact ? "border-red-500" : "border-gray-700"
                     }`}
                     placeholder="Enter your 10-digit phone number"
+                    disabled={isSubmitting}
                   />
                   {errors.contact && (
                     <p className="text-red-400 text-sm mt-1">{errors.contact}</p>
@@ -345,6 +361,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none transition-all duration-200"
+                    disabled={isSubmitting}
                   >
                     <option value="General Inquiry">General Inquiry</option>
                     <option value="Project Proposal">Project Proposal</option>
@@ -370,6 +387,7 @@ export default function Contact() {
                     errors.message ? "border-red-500" : "border-gray-700"
                   }`}
                   placeholder="Tell me about your project or inquiry..."
+                  disabled={isSubmitting}
                 />
                 {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
               </div>
