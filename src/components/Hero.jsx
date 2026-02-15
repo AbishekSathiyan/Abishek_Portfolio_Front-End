@@ -586,7 +586,7 @@ export default function Hero() {
             <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-400/30 shadow-xl relative">
               <motion.img
                 key={currentImage}
-                src={images[currentImage]}
+                src={Mine}
                 alt="Abishek S"
                 className="w-full h-full object-cover"
                 initial="enter"
