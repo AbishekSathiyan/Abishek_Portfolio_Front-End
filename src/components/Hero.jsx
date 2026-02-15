@@ -582,8 +582,6 @@ export default function Hero() {
             variants={imageContainerVariants}
             initial="normal"
             whileHover="hover"
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
           >
             <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-400/30 shadow-xl relative">
               <motion.img
