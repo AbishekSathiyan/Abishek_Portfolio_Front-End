@@ -1,8 +1,8 @@
 {
-  "name": "AbishekSathiyanPortfolio",
+  "name": "portfolio-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://abishek-portfolio-front-mnllrih5a-abisheksathiyans-projects.vercel.app",
   "engines": {
     "node": "20.x"
   },
