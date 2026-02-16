@@ -82,7 +82,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/contact/all`);
+        const response = await axios.get(`${BASE_URL}/api/contact/all`);
         const contacts = response.data?.contacts || [];
 
         const sorted = contacts.sort(
