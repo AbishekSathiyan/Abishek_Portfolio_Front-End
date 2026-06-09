@@ -25,75 +25,71 @@ import {
   FiFileText,
   FiCpu,
   FiZap,
-  // FiFeather,  // <-- REMOVED this unused import
   FiBox,
   FiLayers,
+  FiAward,
+  FiTrendingUp,
+  FiBriefcase,
 } from "react-icons/fi";
 import Village from "../components/assets/Village.png";
 
-// Technology logos mapping - all working URLs
+// Technology logos mapping - all working original logos
 const techLogos = {
   // Databases
   MongoDB:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg",
 
   // Backend
   "Node.js":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
   Express:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-  JWT: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg",
+  JWT: "https://jwt.io/img/pic_logo.svg",
 
   // Frontend
   React:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
   "Tailwind CSS":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg",
   "Material UI":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg",
-  Vite: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg",
+  Vite: "https://vitejs.dev/logo.svg",
 
   // Authentication & Services
   Firebase:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/firebase/firebase-plain.svg",
   "Firebase Authentication":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-  OAuth:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oauth/oauth-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/firebase/firebase-plain.svg",
+  OAuth: "https://oauth.net/images/oauth-logo-square.png",
 
   // Cloud & Storage
-  Cloudinary:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudinary/cloudinary-original.svg",
+  Cloudinary: "https://res.cloudinary.com/cloudinary/image/upload/v1/logo/cloudinary_icon_for_white_bg.png",
 
   // Tools & Libraries
   "Node Mailer":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
   Nodemailer:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  Multer:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/multer/multer-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
+  Multer: "https://raw.githubusercontent.com/expressjs/multer/master/logo.png",
 
   // Payment
-  Razorpay: "https://www.vectorlogo.zone/logos/razorpay/razorpay-icon.svg",
+  Razorpay: "https://razorpay.com/favicon.ico",
 
   // APIs & Utilities
-  API: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/api/api-original.svg",
-  LocalStorage:
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/localstorage/localstorage-original.svg",
-  "Notifications API":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notifications/notifications-original.svg",
+  API: "https://raw.githubusercontent.com/devicons/devicon/master/icons/api/api-original.svg",
+  LocalStorage: "https://raw.githubusercontent.com/devicons/devicon/master/icons/localstorage/localstorage-original.svg",
+  "Notifications API": "https://raw.githubusercontent.com/devicons/devicon/master/icons/notifications/notifications-original.svg",
+  "ChatGPT API": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+  "OpenAI": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
 
   // Weather APIs
-  "OpenWeatherMap API":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openweathermap/openweathermap-original.svg",
+  "OpenWeatherMap API": "https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png",
 
   // Fun APIs
-  "Chuck Norris API":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chucknorris/chucknorris-original.svg",
+  "Chuck Norris API": "https://api.chucknorris.io/img/chucknorris_logogo.png",
 
   // Additional
-  "Puter.JS":
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  "Puter.JS": "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
 };
 
 // Fallback icons for all technologies (guaranteed to show)
@@ -117,6 +113,8 @@ const techFallbackIcons = {
   API: <FiCode className="w-4 h-4 text-purple-400" />,
   LocalStorage: <FiDatabase className="w-4 h-4 text-gray-400" />,
   "Notifications API": <FiBell className="w-4 h-4 text-red-400" />,
+  "ChatGPT API": <FiMessageCircle className="w-4 h-4 text-green-400" />,
+  "OpenAI": <FiCpu className="w-4 h-4 text-green-500" />,
   "OpenWeatherMap API": <FiCloud className="w-4 h-4 text-blue-300" />,
   "Chuck Norris API": <FiSmile className="w-4 h-4 text-yellow-400" />,
   "Puter.JS": <FiCpu className="w-4 h-4 text-blue-400" />,
@@ -158,6 +156,19 @@ const TechBadge = ({ tech }) => {
 const projects = [
   {
     id: 1,
+    title: "Founder AI - Intelligent Business Assistant",
+    description:
+      "An AI-powered business recommendation platform that helps entrepreneurs find the perfect free zone for their business setup with intelligent insights and real-time assistance.",
+    technologies: ["React", "API", "OpenAI", "Tailwind CSS"],
+    githubLink: "https://github.com/AbishekSathiyan/",
+    demoLink: "https://github.com/AbishekSathiyan/",
+    image:
+      "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8QUl8ZW58MHx8MHx8fDA%3D",
+    featured: true,
+    icon: <FiBriefcase className="text-amber-400 w-4 h-4" />,
+  },
+  {
+    id: 2,
     title: "ChatBot-Aura Mind (MERN + AI)",
     description:
       "An Intelligent AI-Powered ChatBot Web Application that provides Real-Time Conversational Responses, external JavaScript API Integration.",
@@ -170,7 +181,7 @@ const projects = [
     icon: <FiMessageCircle className="text-blue-400 w-4 h-4" />,
   },
   {
-    id: 2,
+    id: 3,
     title: "AS Ecommerce (MERN)",
     description:
       "A modern full-stack eCommerce platform with Firebase Authentication, Razorpay payments, and admin dashboard.",
@@ -192,7 +203,7 @@ const projects = [
     icon: <FiShoppingCart className="text-green-400 w-4 h-4" />,
   },
   {
-    id: 3,
+    id: 4,
     title: "Methalodai Village Community",
     description:
       "Instagram-like community platform for village communication with posts, follows, likes, and comments.",
@@ -213,7 +224,7 @@ const projects = [
     icon: <FiUsers className="text-purple-400 w-4 h-4" />,
   },
   {
-    id: 4,
+    id: 5,
     title: "Campus Lost & Found",
     description:
       "Campus MERN app for reporting and recovering lost items with image uploads and email notifications.",
@@ -234,7 +245,7 @@ const projects = [
     icon: <FiMapPin className="text-yellow-400 w-4 h-4" />,
   },
   {
-    id: 5,
+    id: 6,
     title: "Bulk Mail System",
     description:
       "Send personalized bulk emails from Excel sheets using Nodemailer with custom templates.",
@@ -246,7 +257,7 @@ const projects = [
     icon: <FiMail className="text-red-400 w-4 h-4" />,
   },
   {
-    id: 6,
+    id: 7,
     title: "FileShare MERN App",
     description:
       "Secure file-sharing platform with JWT authentication, file preview, and unique sharing links.",
@@ -267,8 +278,8 @@ const projects = [
     icon: <FiLock className="text-indigo-400 w-4 h-4" />,
   },
   {
-    id: 7,
-    title: "Portfolio (MERN + OTP)",
+    id: 8,
+    title: "Portfolio (MERN)",
     description:
       "Responsive portfolio with admin-secured contact form using OTP verification for modern recruiters.",
     technologies: [
@@ -282,13 +293,13 @@ const projects = [
     ],
     githubLink:
       "https://github.com/AbishekSathiyan/Abishek_Portfolio_Front-End",
-    demoLink: "https://abishek-portfolio-front-end.vercel.app/",
+    demoLink: "https://abisheksathiyan-portfolio-front-end.vercel.app/",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     icon: <FiCode className="text-cyan-400 w-4 h-4" />,
   },
   {
-    id: 8,
+    id: 9,
     title: "Weather Dashboard",
     description:
       "Sleek weather app with real-time temperature, humidity, and conditions using OpenWeatherMap API.",
@@ -300,7 +311,7 @@ const projects = [
     icon: <FiCloud className="text-blue-300 w-4 h-4" />,
   },
   {
-    id: 9,
+    id: 10,
     title: "Task Manager",
     description:
       "Productivity app with notifications, reminders, dark mode, and localStorage persistence.",
@@ -318,7 +329,7 @@ const projects = [
     icon: <FiCalendar className="text-orange-400 w-4 h-4" />,
   },
   {
-    id: 10,
+    id: 11,
     title: "Joke Generator",
     description:
       "A fun and interactive web app that fetches random jokes from the Chuck Norris API.",
@@ -729,6 +740,30 @@ export default function Projects() {
               </span>
               <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
                 Puter
+              </span>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.1, y: -5 }}
+              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+            >
+              <img
+                src={techLogos["OpenAI"]}
+                alt="OpenAI"
+                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.style.display = "none";
+                  e.target.parentElement
+                    .querySelector(".fallback")
+                    ?.classList.remove("hidden");
+                }}
+              />
+              <span className="hidden fallback">
+                {techFallbackIcons["OpenAI"]}
+              </span>
+              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
+                OpenAI
               </span>
             </motion.div>
           </div>

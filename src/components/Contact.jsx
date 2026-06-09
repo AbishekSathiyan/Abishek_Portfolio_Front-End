@@ -337,7 +337,7 @@ export default function Contact() {
                     href="tel:+971556053387"
                     className="text-gray-300 hover:text-blue-400 transition-all duration-200"
                   >
-                    +971 556053387
+                    +971 52 290 4847
                   </a>
                 </div>
               </div>

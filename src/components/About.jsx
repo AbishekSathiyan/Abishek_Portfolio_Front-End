@@ -7,6 +7,25 @@ import {
   FaCss3Alt,
   FaGitAlt,
   FaPython,
+  FaGraduationCap,
+  FaCertificate,
+  FaLaptopCode,
+  FaFilePdf,
+  FaBookOpen,
+  FaMedal,
+  FaBriefcase as FaBriefcaseIcon,
+  FaUserGraduate,
+  FaStar,
+  FaTrophy,
+  FaAward,
+  FaCheckCircle,
+  FaCode,
+  FaServer,
+  FaDatabase,
+  FaCloud,
+  FaFileAlt,
+  FaFileWord,
+  FaFileArchive,
 } from "react-icons/fa";
 import {
   SiTailwindcss,
@@ -14,6 +33,10 @@ import {
   SiMongodb,
   SiRedux,
   SiFirebase,
+  SiJavascript,
+  SiPython,
+  SiReact,
+  SiNodedotjs,
 } from "react-icons/si";
 import { motion } from "framer-motion";
 import { Player } from "@lottiefiles/react-lottie-player";
@@ -260,206 +283,24 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="w-full lg:w-2/3 space-y-12"
           >
-            {/* Who I Am section with tech background */}
-            <motion.div
-              className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              {/* Circuit board background */}
-              <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
-                <Player
-                  autoplay
-                  loop
-                  speed={0.5}
-                  src={sectionBackgrounds.whoIAm}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
+            {/* Who I Am section with floating code animation */}
+            <WhoIAmCard backgroundAnimation={sectionBackgrounds.whoIAm} />
 
-              <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-200 inline-block relative">
-                Who I Am
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  viewport={{ once: true }}
-                  className="absolute -bottom-1 left-0 w-full h-1 bg-primary origin-left"
-                />
-              </h3>
+            {/* Education Section with book opening animation and left side animation */}
+            <EducationCard backgroundAnimation={sectionBackgrounds.education} />
 
-              <div className="space-y-4">
-                <motion.p
-                  className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
-                  initial={{ opacity: 0, x: 10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                >
-                  I’m a passionate Full-Stack Developer from Methalodai,
-                  Ramanathapuram, Tamil Nadu, India, with 1 year of hands-on
-                  experience building responsive and user-friendly web
-                  applications. I specialize in React, JavaScript, AI-based
-                  chatbots, and modern CSS frameworks, creating elegant
-                  solutions and seamless user experiences.
-                </motion.p>
-                <motion.p
-                  className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
-                  initial={{ opacity: 0, x: 10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  My approach combines technical expertise with an eye for
-                  design to create seamless digital experiences that users love.
-                </motion.p>
-              </div>
-            </motion.div>
-
-            {/* Education Section with tech background */}
-            <SectionCard
-              icon={<GraduationCap className="w-5 h-5 text-primary" />}
-              title="Education"
-              items={[
-                {
-                  title: "MCA – Master of Computer Applications",
-                  subtitle: "Karpagam University",
-                  meta: "2023 – 2025",
-                },
-                {
-                  title: "BCA – Bachelor of Computer Applications",
-                  subtitle: "Caussanel College of Arts & Science",
-                  meta: "2020 – 2023",
-                },
-              ]}
-              backgroundAnimation={sectionBackgrounds.education}
-            />
-
-            {/* Certifications Section with tech background */}
-            <SectionCard
-              icon={<FileBadge className="w-5 h-5 text-primary" />}
-              title="Certifications"
-              items={[
-                {
-                  title: "MERN Stack Developer",
-                  subtitle: "Error Makes Clever",
-                },
-                {
-                  title: "Namate JavaScript Completion",
-                  subtitle: "NamasteDev",
-                },
-
-                { title: "Mastering Python", subtitle: "Infosys" },
-                {
-                  title: "National Conference on Data Science & Analytics",
-                  subtitle: "TCS iON",
-                },
-                {
-                  title: "AI for All",
-                  subtitle: "Digital India | Intel",
-                },
-              ]}
+            {/* Certifications Section with badge animation and left side animation */}
+            <CertificationsCard
               backgroundAnimation={sectionBackgrounds.certifications}
             />
 
-            {/* Internship Section with tech background */}
-            <SectionCard
-              icon={<Briefcase className="w-5 h-5 text-primary" />}
-              title="Internships"
-              items={[
-                {
-                  title: "MERN Stack Intern – Full Stack Projects",
-                  subtitle: "Skillmate.ai",
-                  meta: "Aug 2024 – Sep 2024",
-                  description: "React.js, Next.js, Tailwind CSS",
-                  link: "https://skillmate.ai/",
-                },
-                {
-                  title: "Data Structures and Algorithms – Learning DSA",
-                  subtitle: "kaashiv Inftech",
-                  meta: "April 2025",
-                  description: "Programming, DataStructures, Algrithms",
-                  link: "www.kaashivinfotech.com/",
-                },
-              ]}
+            {/* Internship Section with laptop animation and left side animation */}
+            <InternshipsCard
               backgroundAnimation={sectionBackgrounds.internships}
             />
 
-            {/* Resume Download Section with Tech Animation */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
-            >
-              {/* Binary code background */}
-              <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
-                <Player
-                  autoplay
-                  loop
-                  speed={0.5}
-                  src={sectionBackgrounds.profile}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
-              <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
-                <Player
-                  autoplay
-                  loop
-                  speed={0.5}
-                  src={sectionBackgrounds.whoIAm}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
-              <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
-                <Player
-                  autoplay
-                  loop
-                  speed={0.5}
-                  src={sectionBackgrounds.whoIAm}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
-              <h4 className="text-xl font-semibold mb-6 dark:text-gray-200">
-                Get My Full Profile
-              </h4>
-              <motion.a
-                href="Abishek S UAE Fresher Mern Stack Developer Resume.pdf"
-                download="Abishek S UAE Fresher Mern Stack Developer Resume.pdf"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 8px 25px -5px rgba(59, 130, 246, 0.4)",
-                }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <motion.span
-                  animate={{
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <FaDownload className="text-lg" />
-                </motion.span>
-                <span>Download Resume</span>
-                <motion.span
-                  className="ml-1 transition-all duration-300 group-hover:translate-x-1"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                >
-                  →
-                </motion.span>
-              </motion.a>
-              <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-                Includes complete work history, skills, and references
-              </p>
-            </motion.div>
+            {/* Resume Download Section with document animation and left side animation */}
+            <ResumeCard backgroundAnimation={sectionBackgrounds.profile} />
           </motion.div>
         </div>
       </div>
@@ -467,110 +308,844 @@ export default function About() {
   );
 }
 
-// Enhanced SectionCard component with tech background animations
-const SectionCard = ({ icon, title, items, backgroundAnimation }) => (
-  <motion.div
-    className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    viewport={{ once: true, margin: "-50px" }}
-  >
-    {/* Background animation */}
-    <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
-      <Player
-        autoplay
-        loop
-        speed={0.5}
-        src={backgroundAnimation}
-        style={{ width: "100%", height: "100%" }}
-      />
-    </div>
+// Who I Am Card with Floating Code Animation
+const WhoIAmCard = ({ backgroundAnimation }) => {
+  // Floating code snippets animation
+  const codeSnippets = [
+    { text: "console.log('Hello World')", x: -20, y: -30, delay: 0 },
+    { text: "function create() {}", x: 30, y: -40, delay: 1 },
+    { text: "const app = express()", x: -40, y: 20, delay: 2 },
+    { text: "import React from 'react'", x: 50, y: 30, delay: 1.5 },
+    { text: "export default App", x: -30, y: 50, delay: 2.5 },
+    { text: "<div>Hello</div>", x: 40, y: -20, delay: 0.5 },
+  ];
 
-    <motion.h3
-      className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
-      whileInView={{
-        x: [20, 0],
-        opacity: [0, 1],
-      }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-    >
-      <motion.span
-        className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300"
-        whileHover={{ rotate: [0, 10, -5, 0] }}
-        transition={{ duration: 0.6 }}
-      >
-        {icon}
-      </motion.span>
-      <span>{title}</span>
-      <motion.div
-        className="h-px bg-gradient-to-r from-primary to-transparent flex-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        initial={{ width: 0 }}
-        whileInView={{ width: "100%" }}
-        transition={{ delay: 0.3 }}
-        viewport={{ once: true }}
-      />
-    </motion.h3>
-
+  return (
     <motion.div
-      className="space-y-4"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ staggerChildren: 0.1 }}
-      viewport={{ once: true }}
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring" }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      {items.map((item, idx) => (
+      {/* Background animation */}
+      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+        <Player
+          autoplay
+          loop
+          speed={0.5}
+          src={backgroundAnimation}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+
+      {/* Floating code snippets */}
+      {codeSnippets.map((snippet, i) => (
         <motion.div
-          key={idx}
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 * idx, type: "spring" }}
-          viewport={{ once: true }}
-          className="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-600 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
-          whileHover={{
-            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-            borderColor: "rgba(59, 130, 246, 0.3)",
+          key={`code-${i}`}
+          className="absolute text-xs sm:text-sm font-mono bg-primary/10 dark:bg-primary/20 text-primary dark:text-secondary px-3 py-1 rounded-full backdrop-blur-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            left: `${snippet.x}%`,
+            top: `${snippet.y}%`,
+          }}
+          animate={{
+            y: [0, -10, 0],
+            x: [0, 5, -5, 0],
+          }}
+          transition={{
+            duration: 4,
+            delay: snippet.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         >
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <div>
-              <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 group-hover/item:text-primary transition-colors duration-300">
-                {item.title}
-              </h4>
-              {item.subtitle && (
-                <p className="text-gray-600 dark:text-gray-400">
-                  {item.link ? (
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline transition-all duration-300 hover:tracking-wide"
-                    >
-                      {item.subtitle}
-                    </a>
-                  ) : (
-                    item.subtitle
-                  )}
-                </p>
-              )}
-              {item.description && (
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 group-hover/item:text-gray-700 dark:group-hover/item:text-gray-300 transition-colors duration-300">
-                  {item.description}
-                </p>
-              )}
-            </div>
-            {item.meta && (
-              <motion.span
-                className="text-sm sm:text-base font-medium text-primary bg-primary/10 dark:bg-primary/20 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-              >
-                {item.meta}
-              </motion.span>
-            )}
-          </div>
+          {snippet.text}
         </motion.div>
       ))}
+
+      <motion.h3
+        className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-200 inline-block relative"
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        Who I Am
+        <motion.span
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary origin-left"
+        />
+      </motion.h3>
+
+      <div className="space-y-4">
+        <motion.p
+          className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          I'm a passionate Full-Stack Developer from Methalodai, Ramanathapuram,
+          Tamil Nadu, India, with 1 year of hands-on experience building
+          responsive and user-friendly web applications. I specialize in React,
+          JavaScript, AI-based chatbots, and modern CSS frameworks, creating
+          elegant solutions and seamless user experiences.
+        </motion.p>
+        <motion.p
+          className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          My approach combines technical expertise with an eye for design to
+          create seamless digital experiences that users love.
+        </motion.p>
+      </div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
+
+// Education Card with Left Side Animation
+const EducationCard = ({ backgroundAnimation }) => {
+  // Left side education icons animation
+  const educationIcons = [
+    {
+      icon: <FaBookOpen className="text-2xl text-blue-400" />,
+      delay: 0,
+      y: -20,
+    },
+    {
+      icon: <FaGraduationCap className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 10,
+    },
+    {
+      icon: <FaUserGraduate className="text-2xl text-purple-400" />,
+      delay: 2,
+      y: -30,
+    },
+    { icon: <SiReact className="text-2xl text-cyan-400" />, delay: 3, y: 20 },
+    {
+      icon: <SiJavascript className="text-2xl text-yellow-400" />,
+      delay: 4,
+      y: -10,
+    },
+    { icon: <SiPython className="text-2xl text-blue-500" />, delay: 5, y: 15 },
+  ];
+
+  // Floating books animation
+  const floatingBooks = [
+    { color: "from-blue-400 to-purple-400", rotate: -5, left: 0, top: 10 },
+    { color: "from-green-400 to-teal-400", rotate: 8, left: 20, top: 40 },
+    { color: "from-yellow-400 to-orange-400", rotate: -3, left: -10, top: 70 },
+  ];
+
+  return (
+    <motion.div
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring" }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
+    >
+      {/* Background animation */}
+      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+        <Player
+          autoplay
+          loop
+          speed={0.5}
+          src={backgroundAnimation}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+
+      {/* Left Side Animation - Education Icons Column */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
+        {educationIcons.map((item, i) => (
+          <motion.div
+            key={`edu-icon-${i}`}
+            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
+            viewport={{ once: true }}
+            animate={{
+              y: [0, item.y, 0],
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{
+              duration: 3,
+              delay: item.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {item.icon}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Left Side - Floating Books */}
+      <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
+        {floatingBooks.map((book, i) => (
+          <motion.div
+            key={`book-${i}`}
+            className={`absolute w-12 h-12 bg-gradient-to-br ${book.color} rounded-lg shadow-xl opacity-30`}
+            style={{
+              left: `${book.left}px`,
+              top: `${book.top}%`,
+              rotate: book.rotate,
+            }}
+            animate={{
+              y: [0, -15, 0],
+              rotate: [
+                book.rotate,
+                book.rotate + 10,
+                book.rotate - 5,
+                book.rotate,
+              ],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              delay: i * 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="ml-16">
+        <motion.h3
+          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <motion.span
+            className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300"
+            whileHover={{ rotate: [0, 15, -10, 0] }}
+            transition={{ duration: 0.6 }}
+          >
+            <FaGraduationCap className="w-5 h-5 text-primary" />
+          </motion.span>
+          <span>Education</span>
+          <motion.div
+            className="h-px bg-gradient-to-r from-primary to-transparent flex-1 ml-2"
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            transition={{ delay: 0.3 }}
+            viewport={{ once: true }}
+          />
+        </motion.h3>
+
+        <motion.div className="space-y-4">
+          {[
+            {
+              title: "MCA – Master of Computer Applications",
+              subtitle: "Karpagam University, Coimbatore, Tamil Nadu, India",
+              meta: "2023 – 2025",
+            },
+            {
+              title: "BCA – Bachelor of Computer Applications",
+              subtitle:
+                "Caussanel College of Arts & Science, Muthupettai, Ramanathapuram, Tamil Nadu, India",
+              meta: "2020 – 2023",
+            },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 * idx, type: "spring" }}
+              viewport={{ once: true }}
+              className="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-600 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
+              whileHover={{
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                borderColor: "rgba(59, 130, 246, 0.3)",
+              }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div>
+                  <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 group-hover/item:text-primary transition-colors duration-300">
+                    {item.title}
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {item.subtitle}
+                  </p>
+                </div>
+                <motion.span
+                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 dark:bg-primary/20 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {item.meta}
+                </motion.span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Certifications Card with Left Side Animation
+const CertificationsCard = ({ backgroundAnimation }) => {
+  // Left side certification icons
+  const certIcons = [
+    {
+      icon: <FaMedal className="text-2xl text-yellow-400" />,
+      delay: 0,
+      y: -20,
+    },
+    {
+      icon: <FaCertificate className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 15,
+    },
+    { icon: <FaStar className="text-2xl text-purple-400" />, delay: 2, y: -25 },
+    {
+      icon: <FaTrophy className="text-2xl text-orange-400" />,
+      delay: 3,
+      y: 10,
+    },
+    { icon: <FaAward className="text-2xl text-blue-400" />, delay: 4, y: -15 },
+    {
+      icon: <FaCheckCircle className="text-2xl text-cyan-400" />,
+      delay: 5,
+      y: 20,
+    },
+  ];
+
+  // Floating badges
+  const badges = [
+    { icon: "🏆", color: "text-yellow-400", left: 10, top: 20 },
+    { icon: "⭐", color: "text-blue-400", left: -5, top: 45 },
+    { icon: "🎯", color: "text-red-400", left: 15, top: 70 },
+    { icon: "💡", color: "text-green-400", left: 0, top: 90 },
+  ];
+
+  return (
+    <motion.div
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring" }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
+    >
+      {/* Background animation */}
+      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+        <Player
+          autoplay
+          loop
+          speed={0.5}
+          src={backgroundAnimation}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+
+      {/* Left Side Animation - Certification Icons Column */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
+        {certIcons.map((item, i) => (
+          <motion.div
+            key={`cert-icon-${i}`}
+            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
+            viewport={{ once: true }}
+            animate={{
+              y: [0, item.y, 0],
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 4,
+              delay: item.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {item.icon}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Left Side - Floating Badges */}
+      <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
+        {badges.map((badge, i) => (
+          <motion.div
+            key={`badge-${i}`}
+            className={`absolute text-3xl ${badge.color} opacity-30`}
+            style={{
+              left: `${badge.left}px`,
+              top: `${badge.top}%`,
+            }}
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.3, 1],
+              y: [0, -10, 0],
+            }}
+            transition={{
+              duration: 5,
+              delay: i * 1,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {badge.icon}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="ml-16">
+        <motion.h3
+          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <motion.span
+            className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300"
+            whileHover={{ rotate: [0, 15, -10, 0] }}
+            transition={{ duration: 0.6 }}
+          >
+            <FaCertificate className="w-5 h-5 text-primary" />
+          </motion.span>
+          <span>Certifications</span>
+          <motion.div
+            className="h-px bg-gradient-to-r from-primary to-transparent flex-1 ml-2"
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            transition={{ delay: 0.3 }}
+            viewport={{ once: true }}
+          />
+        </motion.h3>
+
+        <motion.div className="space-y-4">
+          {[
+            { title: "Introduction to AI Agents", subtitle: "Microsoft" },
+            { title: "Claude Code in Action", subtitle: "Anthropic" },
+            {
+              title: "AI Vibe Coding Workshop",
+              subtitle: "Digital India | Intel",
+            },
+            {
+              title: "Full-Stack Developer (MERN Stack)",
+              subtitle: "Error Makes Clever",
+            },
+            { title: "Namaste JavaScript Completion", subtitle: "NamasteDev" },
+            { title: "Mastering Python", subtitle: "Infosys" },
+            {
+              title: "National Conference on Data Science & Analytics",
+              subtitle: "TCS iON",
+            },
+            { title: "AI for All", subtitle: "Digital India | Intel" },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 * idx, type: "spring" }}
+              viewport={{ once: true }}
+              className="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-600 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
+              whileHover={{
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                borderColor: "rgba(59, 130, 246, 0.3)",
+              }}
+            >
+              <div>
+                <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 group-hover/item:text-primary transition-colors duration-300">
+                  {item.title}
+                </h4>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {item.subtitle}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Internships Card with Left Side Animation
+const InternshipsCard = ({ backgroundAnimation }) => {
+  // Left side internship icons
+  const internshipIcons = [
+    {
+      icon: <FaLaptopCode className="text-2xl text-blue-400" />,
+      delay: 0,
+      y: -20,
+    },
+    {
+      icon: <FaBriefcaseIcon className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 15,
+    },
+    { icon: <FaCode className="text-2xl text-purple-400" />, delay: 2, y: -25 },
+    {
+      icon: <FaServer className="text-2xl text-orange-400" />,
+      delay: 3,
+      y: 10,
+    },
+    {
+      icon: <FaDatabase className="text-2xl text-cyan-400" />,
+      delay: 4,
+      y: -15,
+    },
+    { icon: <FaCloud className="text-2xl text-blue-300" />, delay: 5, y: 20 },
+  ];
+
+  return (
+    <motion.div
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring" }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
+    >
+      {/* Background animation */}
+      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+        <Player
+          autoplay
+          loop
+          speed={0.5}
+          src={backgroundAnimation}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+
+      {/* Left Side Animation - Internship Icons Column */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
+        {internshipIcons.map((item, i) => (
+          <motion.div
+            key={`intern-icon-${i}`}
+            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
+            viewport={{ once: true }}
+            animate={{
+              y: [0, item.y, 0],
+              rotate: [0, 10, -10, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 3,
+              delay: item.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {item.icon}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Left Side - Laptop Animation */}
+      <motion.div
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
+        animate={{
+          y: [0, -10, 0],
+          rotateZ: [0, 5, -5, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <div className="w-12 h-8 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg border-2 border-gray-600 opacity-30">
+          <motion.div
+            className="w-full h-1 bg-gradient-to-r from-primary to-secondary mt-1"
+            animate={{
+              width: ["30%", "70%", "50%", "90%", "30%"],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </div>
+      </motion.div>
+
+      <div className="ml-16">
+        <motion.h3
+          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <motion.span
+            className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300"
+            whileHover={{ rotate: [0, 15, -10, 0] }}
+            transition={{ duration: 0.6 }}
+          >
+            <FaLaptopCode className="w-5 h-5 text-primary" />
+          </motion.span>
+          <span>Internships</span>
+          <motion.div
+            className="h-px bg-gradient-to-r from-primary to-transparent flex-1 ml-2"
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            transition={{ delay: 0.3 }}
+            viewport={{ once: true }}
+          />
+        </motion.h3>
+
+        <motion.div className="space-y-4">
+          {[
+            {
+              title: "MERN Stack Intern – Full Stack Projects",
+              subtitle: "Skillmate.ai",
+              meta: "Aug 2024 – Sep 2024",
+              description: "React.js, Next.js, Tailwind CSS",
+              link: "https://skillmate.ai/",
+            },
+            {
+              title: "Data Structures and Algorithms – Learning DSA",
+              subtitle: "kaashiv Infotech",
+              meta: "April 2025",
+              description: "Programming, DataStructures, Algorithms",
+              link: "www.kaashivinfotech.com/",
+            },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 * idx, type: "spring" }}
+              viewport={{ once: true }}
+              className="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-600 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
+              whileHover={{
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                borderColor: "rgba(59, 130, 246, 0.3)",
+              }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div>
+                  <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 group-hover/item:text-primary transition-colors duration-300">
+                    {item.title}
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline transition-all duration-300 hover:tracking-wide"
+                      >
+                        {item.subtitle}
+                      </a>
+                    ) : (
+                      item.subtitle
+                    )}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 group-hover/item:text-gray-700 dark:group-hover/item:text-gray-300 transition-colors duration-300">
+                    {item.description}
+                  </p>
+                </div>
+                <motion.span
+                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 dark:bg-primary/20 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {item.meta}
+                </motion.span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Resume Card with Left Side Animation
+const ResumeCard = ({ backgroundAnimation }) => {
+  // Left side resume icons
+  const resumeIcons = [
+    { icon: <FaFilePdf className="text-2xl text-red-400" />, delay: 0, y: -20 },
+    {
+      icon: <FaDownload className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 15,
+    },
+    {
+      icon: <FaFileAlt className="text-2xl text-blue-400" />,
+      delay: 2,
+      y: -25,
+    },
+    {
+      icon: <FaFileWord className="text-2xl text-purple-400" />,
+      delay: 3,
+      y: 10,
+    },
+    {
+      icon: <FaFileArchive className="text-2xl text-yellow-400" />,
+      delay: 4,
+      y: -15,
+    },
+    {
+      icon: <FaFilePdf className="text-2xl text-orange-400" />,
+      delay: 5,
+      y: 20,
+    },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, type: "spring" }}
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.4)" }}
+    >
+      {/* Background animation */}
+      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+        <Player
+          autoplay
+          loop
+          speed={0.5}
+          src={backgroundAnimation}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+
+      {/* Left Side Animation - Resume Icons Column */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
+        {resumeIcons.map((item, i) => (
+          <motion.div
+            key={`resume-icon-${i}`}
+            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
+            viewport={{ once: true }}
+            animate={{
+              y: [0, item.y, 0],
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 4,
+              delay: item.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {item.icon}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Left Side - Floating Documents */}
+      <motion.div
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
+        animate={{
+          rotateZ: [0, 5, -5, 0],
+          y: [0, -10, 0],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <FaFilePdf className="text-6xl text-primary opacity-20" />
+      </motion.div>
+
+      <motion.div
+        className="absolute left-8 bottom-4 w-16 pointer-events-none hidden lg:block"
+        animate={{
+          rotateZ: [0, -5, 5, 0],
+          x: [0, 10, 0],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      >
+        <FaFilePdf className="text-4xl text-secondary opacity-20" />
+      </motion.div>
+
+      {/* Content */}
+      <div className="ml-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <h4 className="text-xl font-semibold mb-6 dark:text-gray-200 flex items-center gap-2">
+            <motion.span
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              📄
+            </motion.span>
+            Get My Full Profile
+          </h4>
+
+          <motion.a
+            href="Abishek Sathiyan UAE Fresher Mern Stack Developer Resume.pdf"
+            download="Abishek Sathiyan UAE Fresher Mern Stack Developer Resume.pdf"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 8px 25px -5px rgba(59, 130, 246, 0.5)",
+            }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <motion.span
+              animate={{
+                y: [0, -8, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <FaDownload className="text-lg" />
+            </motion.span>
+            <span>Download Resume</span>
+            <motion.span
+              className="ml-1 transition-all duration-300 group-hover:translate-x-1"
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              →
+            </motion.span>
+          </motion.a>
+
+          <motion.p
+            className="mt-3 text-sm text-gray-500 dark:text-gray-400"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            Includes complete work history, skills, and references
+          </motion.p>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};

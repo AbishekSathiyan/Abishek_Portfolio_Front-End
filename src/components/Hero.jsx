@@ -503,9 +503,9 @@ export default function Hero() {
             className="text-lg text-gray-300 mb-10 max-w-lg leading-relaxed"
             variants={textItem}
           >
-            I specialize in building responsive, high-performance web
-            applications using modern technologies. I am passionate about
-            creating elegant solutions to complex problems.
+ I specialize in developing responsive, high-performance web applications
+  using modern technologies, with hands-on experience in AI integration and AI-driven features.
+   I leverage AI tools and APIs to build intelligent, scalable solutions that enhance automation, user experience, and real-world functionality.
           </motion.p>
 
           <motion.div className="flex flex-wrap gap-4 mb-12">
