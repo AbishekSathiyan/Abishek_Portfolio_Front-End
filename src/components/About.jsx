@@ -1,4 +1,3 @@
-import { GraduationCap, FileBadge, Briefcase } from "lucide-react";
 import {
   FaDownload,
   FaReact,
@@ -36,7 +35,6 @@ import {
   SiJavascript,
   SiPython,
   SiReact,
-  SiNodedotjs,
 } from "react-icons/si";
 import { motion } from "framer-motion";
 import { Player } from "@lottiefiles/react-lottie-player";
@@ -283,23 +281,14 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="w-full lg:w-2/3 space-y-12"
           >
-            {/* Who I Am section with floating code animation */}
             <WhoIAmCard backgroundAnimation={sectionBackgrounds.whoIAm} />
-
-            {/* Education Section with book opening animation and left side animation */}
             <EducationCard backgroundAnimation={sectionBackgrounds.education} />
-
-            {/* Certifications Section with badge animation and left side animation */}
             <CertificationsCard
               backgroundAnimation={sectionBackgrounds.certifications}
             />
-
-            {/* Internship Section with laptop animation and left side animation */}
             <InternshipsCard
               backgroundAnimation={sectionBackgrounds.internships}
             />
-
-            {/* Resume Download Section with document animation and left side animation */}
             <ResumeCard backgroundAnimation={sectionBackgrounds.profile} />
           </motion.div>
         </div>
@@ -310,7 +299,6 @@ export default function About() {
 
 // Who I Am Card with Floating Code Animation
 const WhoIAmCard = ({ backgroundAnimation }) => {
-  // Floating code snippets animation
   const codeSnippets = [
     { text: "console.log('Hello World')", x: -20, y: -30, delay: 0 },
     { text: "function create() {}", x: 30, y: -40, delay: 1 },
@@ -329,7 +317,6 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      {/* Background animation */}
       <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
         <Player
           autoplay
@@ -340,7 +327,6 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
         />
       </div>
 
-      {/* Floating code snippets */}
       {codeSnippets.map((snippet, i) => (
         <motion.div
           key={`code-${i}`}
@@ -412,33 +398,15 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
 
 // Education Card with Left Side Animation
 const EducationCard = ({ backgroundAnimation }) => {
-  // Left side education icons animation
   const educationIcons = [
-    {
-      icon: <FaBookOpen className="text-2xl text-blue-400" />,
-      delay: 0,
-      y: -20,
-    },
-    {
-      icon: <FaGraduationCap className="text-2xl text-green-400" />,
-      delay: 1,
-      y: 10,
-    },
-    {
-      icon: <FaUserGraduate className="text-2xl text-purple-400" />,
-      delay: 2,
-      y: -30,
-    },
+    { icon: <FaBookOpen className="text-2xl text-blue-400" />, delay: 0, y: -20 },
+    { icon: <FaGraduationCap className="text-2xl text-green-400" />, delay: 1, y: 10 },
+    { icon: <FaUserGraduate className="text-2xl text-purple-400" />, delay: 2, y: -30 },
     { icon: <SiReact className="text-2xl text-cyan-400" />, delay: 3, y: 20 },
-    {
-      icon: <SiJavascript className="text-2xl text-yellow-400" />,
-      delay: 4,
-      y: -10,
-    },
+    { icon: <SiJavascript className="text-2xl text-yellow-400" />, delay: 4, y: -10 },
     { icon: <SiPython className="text-2xl text-blue-500" />, delay: 5, y: 15 },
   ];
 
-  // Floating books animation
   const floatingBooks = [
     { color: "from-blue-400 to-purple-400", rotate: -5, left: 0, top: 10 },
     { color: "from-green-400 to-teal-400", rotate: 8, left: 20, top: 40 },
@@ -454,7 +422,6 @@ const EducationCard = ({ backgroundAnimation }) => {
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      {/* Background animation */}
       <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
         <Player
           autoplay
@@ -465,7 +432,6 @@ const EducationCard = ({ backgroundAnimation }) => {
         />
       </div>
 
-      {/* Left Side Animation - Education Icons Column */}
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {educationIcons.map((item, i) => (
           <motion.div
@@ -491,7 +457,6 @@ const EducationCard = ({ backgroundAnimation }) => {
         ))}
       </div>
 
-      {/* Left Side - Floating Books */}
       <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
         {floatingBooks.map((book, i) => (
           <motion.div
@@ -556,8 +521,7 @@ const EducationCard = ({ backgroundAnimation }) => {
             },
             {
               title: "BCA – Bachelor of Computer Applications",
-              subtitle:
-                "Caussanel College of Arts & Science, Muthupettai, Ramanathapuram, Tamil Nadu, India",
+              subtitle: "Caussanel College of Arts & Science, Muthupettai, Ramanathapuram, Tamil Nadu, India",
               meta: "2020 – 2023",
             },
           ].map((item, idx) => (
@@ -599,38 +563,20 @@ const EducationCard = ({ backgroundAnimation }) => {
 
 // Certifications Card with Left Side Animation
 const CertificationsCard = ({ backgroundAnimation }) => {
-  // Left side certification icons
   const certIcons = [
-    {
-      icon: <FaMedal className="text-2xl text-yellow-400" />,
-      delay: 0,
-      y: -20,
-    },
-    {
-      icon: <FaCertificate className="text-2xl text-green-400" />,
-      delay: 1,
-      y: 15,
-    },
+    { icon: <FaMedal className="text-2xl text-yellow-400" />, delay: 0, y: -20 },
+    { icon: <FaCertificate className="text-2xl text-green-400" />, delay: 1, y: 15 },
     { icon: <FaStar className="text-2xl text-purple-400" />, delay: 2, y: -25 },
-    {
-      icon: <FaTrophy className="text-2xl text-orange-400" />,
-      delay: 3,
-      y: 10,
-    },
+    { icon: <FaTrophy className="text-2xl text-orange-400" />, delay: 3, y: 10 },
     { icon: <FaAward className="text-2xl text-blue-400" />, delay: 4, y: -15 },
-    {
-      icon: <FaCheckCircle className="text-2xl text-cyan-400" />,
-      delay: 5,
-      y: 20,
-    },
+    { icon: <FaCheckCircle className="text-2xl text-cyan-400" />, delay: 5, y: 20 },
   ];
 
-  // Floating badges
   const badges = [
-    { icon: "🏆", color: "text-yellow-400", left: 10, top: 20 },
-    { icon: "⭐", color: "text-blue-400", left: -5, top: 45 },
-    { icon: "🎯", color: "text-red-400", left: 15, top: 70 },
-    { icon: "💡", color: "text-green-400", left: 0, top: 90 },
+    { icon: <FaTrophy className="text-yellow-400" />, left: 10, top: 20 },
+    { icon: <FaStar className="text-blue-400" />, left: -5, top: 45 },
+    { icon: <FaMedal className="text-red-400" />, left: 15, top: 70 },
+    { icon: <FaAward className="text-green-400" />, left: 0, top: 90 },
   ];
 
   return (
@@ -642,7 +588,6 @@ const CertificationsCard = ({ backgroundAnimation }) => {
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      {/* Background animation */}
       <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
         <Player
           autoplay
@@ -653,7 +598,6 @@ const CertificationsCard = ({ backgroundAnimation }) => {
         />
       </div>
 
-      {/* Left Side Animation - Certification Icons Column */}
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {certIcons.map((item, i) => (
           <motion.div
@@ -680,12 +624,11 @@ const CertificationsCard = ({ backgroundAnimation }) => {
         ))}
       </div>
 
-      {/* Left Side - Floating Badges */}
       <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
         {badges.map((badge, i) => (
           <motion.div
             key={`badge-${i}`}
-            className={`absolute text-3xl ${badge.color} opacity-30`}
+            className={`absolute text-3xl opacity-30`}
             style={{
               left: `${badge.left}px`,
               top: `${badge.top}%`,
@@ -736,20 +679,11 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           {[
             { title: "Introduction to AI Agents", subtitle: "Microsoft" },
             { title: "Claude Code in Action", subtitle: "Anthropic" },
-            {
-              title: "AI Vibe Coding Workshop",
-              subtitle: "Digital India | Intel",
-            },
-            {
-              title: "Full-Stack Developer (MERN Stack)",
-              subtitle: "Error Makes Clever",
-            },
+            { title: "AI Vibe Coding Workshop", subtitle: "Digital India | Intel" },
+            { title: "Full-Stack Developer (MERN Stack)", subtitle: "Error Makes Clever" },
             { title: "Namaste JavaScript Completion", subtitle: "NamasteDev" },
             { title: "Mastering Python", subtitle: "Infosys" },
-            {
-              title: "National Conference on Data Science & Analytics",
-              subtitle: "TCS iON",
-            },
+            { title: "National Conference on Data Science & Analytics", subtitle: "TCS iON" },
             { title: "AI for All", subtitle: "Digital India | Intel" },
           ].map((item, idx) => (
             <motion.div
@@ -782,29 +716,12 @@ const CertificationsCard = ({ backgroundAnimation }) => {
 
 // Internships Card with Left Side Animation
 const InternshipsCard = ({ backgroundAnimation }) => {
-  // Left side internship icons
   const internshipIcons = [
-    {
-      icon: <FaLaptopCode className="text-2xl text-blue-400" />,
-      delay: 0,
-      y: -20,
-    },
-    {
-      icon: <FaBriefcaseIcon className="text-2xl text-green-400" />,
-      delay: 1,
-      y: 15,
-    },
+    { icon: <FaLaptopCode className="text-2xl text-blue-400" />, delay: 0, y: -20 },
+    { icon: <FaBriefcaseIcon className="text-2xl text-green-400" />, delay: 1, y: 15 },
     { icon: <FaCode className="text-2xl text-purple-400" />, delay: 2, y: -25 },
-    {
-      icon: <FaServer className="text-2xl text-orange-400" />,
-      delay: 3,
-      y: 10,
-    },
-    {
-      icon: <FaDatabase className="text-2xl text-cyan-400" />,
-      delay: 4,
-      y: -15,
-    },
+    { icon: <FaServer className="text-2xl text-orange-400" />, delay: 3, y: 10 },
+    { icon: <FaDatabase className="text-2xl text-cyan-400" />, delay: 4, y: -15 },
     { icon: <FaCloud className="text-2xl text-blue-300" />, delay: 5, y: 20 },
   ];
 
@@ -817,7 +734,6 @@ const InternshipsCard = ({ backgroundAnimation }) => {
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      {/* Background animation */}
       <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
         <Player
           autoplay
@@ -828,7 +744,6 @@ const InternshipsCard = ({ backgroundAnimation }) => {
         />
       </div>
 
-      {/* Left Side Animation - Internship Icons Column */}
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {internshipIcons.map((item, i) => (
           <motion.div
@@ -855,7 +770,6 @@ const InternshipsCard = ({ backgroundAnimation }) => {
         ))}
       </div>
 
-      {/* Left Side - Laptop Animation */}
       <motion.div
         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
         animate={{
@@ -977,34 +891,13 @@ const InternshipsCard = ({ backgroundAnimation }) => {
 
 // Resume Card with Left Side Animation
 const ResumeCard = ({ backgroundAnimation }) => {
-  // Left side resume icons
   const resumeIcons = [
     { icon: <FaFilePdf className="text-2xl text-red-400" />, delay: 0, y: -20 },
-    {
-      icon: <FaDownload className="text-2xl text-green-400" />,
-      delay: 1,
-      y: 15,
-    },
-    {
-      icon: <FaFileAlt className="text-2xl text-blue-400" />,
-      delay: 2,
-      y: -25,
-    },
-    {
-      icon: <FaFileWord className="text-2xl text-purple-400" />,
-      delay: 3,
-      y: 10,
-    },
-    {
-      icon: <FaFileArchive className="text-2xl text-yellow-400" />,
-      delay: 4,
-      y: -15,
-    },
-    {
-      icon: <FaFilePdf className="text-2xl text-orange-400" />,
-      delay: 5,
-      y: 20,
-    },
+    { icon: <FaDownload className="text-2xl text-green-400" />, delay: 1, y: 15 },
+    { icon: <FaFileAlt className="text-2xl text-blue-400" />, delay: 2, y: -25 },
+    { icon: <FaFileWord className="text-2xl text-purple-400" />, delay: 3, y: 10 },
+    { icon: <FaFileArchive className="text-2xl text-yellow-400" />, delay: 4, y: -15 },
+    { icon: <FaFilePdf className="text-2xl text-orange-400" />, delay: 5, y: 20 },
   ];
 
   return (
@@ -1016,7 +909,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
       className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.4)" }}
     >
-      {/* Background animation */}
       <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
         <Player
           autoplay
@@ -1027,7 +919,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
         />
       </div>
 
-      {/* Left Side Animation - Resume Icons Column */}
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {resumeIcons.map((item, i) => (
           <motion.div
@@ -1054,7 +945,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
         ))}
       </div>
 
-      {/* Left Side - Floating Documents */}
       <motion.div
         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
         animate={{
@@ -1086,7 +976,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
         <FaFilePdf className="text-4xl text-secondary opacity-20" />
       </motion.div>
 
-      {/* Content */}
       <div className="ml-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1095,18 +984,13 @@ const ResumeCard = ({ backgroundAnimation }) => {
           viewport={{ once: true }}
         >
           <h4 className="text-xl font-semibold mb-6 dark:text-gray-200 flex items-center gap-2">
-            <motion.span
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              📄
-            </motion.span>
+            <FaFilePdf className="text-primary" />
             Get My Full Profile
           </h4>
 
           <motion.a
-            href="Abishek Sathiyan UAE Fresher Mern Stack Developer Resume.pdf"
-            download="Abishek Sathiyan UAE Fresher Mern Stack Developer Resume.pdf"
+            href="/Abishek_Sathiyan_Resume.pdf"
+            download="Abishek_Sathiyan_Resume.pdf"
             className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
             whileHover={{
               scale: 1.05,
