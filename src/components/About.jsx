@@ -41,7 +41,6 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import Banner from "./assets/Banner.png";
 
 export default function About() {
-  // Tech stack data with colors
   const techStack = [
     { icon: <FaReact className="text-[#61DAFB]" />, name: "React" },
     { icon: <FaNodeJs className="text-[#68A063]" />, name: "Node.js" },
@@ -55,7 +54,6 @@ export default function About() {
     { icon: <FaPython className="text-[#3776AB]" />, name: "Python" },
   ];
 
-  // Background animations for different sections
   const sectionBackgrounds = {
     whoIAm: "https://assets1.lottiefiles.com/packages/lf20_5tkzkblw.json",
     education: "https://assets1.lottiefiles.com/packages/lf20_gn0tojcq.json",
@@ -65,7 +63,6 @@ export default function About() {
     profile: "https://assets1.lottiefiles.com/packages/lf20_6wutsrox.json",
   };
 
-  // Floating tech icons data
   const floatingTechIcons = [
     {
       icon: <FaReact className="text-[#61DAFB]" size={24} />,
@@ -106,7 +103,6 @@ export default function About() {
     >
       {/* Global background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {/* Binary code background */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
           <Player
             autoplay
@@ -116,8 +112,6 @@ export default function About() {
             style={{ width: "100%", height: "100%" }}
           />
         </div>
-
-        {/* Floating tech bubbles */}
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={`bubble-${i}`}
@@ -141,8 +135,6 @@ export default function About() {
             }}
           />
         ))}
-
-        {/* Floating tech particles */}
         {[...Array(30)].map((_, i) => (
           <motion.div
             key={`particle-${i}`}
@@ -170,8 +162,6 @@ export default function About() {
             }}
           />
         ))}
-
-        {/* Floating tech icons */}
         {floatingTechIcons.map((tech, i) => (
           <motion.div
             key={`tech-icon-${i}`}
@@ -199,7 +189,6 @@ export default function About() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Animated title section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -223,7 +212,6 @@ export default function About() {
         </motion.div>
 
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 xl:gap-16 relative">
-          {/* Profile Image Section */}
           <motion.div
             initial={{ opacity: 0, x: -50, rotate: -5 }}
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
@@ -236,7 +224,6 @@ export default function About() {
             }}
             className="w-full lg:w-1/3 flex justify-center relative"
           >
-            {/* Tech orbit animation */}
             <motion.div
               className="absolute inset-0 rounded-full border border-primary/20 dark:border-secondary/20 pointer-events-none"
               animate={{ rotate: 360 }}
@@ -257,8 +244,6 @@ export default function About() {
                 </motion.div>
               ))}
             </motion.div>
-
-            {/* Profile image container */}
             <div className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 dark:border-gray-800/30 group isolate">
               <motion.img
                 src={Banner}
@@ -273,7 +258,6 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* About Content Section */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -297,7 +281,7 @@ export default function About() {
   );
 }
 
-// Who I Am Card with Floating Code Animation
+// Who I Am Card
 const WhoIAmCard = ({ backgroundAnimation }) => {
   const codeSnippets = [
     { text: "console.log('Hello World')", x: -20, y: -30, delay: 0 },
@@ -326,19 +310,12 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
-
       {codeSnippets.map((snippet, i) => (
         <motion.div
           key={`code-${i}`}
           className="absolute text-xs sm:text-sm font-mono bg-primary/10 dark:bg-primary/20 text-primary dark:text-secondary px-3 py-1 rounded-full backdrop-blur-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{
-            left: `${snippet.x}%`,
-            top: `${snippet.y}%`,
-          }}
-          animate={{
-            y: [0, -10, 0],
-            x: [0, 5, -5, 0],
-          }}
+          style={{ left: `${snippet.x}%`, top: `${snippet.y}%` }}
+          animate={{ y: [0, -10, 0], x: [0, 5, -5, 0] }}
           transition={{
             duration: 4,
             delay: snippet.delay,
@@ -349,7 +326,6 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           {snippet.text}
         </motion.div>
       ))}
-
       <motion.h3
         className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-200 inline-block relative"
         initial={{ opacity: 0, x: -20 }}
@@ -366,7 +342,6 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary origin-left"
         />
       </motion.h3>
-
       <div className="space-y-4">
         <motion.p
           className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
@@ -396,14 +371,30 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
   );
 };
 
-// Education Card with Left Side Animation
+// Education Card
 const EducationCard = ({ backgroundAnimation }) => {
   const educationIcons = [
-    { icon: <FaBookOpen className="text-2xl text-blue-400" />, delay: 0, y: -20 },
-    { icon: <FaGraduationCap className="text-2xl text-green-400" />, delay: 1, y: 10 },
-    { icon: <FaUserGraduate className="text-2xl text-purple-400" />, delay: 2, y: -30 },
+    {
+      icon: <FaBookOpen className="text-2xl text-blue-400" />,
+      delay: 0,
+      y: -20,
+    },
+    {
+      icon: <FaGraduationCap className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 10,
+    },
+    {
+      icon: <FaUserGraduate className="text-2xl text-purple-400" />,
+      delay: 2,
+      y: -30,
+    },
     { icon: <SiReact className="text-2xl text-cyan-400" />, delay: 3, y: 20 },
-    { icon: <SiJavascript className="text-2xl text-yellow-400" />, delay: 4, y: -10 },
+    {
+      icon: <SiJavascript className="text-2xl text-yellow-400" />,
+      delay: 4,
+      y: -10,
+    },
     { icon: <SiPython className="text-2xl text-blue-500" />, delay: 5, y: 15 },
   ];
 
@@ -431,7 +422,6 @@ const EducationCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
-
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {educationIcons.map((item, i) => (
           <motion.div
@@ -441,10 +431,7 @@ const EducationCard = ({ backgroundAnimation }) => {
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ delay: item.delay * 0.2, duration: 0.5 }}
             viewport={{ once: true }}
-            animate={{
-              y: [0, item.y, 0],
-              rotate: [0, 10, -10, 0],
-            }}
+            animate={{ y: [0, item.y, 0], rotate: [0, 10, -10, 0] }}
             transition={{
               duration: 3,
               delay: item.delay,
@@ -456,7 +443,6 @@ const EducationCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
-
       <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
         {floatingBooks.map((book, i) => (
           <motion.div
@@ -486,7 +472,6 @@ const EducationCard = ({ backgroundAnimation }) => {
           />
         ))}
       </div>
-
       <div className="ml-16">
         <motion.h3
           className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
@@ -511,7 +496,6 @@ const EducationCard = ({ backgroundAnimation }) => {
             viewport={{ once: true }}
           />
         </motion.h3>
-
         <motion.div className="space-y-4">
           {[
             {
@@ -521,7 +505,8 @@ const EducationCard = ({ backgroundAnimation }) => {
             },
             {
               title: "BCA – Bachelor of Computer Applications",
-              subtitle: "Caussanel College of Arts & Science, Muthupettai, Ramanathapuram, Tamil Nadu, India",
+              subtitle:
+                "Caussanel College of Arts & Science, Muthupettai, Ramanathapuram, Tamil Nadu, India",
               meta: "2020 – 2023",
             },
           ].map((item, idx) => (
@@ -561,15 +546,31 @@ const EducationCard = ({ backgroundAnimation }) => {
   );
 };
 
-// Certifications Card with Left Side Animation
+// Certifications Card
 const CertificationsCard = ({ backgroundAnimation }) => {
   const certIcons = [
-    { icon: <FaMedal className="text-2xl text-yellow-400" />, delay: 0, y: -20 },
-    { icon: <FaCertificate className="text-2xl text-green-400" />, delay: 1, y: 15 },
+    {
+      icon: <FaMedal className="text-2xl text-yellow-400" />,
+      delay: 0,
+      y: -20,
+    },
+    {
+      icon: <FaCertificate className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 15,
+    },
     { icon: <FaStar className="text-2xl text-purple-400" />, delay: 2, y: -25 },
-    { icon: <FaTrophy className="text-2xl text-orange-400" />, delay: 3, y: 10 },
+    {
+      icon: <FaTrophy className="text-2xl text-orange-400" />,
+      delay: 3,
+      y: 10,
+    },
     { icon: <FaAward className="text-2xl text-blue-400" />, delay: 4, y: -15 },
-    { icon: <FaCheckCircle className="text-2xl text-cyan-400" />, delay: 5, y: 20 },
+    {
+      icon: <FaCheckCircle className="text-2xl text-cyan-400" />,
+      delay: 5,
+      y: 20,
+    },
   ];
 
   const badges = [
@@ -597,7 +598,6 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
-
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {certIcons.map((item, i) => (
           <motion.div
@@ -623,21 +623,13 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
-
       <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
         {badges.map((badge, i) => (
           <motion.div
             key={`badge-${i}`}
-            className={`absolute text-3xl opacity-30`}
-            style={{
-              left: `${badge.left}px`,
-              top: `${badge.top}%`,
-            }}
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.3, 1],
-              y: [0, -10, 0],
-            }}
+            className="absolute text-3xl opacity-30"
+            style={{ left: `${badge.left}px`, top: `${badge.top}%` }}
+            animate={{ rotate: [0, 360], scale: [1, 1.3, 1], y: [0, -10, 0] }}
             transition={{
               duration: 5,
               delay: i * 1,
@@ -649,7 +641,6 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
-
       <div className="ml-16">
         <motion.h3
           className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
@@ -674,16 +665,24 @@ const CertificationsCard = ({ backgroundAnimation }) => {
             viewport={{ once: true }}
           />
         </motion.h3>
-
         <motion.div className="space-y-4">
           {[
             { title: "Introduction to AI Agents", subtitle: "Microsoft" },
             { title: "Claude Code in Action", subtitle: "Anthropic" },
-            { title: "AI Vibe Coding Workshop", subtitle: "Digital India | Intel" },
-            { title: "Full-Stack Developer (MERN Stack)", subtitle: "Error Makes Clever" },
+            {
+              title: "AI Vibe Coding Workshop",
+              subtitle: "Digital India | Intel",
+            },
+            {
+              title: "Full-Stack Developer (MERN Stack)",
+              subtitle: "Error Makes Clever",
+            },
             { title: "Namaste JavaScript Completion", subtitle: "NamasteDev" },
             { title: "Mastering Python", subtitle: "Infosys" },
-            { title: "National Conference on Data Science & Analytics", subtitle: "TCS iON" },
+            {
+              title: "National Conference on Data Science & Analytics",
+              subtitle: "TCS iON",
+            },
             { title: "AI for All", subtitle: "Digital India | Intel" },
           ].map((item, idx) => (
             <motion.div
@@ -714,14 +713,30 @@ const CertificationsCard = ({ backgroundAnimation }) => {
   );
 };
 
-// Internships Card with Left Side Animation
+// Internships Card
 const InternshipsCard = ({ backgroundAnimation }) => {
   const internshipIcons = [
-    { icon: <FaLaptopCode className="text-2xl text-blue-400" />, delay: 0, y: -20 },
-    { icon: <FaBriefcaseIcon className="text-2xl text-green-400" />, delay: 1, y: 15 },
+    {
+      icon: <FaLaptopCode className="text-2xl text-blue-400" />,
+      delay: 0,
+      y: -20,
+    },
+    {
+      icon: <FaBriefcaseIcon className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 15,
+    },
     { icon: <FaCode className="text-2xl text-purple-400" />, delay: 2, y: -25 },
-    { icon: <FaServer className="text-2xl text-orange-400" />, delay: 3, y: 10 },
-    { icon: <FaDatabase className="text-2xl text-cyan-400" />, delay: 4, y: -15 },
+    {
+      icon: <FaServer className="text-2xl text-orange-400" />,
+      delay: 3,
+      y: 10,
+    },
+    {
+      icon: <FaDatabase className="text-2xl text-cyan-400" />,
+      delay: 4,
+      y: -15,
+    },
     { icon: <FaCloud className="text-2xl text-blue-300" />, delay: 5, y: 20 },
   ];
 
@@ -743,7 +758,6 @@ const InternshipsCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
-
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {internshipIcons.map((item, i) => (
           <motion.div
@@ -769,34 +783,19 @@ const InternshipsCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
-
       <motion.div
         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
-        animate={{
-          y: [0, -10, 0],
-          rotateZ: [0, 5, -5, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ y: [0, -10, 0], rotateZ: [0, 5, -5, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="w-12 h-8 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg border-2 border-gray-600 opacity-30">
           <motion.div
             className="w-full h-1 bg-gradient-to-r from-primary to-secondary mt-1"
-            animate={{
-              width: ["30%", "70%", "50%", "90%", "30%"],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            animate={{ width: ["30%", "70%", "50%", "90%", "30%"] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
           />
         </div>
       </motion.div>
-
       <div className="ml-16">
         <motion.h3
           className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
@@ -821,7 +820,6 @@ const InternshipsCard = ({ backgroundAnimation }) => {
             viewport={{ once: true }}
           />
         </motion.h3>
-
         <motion.div className="space-y-4">
           {[
             {
@@ -889,15 +887,35 @@ const InternshipsCard = ({ backgroundAnimation }) => {
   );
 };
 
-// Resume Card with Left Side Animation
+// Resume Card
 const ResumeCard = ({ backgroundAnimation }) => {
   const resumeIcons = [
     { icon: <FaFilePdf className="text-2xl text-red-400" />, delay: 0, y: -20 },
-    { icon: <FaDownload className="text-2xl text-green-400" />, delay: 1, y: 15 },
-    { icon: <FaFileAlt className="text-2xl text-blue-400" />, delay: 2, y: -25 },
-    { icon: <FaFileWord className="text-2xl text-purple-400" />, delay: 3, y: 10 },
-    { icon: <FaFileArchive className="text-2xl text-yellow-400" />, delay: 4, y: -15 },
-    { icon: <FaFilePdf className="text-2xl text-orange-400" />, delay: 5, y: 20 },
+    {
+      icon: <FaDownload className="text-2xl text-green-400" />,
+      delay: 1,
+      y: 15,
+    },
+    {
+      icon: <FaFileAlt className="text-2xl text-blue-400" />,
+      delay: 2,
+      y: -25,
+    },
+    {
+      icon: <FaFileWord className="text-2xl text-purple-400" />,
+      delay: 3,
+      y: 10,
+    },
+    {
+      icon: <FaFileArchive className="text-2xl text-yellow-400" />,
+      delay: 4,
+      y: -15,
+    },
+    {
+      icon: <FaFilePdf className="text-2xl text-orange-400" />,
+      delay: 5,
+      y: 20,
+    },
   ];
 
   return (
@@ -918,7 +936,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
-
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {resumeIcons.map((item, i) => (
           <motion.div
@@ -944,28 +961,16 @@ const ResumeCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
-
       <motion.div
         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
-        animate={{
-          rotateZ: [0, 5, -5, 0],
-          y: [0, -10, 0],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ rotateZ: [0, 5, -5, 0], y: [0, -10, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
         <FaFilePdf className="text-6xl text-primary opacity-20" />
       </motion.div>
-
       <motion.div
         className="absolute left-8 bottom-4 w-16 pointer-events-none hidden lg:block"
-        animate={{
-          rotateZ: [0, -5, 5, 0],
-          x: [0, 10, 0],
-        }}
+        animate={{ rotateZ: [0, -5, 5, 0], x: [0, 10, 0] }}
         transition={{
           duration: 6,
           repeat: Infinity,
@@ -975,7 +980,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
       >
         <FaFilePdf className="text-4xl text-secondary opacity-20" />
       </motion.div>
-
       <div className="ml-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -987,10 +991,9 @@ const ResumeCard = ({ backgroundAnimation }) => {
             <FaFilePdf className="text-primary" />
             Get My Full Profile
           </h4>
-
           <motion.a
-            href="/Abishek_Sathiyan_Resume.pdf"
-            download="Abishek_Sathiyan_Resume.pdf"
+            href="/Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
+            download="Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
             className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
             whileHover={{
               scale: 1.05,
@@ -999,9 +1002,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
             whileTap={{ scale: 0.97 }}
           >
             <motion.span
-              animate={{
-                y: [0, -8, 0],
-              }}
+              animate={{ y: [0, -8, 0] }}
               transition={{
                 duration: 1.5,
                 repeat: Infinity,
@@ -1019,7 +1020,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
               →
             </motion.span>
           </motion.a>
-
           <motion.p
             className="mt-3 text-sm text-gray-500 dark:text-gray-400"
             initial={{ opacity: 0 }}
