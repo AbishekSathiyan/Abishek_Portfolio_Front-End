@@ -429,7 +429,6 @@ const EducationCard = ({ backgroundAnimation }) => {
             className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
             viewport={{ once: true }}
             animate={{ y: [0, item.y, 0], rotate: [0, 10, -10, 0] }}
             transition={{
@@ -605,7 +604,6 @@ const CertificationsCard = ({ backgroundAnimation }) => {
             className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
             viewport={{ once: true }}
             animate={{
               y: [0, item.y, 0],
@@ -765,7 +763,6 @@ const InternshipsCard = ({ backgroundAnimation }) => {
             className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
             viewport={{ once: true }}
             animate={{
               y: [0, item.y, 0],
@@ -943,7 +940,6 @@ const ResumeCard = ({ backgroundAnimation }) => {
             className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: item.delay * 0.2, duration: 0.5 }}
             viewport={{ once: true }}
             animate={{
               y: [0, item.y, 0],

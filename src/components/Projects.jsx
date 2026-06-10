@@ -27,8 +27,6 @@ import {
   FiZap,
   FiBox,
   FiLayers,
-  FiAward,
-  FiTrendingUp,
   FiBriefcase,
 } from "react-icons/fi";
 import Village from "../components/assets/Village.png";
