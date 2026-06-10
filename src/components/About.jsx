@@ -997,7 +997,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
             className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 8px 25px -5px rgba(59, 130, 246, 0.5)",
+              boxShadow: "0 8px 25px -5px rgba(59, 130, 246, 0.6)",
             }}
             whileTap={{ scale: 0.97 }}
           >
