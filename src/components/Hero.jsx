@@ -17,7 +17,7 @@ export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
   const [showLocationSplit, setShowLocationSplit] = useState(false);
   const fullName = "Abishek Sathiyan";
-  const fullTitle = "Full Stack Developer (MERN)";
+  const fullTitle = "Full Stack Developer (MERN)+AI";
 
   const controls = useAnimation();
   const ref = useRef(null);
@@ -306,7 +306,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 pt-20 overflow-hidden relative"
+      className="min-h-screen flex items-center bg-gradient-to-br from-gray-50 to-white text-gray-800 pt-20 overflow-hidden relative"
       ref={ref}
     >
       {/* Decorative elements with subtle animations */}
@@ -351,7 +351,7 @@ export default function Hero() {
           <motion.div className="mb-8" variants={textItem}>
             <motion.div className="mb-2">
               <motion.p
-                className="text-lg text-blue-400 font-medium inline-block"
+                className="text-lg text-blue-600 font-medium inline-block"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
@@ -359,7 +359,7 @@ export default function Hero() {
                 Hello, My Name is
               </motion.p>
               <motion.div
-                className="h-0.5 bg-gradient-to-r from-blue-400 to-purple-500"
+                className="h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 0.8, duration: 0.8 }}
@@ -414,13 +414,13 @@ export default function Hero() {
                 >
                   {/* Methalodai - Starting Point */}
                   <motion.div
-                    className="flex items-center gap-1.5 bg-purple-500/10 px-4 py-2 rounded-full border border-purple-500/30"
+                    className="flex items-center gap-1.5 bg-purple-100 px-4 py-2 rounded-full border border-purple-300"
                     variants={locationItemVariants}
                     custom={0}
                     whileHover="hover"
                   >
-                    <FaMapMarkerAlt className="text-purple-400 text-sm" />
-                    <span className="text-sm font-medium text-purple-300">
+                    <FaMapMarkerAlt className="text-purple-600 text-sm" />
+                    <span className="text-sm font-medium text-purple-700">
                       Methalodai, India
                     </span>
                   </motion.div>
@@ -430,20 +430,20 @@ export default function Hero() {
                     variants={arrowVariants}
                     initial="hidden"
                     animate={["visible", "bounce"]}
-                    className="text-blue-400"
+                    className="text-blue-600"
                   >
                     <FiArrowRight className="text-xl" />
                   </motion.div>
 
                   {/* Al Ain - Destination (Same Size) */}
                   <motion.div
-                    className="flex items-center gap-1.5 bg-blue-500/10 px-4 py-2 rounded-full border border-blue-500/30"
+                    className="flex items-center gap-1.5 bg-blue-100 px-4 py-2 rounded-full border border-blue-300"
                     variants={locationItemVariants}
                     custom={1}
                     whileHover="hover"
                   >
-                    <FaGlobeAsia className="text-blue-400 text-sm" />
-                    <span className="text-sm font-medium text-blue-300">
+                    <FaGlobeAsia className="text-blue-600 text-sm" />
+                    <span className="text-sm font-medium text-blue-700">
                       Al Ain, UAE
                     </span>
                   </motion.div>
@@ -451,12 +451,12 @@ export default function Hero() {
               ) : (
                 /* Initial Full Location */
                 <motion.div
-                  className="flex items-center gap-1.5 text-gray-400"
+                  className="flex items-center gap-1.5 text-gray-600"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 2.2, duration: 0.5 }}
                 >
-                  <FaMapMarkerAlt className="text-blue-400 text-xs sm:text-sm" />
+                  <FaMapMarkerAlt className="text-blue-600 text-xs sm:text-sm" />
                   <span className="text-xs sm:text-sm font-light tracking-wide">
                     Methalodai, Ramanathapuram, Tamil Nadu, India
                   </span>
@@ -470,7 +470,7 @@ export default function Hero() {
             variants={textItem}
           >
             <motion.span
-              className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+              className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"
               variants={gradientVariants}
               initial="hidden"
               animate="visible"
@@ -500,18 +500,20 @@ export default function Hero() {
           </motion.h2>
 
           <motion.p
-            className="text-lg text-gray-300 mb-10 max-w-lg leading-relaxed"
+            className="text-lg text-gray-600 mb-10 max-w-lg leading-relaxed"
             variants={textItem}
           >
- I specialize in developing responsive, high-performance web applications
-  using modern technologies, with hands-on experience in AI integration and AI-driven features.
-   I leverage AI tools and APIs to build intelligent, scalable solutions that enhance automation, user experience, and real-world functionality.
+            I specialize in developing responsive, high-performance web
+            applications using modern technologies, with hands-on experience in
+            AI integration and AI-driven features. I leverage AI tools and APIs
+            to build intelligent, scalable solutions that enhance automation,
+            user experience, and real-world functionality.
           </motion.p>
 
           <motion.div className="flex flex-wrap gap-4 mb-12">
             <motion.a
               href="#contact"
-              className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
               variants={buttonVariants}
               custom={0}
               initial="hidden"
@@ -524,7 +526,7 @@ export default function Hero() {
             </motion.a>
             <motion.a
               href="#projects"
-              className="flex items-center gap-2 border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900 px-6 py-3 rounded-lg font-medium transition-colors"
+              className="flex items-center gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors"
               variants={buttonVariants}
               custom={1}
               initial="hidden"
@@ -543,7 +545,7 @@ export default function Hero() {
               href="https://github.com/AbishekSathiyan"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-text-gray-300 transition-colors"
+              className="text-gray-500 hover:text-gray-700 transition-colors"
               variants={socialVariants}
               custom={0}
               initial="hidden"
@@ -557,7 +559,7 @@ export default function Hero() {
               href="https://linkedin.com/in/abishek04"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 transition-colors"
+              className="text-gray-500 hover:text-blue-700 transition-colors"
               variants={socialVariants}
               custom={1}
               initial="hidden"
@@ -583,7 +585,7 @@ export default function Hero() {
             initial="normal"
             whileHover="hover"
           >
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-400/30 shadow-xl relative">
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-400/50 shadow-xl relative">
               <motion.img
                 key={currentImage}
                 src={Mine}
@@ -600,9 +602,9 @@ export default function Hero() {
               className="absolute inset-0 rounded-full border-4 border-transparent"
               animate={{
                 borderColor: [
-                  "rgba(96, 165, 250, 0)",
-                  "rgba(96, 165, 250, 0.3)",
-                  "rgba(96, 165, 250, 0)",
+                  "rgba(59, 130, 246, 0)",
+                  "rgba(59, 130, 246, 0.4)",
+                  "rgba(59, 130, 246, 0)",
                 ],
                 scale: [1, 1.05, 1.1],
                 opacity: [0, 0.8, 0],
@@ -632,7 +634,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-blue-400"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-blue-600"
         variants={scrollIndicator}
         initial="hidden"
         animate="visible"

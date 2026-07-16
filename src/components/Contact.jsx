@@ -33,12 +33,12 @@ export default function Contact() {
       title: "✨ Message Received!",
       text: "Thanks for reaching out! I'll respond within 24 hours.",
       icon: "success",
-      background: "#1f2937",
-      color: "#f9fafb",
+      background: "#ffffff",
+      color: "#111827",
       confirmButtonText: "OK",
       confirmButtonColor: "#3B82F6",
       customClass: {
-        popup: "rounded-2xl border border-gray-600",
+        popup: "rounded-2xl border border-gray-200",
         confirmButton: "px-6 py-2 rounded-lg font-semibold",
         title: "text-2xl font-bold",
       },
@@ -50,12 +50,12 @@ export default function Contact() {
       title: "⚠️ Something Went Wrong",
       text: message,
       icon: "error",
-      background: "#1f2937",
-      color: "#f9fafb",
+      background: "#ffffff",
+      color: "#111827",
       confirmButtonText: "Try Again",
       confirmButtonColor: "#EF4444",
       customClass: {
-        popup: "rounded-2xl border border-gray-600",
+        popup: "rounded-2xl border border-gray-200",
         confirmButton: "px-6 py-2 rounded-lg font-semibold",
       },
     });
@@ -100,10 +100,10 @@ export default function Contact() {
         timer: 3000,
         timerProgressBar: true,
         showConfirmButton: false,
-        background: "#1f2937",
-        color: "#f9fafb",
+        background: "#ffffff",
+        color: "#111827",
         customClass: {
-          popup: "rounded-2xl border border-gray-600",
+          popup: "rounded-2xl border border-gray-200",
           timerProgressBar: "bg-primary",
         },
       });
@@ -112,12 +112,10 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    // In the loading alert
     const loadingAlert = MySwal.fire({
       title: "Sending message",
       html: `
     <div class="flex flex-col items-center gap-6 py-4">
-      <!-- Rocket with flying animation -->
       <div class="relative rocket-container">
         <style>
           .rocket-container {
@@ -164,33 +162,28 @@ export default function Contact() {
           }
         </style>
         
-        <!-- Rocket -->
         <div class="relative">
           <svg class="w-20 h-20 text-blue-500 rocket" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
           </svg>
           
-          <!-- Flame -->
           <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flame">
             <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 15.981 15.981 0 003 18.333c2.366-1.068 4.873-1.068 7.239 0a1 1 0 00.944.001 15.972 15.972 0 016.496-4.668A1 1 0 0017 12.72v-2.773a3 3 0 00-1.185-2.372 4.952 4.952 0 00-.707-.424c-.35-.182-.715-.336-1.084-.456-.713-.23-1.462-.393-2.218-.48-.222-.026-.444-.044-.666-.052a4.96 4.96 0 00-.746.059z" clipRule="evenodd" />
             </svg>
           </div>
           
-          <!-- Smoke trail -->
           <div class="absolute -right-8 top-1/2 transform -translate-y-1/2">
             <div class="smoke w-2 h-2 bg-gray-400 rounded-full opacity-0"></div>
           </div>
           
-          <!-- Trail lines -->
           <div class="trail" style="top: 100%; animation-delay: 0s;"></div>
           <div class="trail" style="top: 100%; animation-delay: 0.1s;"></div>
           <div class="trail" style="top: 100%; animation-delay: 0.2s;"></div>
         </div>
       </div>
       
-      <!-- Flying path animation -->
-      <div class="relative w-48 h-1 bg-gray-700 rounded-full overflow-hidden mt-4">
+      <div class="relative w-48 h-1 bg-gray-200 rounded-full overflow-hidden mt-4">
         <div class="absolute top-0 left-0 h-full bg-blue-500 rounded-full" style="width: 30%; animation: flyPath 1.5s ease-in-out infinite;"></div>
         <style>
           @keyframes flyPath {
@@ -201,14 +194,13 @@ export default function Contact() {
         </style>
       </div>
       
-      <p class="text-gray-300 text-lg mt-2 animate-pulse">Flying to Abishek's Inbox!</p>
+      <p class="text-gray-700 text-lg mt-2 animate-pulse">Flying to Abishek's Inbox!</p>
       
-      <!-- Stars background -->
       <div class="absolute inset-0 pointer-events-none overflow-hidden">
         <style>
           .star {
             position: absolute;
-            background: white;
+            background: #3B82F6;
             border-radius: 50%;
             animation: twinkle 1.5s ease-in-out infinite;
           }
@@ -227,10 +219,10 @@ export default function Contact() {
   `,
       allowOutsideClick: false,
       showConfirmButton: false,
-      background: "#1f2937",
-      color: "#f9fafb",
+      background: "#ffffff",
+      color: "#111827",
       customClass: {
-        popup: "rounded-2xl border border-gray-600 relative overflow-hidden",
+        popup: "rounded-2xl border border-gray-200 relative overflow-hidden",
       },
     });
 
@@ -284,12 +276,12 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-16 bg-gray-900 text-white">
+    <section id="contact" className="py-16 bg-white text-gray-900">
       <div className="container mx-auto px-4 sm:px-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           Get In <span className="text-blue-500">Touch</span>
         </h2>
-        <p className="max-w-2xl mx-auto text-center text-gray-300 mb-12 text-lg">
+        <p className="max-w-2xl mx-auto text-center text-gray-600 mb-12 text-lg">
           Have a project in mind or want to chat? Feel free to reach out!
         </p>
 
@@ -300,26 +292,26 @@ export default function Contact() {
 
             <div className="space-y-4">
               {/* Location */}
-              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg hover:bg-gray-750 transition-all duration-300">
+              <div className="flex items-center gap-4 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-all duration-300">
                 <div className="text-blue-500 text-xl flex-shrink-0">
                   <FaMapMarkerAlt />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Location</h4>
-                  <p className="text-gray-300">Al Ain, Dubai</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">Location</h4>
+                  <p className="text-gray-600">Chennai,TamilNadu,India</p>
                 </div>
               </div>
 
               {/* Email */}
-              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg hover:bg-gray-750 transition-all duration-300">
+              <div className="flex items-center gap-4 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-all duration-300">
                 <div className="text-blue-500 text-xl flex-shrink-0">
                   <FaEnvelope />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Email</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
                   <a
                     href="mailto:abishek.sathiyan.2002@gmail.com"
-                    className="text-gray-300 hover:text-blue-400 transition-all duration-200 break-words"
+                    className="text-gray-600 hover:text-blue-600 transition-all duration-200 break-words"
                   >
                     abishek.sathiyan.2002@gmail.com
                   </a>
@@ -327,33 +319,33 @@ export default function Contact() {
               </div>
 
               {/* Phone */}
-              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg hover:bg-gray-750 transition-all duration-300">
+              <div className="flex items-center gap-4 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-all duration-300">
                 <div className="text-blue-500 text-xl flex-shrink-0">
                   <FaPhone />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Phone</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
                   <a
-                    href="tel:+971556053387"
-                    className="text-gray-300 hover:text-blue-400 transition-all duration-200"
+                    href="tel:+917092085864"
+                    className="text-gray-600 hover:text-blue-600 transition-all duration-200"
                   >
-                    +971 52 290 4847
+                    +91 7092085864
                   </a>
                 </div>
               </div>
 
               {/* WhatsApp */}
-              <div className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg hover:bg-gray-750 transition-all duration-300">
+              <div className="flex items-center gap-4 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-all duration-300">
                 <div className="text-blue-500 text-xl flex-shrink-0">
                   <FaWhatsapp />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-1">WhatsApp</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">WhatsApp</h4>
                   <a
                     href="https://wa.me/917092085864"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-300 hover:text-blue-400 transition-all duration-200"
+                    className="text-gray-600 hover:text-blue-600 transition-all duration-200"
                   >
                     Message on WhatsApp
                   </a>
@@ -363,7 +355,7 @@ export default function Contact() {
 
             {/* Social */}
             <div className="mt-8">
-              <h4 className="font-semibold text-white mb-4 text-center lg:text-left">
+              <h4 className="font-semibold text-gray-900 mb-4 text-center lg:text-left">
                 Connect with me
               </h4>
               <div className="flex space-x-6 justify-center lg:justify-start">
@@ -371,7 +363,7 @@ export default function Contact() {
                   href="https://github.com/AbishekSathiyan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-all duration-200 transform hover:scale-110"
+                  className="text-gray-500 hover:text-gray-900 transition-all duration-200 transform hover:scale-110"
                   aria-label="GitHub"
                 >
                   <FaGithub className="text-2xl" />
@@ -380,16 +372,16 @@ export default function Contact() {
                   href="https://linkedin.com/in/abishek04"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-[#0077b5] transition-all duration-200 transform hover:scale-110"
+                  className="text-gray-500 hover:text-[#0077b5] transition-all duration-200 transform hover:scale-110"
                   aria-label="LinkedIn"
                 >
                   <FaLinkedin className="text-2xl" />
                 </a>
                 <a
-                  href="https://www.instagram.com/entabilogist_abi/"
+                  href="https://www.instagram.com/velsakatech/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-[#e2183d] transition-all duration-200 transform hover:scale-110"
+                  className="text-gray-500 hover:text-[#e2183d] transition-all duration-200 transform hover:scale-110"
                   aria-label="Instagram"
                 >
                   <FaInstagram className="text-2xl" />
@@ -406,7 +398,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block mb-2 text-gray-300 font-medium"
+                    className="block mb-2 text-gray-700 font-medium"
                   >
                     Your Name
                   </label>
@@ -416,14 +408,14 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
-                      errors.name ? "border-red-500" : "border-gray-700"
+                    className={`w-full px-4 py-3 rounded-lg bg-white text-gray-900 border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
+                      errors.name ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your name"
                     disabled={isSubmitting}
                   />
                   {errors.name && (
-                    <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+                    <p className="text-red-600 text-sm mt-1">{errors.name}</p>
                   )}
                 </div>
 
@@ -431,7 +423,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-gray-300 font-medium"
+                    className="block mb-2 text-gray-700 font-medium"
                   >
                     Your Email
                   </label>
@@ -441,14 +433,14 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
-                      errors.email ? "border-red-500" : "border-gray-700"
+                    className={`w-full px-4 py-3 rounded-lg bg-white text-gray-900 border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
+                      errors.email ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your email"
                     disabled={isSubmitting}
                   />
                   {errors.email && (
-                    <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                    <p className="text-red-600 text-sm mt-1">{errors.email}</p>
                   )}
                 </div>
 
@@ -456,7 +448,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="contact"
-                    className="block mb-2 text-gray-300 font-medium"
+                    className="block mb-2 text-gray-700 font-medium"
                   >
                     Phone Number
                   </label>
@@ -466,14 +458,14 @@ export default function Contact() {
                     name="contact"
                     value={formData.contact}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
-                      errors.contact ? "border-red-500" : "border-gray-700"
+                    className={`w-full px-4 py-3 rounded-lg bg-white text-gray-900 border focus:border-blue-500 focus:outline-none transition-all duration-200 ${
+                      errors.contact ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your 10-digit phone number"
                     disabled={isSubmitting}
                   />
                   {errors.contact && (
-                    <p className="text-red-400 text-sm mt-1">
+                    <p className="text-red-600 text-sm mt-1">
                       {errors.contact}
                     </p>
                   )}
@@ -483,7 +475,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block mb-2 text-gray-300 font-medium"
+                    className="block mb-2 text-gray-700 font-medium"
                   >
                     Subject
                   </label>
@@ -492,7 +484,7 @@ export default function Contact() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border border-gray-300 focus:border-blue-500 focus:outline-none transition-all duration-200"
                     disabled={isSubmitting}
                   >
                     <option value="General Inquiry">General Inquiry</option>
@@ -508,7 +500,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block mb-2 text-gray-300 font-medium"
+                  className="block mb-2 text-gray-700 font-medium"
                 >
                   Your Message
                 </label>
@@ -518,14 +510,14 @@ export default function Contact() {
                   rows="5"
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-gray-800 text-white border focus:border-blue-500 focus:outline-none transition-all duration-200 resize-vertical ${
-                    errors.message ? "border-red-500" : "border-gray-700"
+                  className={`w-full px-4 py-3 rounded-lg bg-white text-gray-900 border focus:border-blue-500 focus:outline-none transition-all duration-200 resize-vertical ${
+                    errors.message ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Tell me about your project or inquiry..."
                   disabled={isSubmitting}
                 />
                 {errors.message && (
-                  <p className="text-red-400 text-sm mt-1">{errors.message}</p>
+                  <p className="text-red-600 text-sm mt-1">{errors.message}</p>
                 )}
               </div>
 

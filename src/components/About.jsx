@@ -99,11 +99,11 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-16 sm:py-20 bg-light dark:bg-dark text-dark dark:text-light relative overflow-hidden"
+      className="py-16 sm:py-20 bg-white text-gray-800 relative overflow-hidden"
     >
       {/* Global background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
+        <div className="absolute inset-0 opacity-5">
           <Player
             autoplay
             loop
@@ -115,7 +115,7 @@ export default function About() {
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={`bubble-${i}`}
-            className="absolute rounded-full bg-primary/10 dark:bg-secondary/10"
+            className="absolute rounded-full bg-primary/10"
             style={{
               width: Math.random() * 60 + 20,
               height: Math.random() * 60 + 20,
@@ -225,14 +225,14 @@ export default function About() {
             className="w-full lg:w-1/3 flex justify-center relative"
           >
             <motion.div
-              className="absolute inset-0 rounded-full border border-primary/20 dark:border-secondary/20 pointer-events-none"
+              className="absolute inset-0 rounded-full border border-primary/20 pointer-events-none"
               animate={{ rotate: 360 }}
               transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             >
               {techStack.slice(0, 6).map((tech, i) => (
                 <motion.div
                   key={i}
-                  className="absolute -top-3 -left-3 bg-white dark:bg-dark p-2 rounded-full shadow-md dark:shadow-gray-800/50"
+                  className="absolute -top-3 -left-3 bg-white p-2 rounded-full shadow-md"
                   style={{
                     transform: `rotate(${
                       (360 / 6) * i
@@ -244,7 +244,7 @@ export default function About() {
                 </motion.div>
               ))}
             </motion.div>
-            <div className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 dark:border-gray-800/30 group isolate">
+            <div className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-200 group isolate">
               <motion.img
                 src={Banner}
                 alt="Abishek S"
@@ -294,14 +294,14 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
 
   return (
     <motion.div
-      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200 group"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+      <div className="absolute inset-0 opacity-10 -z-10">
         <Player
           autoplay
           loop
@@ -313,7 +313,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
       {codeSnippets.map((snippet, i) => (
         <motion.div
           key={`code-${i}`}
-          className="absolute text-xs sm:text-sm font-mono bg-primary/10 dark:bg-primary/20 text-primary dark:text-secondary px-3 py-1 rounded-full backdrop-blur-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute text-xs sm:text-sm font-mono bg-primary/10 text-primary px-3 py-1 rounded-full backdrop-blur-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{ left: `${snippet.x}%`, top: `${snippet.y}%` }}
           animate={{ y: [0, -10, 0], x: [0, 5, -5, 0] }}
           transition={{
@@ -327,7 +327,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
         </motion.div>
       ))}
       <motion.h3
-        className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-200 inline-block relative"
+        className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-800 inline-block relative"
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
@@ -344,7 +344,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
       </motion.h3>
       <div className="space-y-4">
         <motion.p
-          className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+          className="text-base sm:text-lg leading-relaxed text-gray-700"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -357,7 +357,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           elegant solutions and seamless user experiences.
         </motion.p>
         <motion.p
-          className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+          className="text-base sm:text-lg leading-relaxed text-gray-700"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -406,14 +406,14 @@ const EducationCard = ({ backgroundAnimation }) => {
 
   return (
     <motion.div
-      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200 group"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+      <div className="absolute inset-0 opacity-10 -z-10">
         <Player
           autoplay
           loop
@@ -426,7 +426,7 @@ const EducationCard = ({ backgroundAnimation }) => {
         {educationIcons.map((item, i) => (
           <motion.div
             key={`edu-icon-${i}`}
-            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -473,7 +473,7 @@ const EducationCard = ({ backgroundAnimation }) => {
       </div>
       <div className="ml-16">
         <motion.h3
-          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
+          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 group"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
@@ -515,7 +515,7 @@ const EducationCard = ({ backgroundAnimation }) => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 * idx, type: "spring" }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-600 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
+              className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
               whileHover={{
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                 borderColor: "rgba(59, 130, 246, 0.3)",
@@ -523,15 +523,13 @@ const EducationCard = ({ backgroundAnimation }) => {
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 group-hover/item:text-primary transition-colors duration-300">
+                  <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-primary transition-colors duration-300">
                     {item.title}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {item.subtitle}
-                  </p>
+                  <p className="text-gray-600">{item.subtitle}</p>
                 </div>
                 <motion.span
-                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 dark:bg-primary/20 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
+                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
                   whileHover={{ scale: 1.05 }}
                 >
                   {item.meta}
@@ -581,14 +579,14 @@ const CertificationsCard = ({ backgroundAnimation }) => {
 
   return (
     <motion.div
-      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200 group"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+      <div className="absolute inset-0 opacity-10 -z-10">
         <Player
           autoplay
           loop
@@ -601,7 +599,7 @@ const CertificationsCard = ({ backgroundAnimation }) => {
         {certIcons.map((item, i) => (
           <motion.div
             key={`cert-icon-${i}`}
-            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -641,7 +639,7 @@ const CertificationsCard = ({ backgroundAnimation }) => {
       </div>
       <div className="ml-16">
         <motion.h3
-          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
+          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 group"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
@@ -689,19 +687,17 @@ const CertificationsCard = ({ backgroundAnimation }) => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 * idx, type: "spring" }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-600 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
+              className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
               whileHover={{
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                 borderColor: "rgba(59, 130, 246, 0.3)",
               }}
             >
               <div>
-                <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 group-hover/item:text-primary transition-colors duration-300">
+                <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-primary transition-colors duration-300">
                   {item.title}
                 </h4>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {item.subtitle}
-                </p>
+                <p className="text-gray-600">{item.subtitle}</p>
               </div>
             </motion.div>
           ))}
@@ -740,14 +736,14 @@ const InternshipsCard = ({ backgroundAnimation }) => {
 
   return (
     <motion.div
-      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200 group"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
     >
-      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+      <div className="absolute inset-0 opacity-10 -z-10">
         <Player
           autoplay
           loop
@@ -760,7 +756,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
         {internshipIcons.map((item, i) => (
           <motion.div
             key={`intern-icon-${i}`}
-            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -795,7 +791,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
       </motion.div>
       <div className="ml-16">
         <motion.h3
-          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 dark:text-gray-200 group"
+          className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 group"
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
@@ -840,7 +836,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 * idx, type: "spring" }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-600 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
+              className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
               whileHover={{
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                 borderColor: "rgba(59, 130, 246, 0.3)",
@@ -848,10 +844,10 @@ const InternshipsCard = ({ backgroundAnimation }) => {
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <h4 className="text-lg font-medium text-gray-800 dark:text-gray-200 group-hover/item:text-primary transition-colors duration-300">
+                  <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-primary transition-colors duration-300">
                     {item.title}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600">
                     {item.link ? (
                       <a
                         href={item.link}
@@ -865,12 +861,12 @@ const InternshipsCard = ({ backgroundAnimation }) => {
                       item.subtitle
                     )}
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 group-hover/item:text-gray-700 dark:group-hover/item:text-gray-300 transition-colors duration-300">
+                  <p className="text-sm text-gray-500 mt-1 group-hover/item:text-gray-700 transition-colors duration-300">
                     {item.description}
                   </p>
                 </div>
                 <motion.span
-                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 dark:bg-primary/20 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
+                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
                   whileHover={{ scale: 1.05 }}
                 >
                   {item.meta}
@@ -921,10 +917,10 @@ const ResumeCard = ({ backgroundAnimation }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, type: "spring" }}
-      className="relative p-8 rounded-xl overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 group"
+      className="relative p-8 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200 group"
       whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.4)" }}
     >
-      <div className="absolute inset-0 opacity-10 dark:opacity-20 -z-10">
+      <div className="absolute inset-0 opacity-10 -z-10">
         <Player
           autoplay
           loop
@@ -937,7 +933,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
         {resumeIcons.map((item, i) => (
           <motion.div
             key={`resume-icon-${i}`}
-            className="bg-white/90 dark:bg-gray-700/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -983,13 +979,13 @@ const ResumeCard = ({ backgroundAnimation }) => {
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <h4 className="text-xl font-semibold mb-6 dark:text-gray-200 flex items-center gap-2">
+          <h4 className="text-xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
             <FaFilePdf className="text-primary" />
             Get My Full Profile
           </h4>
           <motion.a
-            href="/Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
-            download="Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
+            href="/Abishek Sathiyan - MERN Fullstack Developer Resume India.pdf"
+            download="Abishek Sathiyan - MERN Fullstack Developer Resume India.pdf"
             className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
             whileHover={{
               scale: 1.05,
@@ -1017,7 +1013,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
             </motion.span>
           </motion.a>
           <motion.p
-            className="mt-3 text-sm text-gray-500 dark:text-gray-400"
+            className="mt-3 text-sm text-gray-500"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.4 }}

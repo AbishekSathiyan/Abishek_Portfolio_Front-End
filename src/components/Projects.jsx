@@ -130,7 +130,7 @@ const TechBadge = ({ tech }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.05, y: -2 }}
-      className="flex items-center gap-1.5 bg-gray-700/50 text-gray-300 text-xs px-2 py-1.5 sm:px-3 rounded-full border border-gray-600/50 backdrop-blur-sm hover:bg-blue-500/20 hover:text-blue-300 hover:border-blue-500/30 transition-all duration-200 group"
+      className="flex items-center gap-1.5 bg-gray-100 text-gray-700 text-xs px-2 py-1.5 sm:px-3 rounded-full border border-gray-200 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-300 transition-all duration-200 group"
     >
       {!useFallback ? (
         <img
@@ -436,7 +436,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-16 sm:py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white"
+      className="min-h-screen py-16 sm:py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-800"
     >
       <div className="container mx-auto px-3 sm:px-4 lg:px-8">
         {/* Enhanced Header */}
@@ -447,16 +447,16 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 mb-4 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
-            <FiMonitor className="text-blue-400 w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="text-blue-400 text-xs sm:text-sm font-medium">
+          <div className="inline-flex items-center gap-2 mb-4 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-100 border border-blue-200">
+            <FiMonitor className="text-blue-600 w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="text-blue-600 text-xs sm:text-sm font-medium">
               My Works
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent px-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent px-2">
             Featured Projects
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-500 max-w-2xl mx-auto px-4">
             Full-stack applications built with modern technologies and best
             practices
           </p>
@@ -479,7 +479,7 @@ export default function Projects() {
                 scale: 1.02,
                 transition: { type: "spring", stiffness: 400, damping: 25 },
               }}
-              className="group relative bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300"
+              className="group relative bg-white backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300"
             >
               {/* Featured Badge */}
               {project.featured && (
@@ -492,8 +492,8 @@ export default function Projects() {
               )}
 
               {/* Project Icon */}
-              <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-900/80 backdrop-blur-sm border border-gray-600/50 flex items-center justify-center">
-                <div className="text-blue-400 text-sm sm:text-base">
+              <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/80 backdrop-blur-sm border border-gray-300 flex items-center justify-center shadow-sm">
+                <div className="text-blue-500 text-sm sm:text-base">
                   {project.icon}
                 </div>
               </div>
@@ -511,19 +511,19 @@ export default function Projects() {
                       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/20 to-transparent" />
 
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
               {/* Content */}
               <div className="p-3 sm:p-4 md:p-6">
-                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors line-clamp-2">
+                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-2 text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
                   {project.title}
                 </h3>
 
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3">
+                <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3">
                   {project.description}
                 </p>
 
@@ -540,7 +540,7 @@ export default function Projects() {
                     href={project.githubLink}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center justify-center flex-1 gap-1 sm:gap-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 hover:text-white py-1.5 sm:py-2.5 px-2 sm:px-4 rounded-lg transition-all duration-200 border border-gray-600/50 backdrop-blur-sm group/btn text-xs sm:text-sm"
+                    className="flex items-center justify-center flex-1 gap-1 sm:gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 py-1.5 sm:py-2.5 px-2 sm:px-4 rounded-lg transition-all duration-200 border border-gray-300 group/btn text-xs sm:text-sm"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -554,7 +554,7 @@ export default function Projects() {
                     href={project.demoLink}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center justify-center flex-1 gap-1 sm:gap-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 hover:text-white py-1.5 sm:py-2.5 px-2 sm:px-4 rounded-lg transition-all duration-200 border border-blue-500/30 backdrop-blur-sm group/btn text-xs sm:text-sm"
+                    className="flex items-center justify-center flex-1 gap-1 sm:gap-2 bg-blue-50 hover:bg-blue-100 text-blue-600 hover:text-blue-700 py-1.5 sm:py-2.5 px-2 sm:px-4 rounded-lg transition-all duration-200 border border-blue-300 group/btn text-xs sm:text-sm"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -580,7 +580,7 @@ export default function Projects() {
           viewport={{ once: true }}
           className="mt-12 sm:mt-16 text-center"
         >
-          <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-white bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-gray-800 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Technology Stack
           </h3>
 
@@ -590,7 +590,7 @@ export default function Projects() {
               <motion.div
                 key={tech.name}
                 whileHover={{ scale: 1.1, y: -5 }}
-                className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+                className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
               >
                 {!logoErrors[tech.name] ? (
                   <img
@@ -610,7 +610,7 @@ export default function Projects() {
                   </span>
                 )}
 
-                <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium text-center">
+                <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium text-center">
                   {tech.name.includes(" ")
                     ? tech.name.split(" ")[0]
                     : tech.name}
@@ -623,7 +623,7 @@ export default function Projects() {
           <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 gap-2 sm:gap-3 md:gap-4 max-w-4xl mx-auto mt-3 sm:mt-4 px-2">
             <motion.div
               whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
             >
               <img
                 src={techLogos["API"]}
@@ -640,14 +640,14 @@ export default function Projects() {
               <span className="hidden fallback">
                 {techFallbackIcons["API"]}
               </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
+              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
                 API
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
             >
               <img
                 src={techLogos["LocalStorage"]}
@@ -664,14 +664,14 @@ export default function Projects() {
               <span className="hidden fallback">
                 {techFallbackIcons["LocalStorage"]}
               </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
+              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
                 Storage
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
             >
               <img
                 src={techLogos["OpenWeatherMap API"]}
@@ -688,14 +688,14 @@ export default function Projects() {
               <span className="hidden fallback">
                 {techFallbackIcons["OpenWeatherMap API"]}
               </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
+              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
                 Weather
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
             >
               <img
                 src={techLogos["Chuck Norris API"]}
@@ -712,14 +712,14 @@ export default function Projects() {
               <span className="hidden fallback">
                 {techFallbackIcons["Chuck Norris API"]}
               </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
+              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
                 Chuck
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
             >
               <img
                 src={techLogos["Puter.JS"]}
@@ -736,14 +736,14 @@ export default function Projects() {
               <span className="hidden fallback">
                 {techFallbackIcons["Puter.JS"]}
               </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
+              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
                 Puter
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-blue-500/30 transition-all duration-200"
+              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
             >
               <img
                 src={techLogos["OpenAI"]}
@@ -760,7 +760,7 @@ export default function Projects() {
               <span className="hidden fallback">
                 {techFallbackIcons["OpenAI"]}
               </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-300 font-medium">
+              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
                 OpenAI
               </span>
             </motion.div>

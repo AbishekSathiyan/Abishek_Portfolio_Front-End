@@ -7,6 +7,7 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ChatBot from "./components/ChatBot";
 import AdminPage from "./components/AdminPage";
 import NotFound from "./components/NotFound";
 
@@ -22,6 +23,7 @@ function HomePage() {
         <Skills />
         <Contact />
         <Footer />
+         <ChatBot />
       </main>
     </div>
   );

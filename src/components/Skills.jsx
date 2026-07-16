@@ -19,7 +19,7 @@ import {
   SiJsonwebtokens,
   SiVite,
 } from "react-icons/si";
-import { FaEnvelope, FaCloudUploadAlt } from "react-icons/fa"; // Nodemailer + Multer icons
+import { FaEnvelope, FaCloudUploadAlt, FaRobot } from "react-icons/fa";
 
 export default function Skills() {
   const controls = useAnimation();
@@ -44,6 +44,15 @@ export default function Skills() {
     { name: "Vite", level: 80, icon: <SiVite size="24" />, color: "#646CFF" },
     { name: "Git", level: 85, icon: <UilGitlab size="24" />, color: "#F34F29" },
     { name: "Figma", level: 75, icon: <SiFigma size="24" />, color: "#A259FF" },
+    // AI Tools – using a generic robot icon to avoid missing exports
+    { name: "ChatGPT", level: 90, icon: <FaRobot size="24" />, color: "#10A37F" },
+    { name: "Claude", level: 85, icon: <FaRobot size="24" />, color: "#5436DA" },
+    { name: "GitHub Copilot", level: 88, icon: <FaRobot size="24" />, color: "#6E40C9" },
+    { name: "Gemini", level: 82, icon: <FaRobot size="24" />, color: "#4285F4" },
+    { name: "Perplexity", level: 80, icon: <FaRobot size="24" />, color: "#1A1A1A" },
+    { name: "DALL-E", level: 75, icon: <FaRobot size="24" />, color: "#FF6F61" },
+    { name: "Midjourney", level: 78, icon: <FaRobot size="24" />, color: "#4B0082" },
+    { name: "Stable Diffusion", level: 72, icon: <FaRobot size="24" />, color: "#FF69B4" },
   ];
 
   const doubledSkills = [...skills, ...skills];
@@ -67,10 +76,10 @@ export default function Skills() {
   }, [controls, isPaused, skills.length]);
 
   return (
-    <section id="skills" className="py-20 bg-gray-900 text-white overflow-hidden">
+    <section id="skills" className="py-20 bg-white text-gray-800 overflow-hidden">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-4 text-center">
-          My <span className="text-blue-400">Skills</span>
+          My <span className="text-blue-600">Skills</span>
         </h2>
 
         <div className="relative h-44 overflow-hidden mt-10">
@@ -99,7 +108,7 @@ export default function Skills() {
                       cy="50"
                       r="45"
                       fill="none"
-                      stroke="#374151"
+                      stroke="#e5e7eb"
                       strokeWidth="8"
                     />
                     <motion.circle
@@ -126,7 +135,7 @@ export default function Skills() {
                   {skill.level}%
                 </div>
 
-                <div className="mt-10 text-sm font-medium text-gray-300">
+                <div className="mt-10 text-sm font-medium text-gray-600">
                   {skill.name}
                 </div>
               </motion.div>
