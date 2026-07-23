@@ -104,7 +104,7 @@ const techFallbackIcons = {
   "Puter.JS": <FiCpu className="w-4 h-4 text-blue-400" />,
 };
 
-// Technology badge with fallback
+// Technology badge with fallback (used inside project cards)
 const TechBadge = ({ tech }) => {
   const logo = techLogos[tech];
   const fallbackIcon = techFallbackIcons[tech] || (
@@ -154,7 +154,7 @@ const projects = [
     githubLink: "https://github.com/AbishekSathiyan/",
     demoLink: "https://github.com/AbishekSathiyan/",
     image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8QUl8ZW58MHx8MHx8fDA%3D", // New AI-related image
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8QUl8ZW58MHx8MHx8fDA%3D",
     featured: true,
     icon: <FiBriefcase className="text-amber-400 w-4 h-4" />,
   },
@@ -544,7 +544,10 @@ export default function Projects() {
                 </div>
 
                 {/* Action Buttons – stop propagation so they don't open modal */}
-                <div className="flex gap-2 sm:gap-3" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="flex gap-2 sm:gap-3"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <motion.a
                     href={project.githubLink}
                     whileHover={{ scale: 1.05 }}
@@ -554,7 +557,9 @@ export default function Projects() {
                     rel="noopener noreferrer"
                   >
                     <FiGithub className="w-3 h-3 sm:w-4 sm:h-4 group-hover/btn:scale-110 transition-transform" />
-                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">Code</span>
+                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">
+                      Code
+                    </span>
                   </motion.a>
                   <motion.a
                     href={project.demoLink}
@@ -565,7 +570,9 @@ export default function Projects() {
                     rel="noopener noreferrer"
                   >
                     <FiExternalLink className="w-3 h-3 sm:w-4 sm:h-4 group-hover/btn:scale-110 transition-transform" />
-                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">Live</span>
+                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">
+                      Live
+                    </span>
                   </motion.a>
                 </div>
               </div>
@@ -574,7 +581,7 @@ export default function Projects() {
           ))}
         </motion.div>
 
-        {/* Technology Stack Summary (unchanged) */}
+        {/* Technology Stack Summary */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -585,6 +592,8 @@ export default function Projects() {
           <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-gray-800 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Technology Stack
           </h3>
+
+          {/* Main tech grid */}
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2 sm:gap-3 md:gap-4 max-w-5xl mx-auto px-2">
             {uniqueTechStack.map((tech) => (
               <motion.div
@@ -610,24 +619,47 @@ export default function Projects() {
                   </span>
                 )}
                 <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium text-center">
-                  {tech.name.includes(" ") ? tech.name.split(" ")[0] : tech.name}
+                  {tech.name.includes(" ")
+                    ? tech.name.split(" ")[0]
+                    : tech.name}
                 </span>
               </motion.div>
             ))}
           </div>
+
+          {/* Additional Tech Row – fixed duplication by removing TechBadge and using same pattern */}
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 max-w-4xl mx-auto mt-4 px-2">
-            {additionalTechs.map((tech) => (
-              <motion.div
-                key={tech}
-                whileHover={{ scale: 1.1, y: -5 }}
-                className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
-              >
-                <TechBadge tech={tech} />
-                <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium text-center">
-                  {tech.includes(" ") ? tech.split(" ")[0] : tech}
-                </span>
-              </motion.div>
-            ))}
+            {additionalTechs.map((tech) => {
+              const logo = techLogos[tech];
+              const fallbackIcon = techFallbackIcons[tech] || (
+                <FiBox className="w-4 h-4 text-gray-400" />
+              );
+              return (
+                <motion.div
+                  key={tech}
+                  whileHover={{ scale: 1.1, y: -5 }}
+                  className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
+                >
+                  {!logoErrors[tech] ? (
+                    <img
+                      src={logo}
+                      alt={tech}
+                      className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+                      onError={() =>
+                        setLogoErrors((prev) => ({ ...prev, [tech]: true }))
+                      }
+                    />
+                  ) : (
+                    <span className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
+                      {fallbackIcon}
+                    </span>
+                  )}
+                  <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium text-center">
+                    {tech.includes(" ") ? tech.split(" ")[0] : tech}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
 
