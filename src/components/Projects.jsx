@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FiGithub,
   FiExternalLink,
@@ -28,23 +28,19 @@ import {
   FiBox,
   FiLayers,
   FiBriefcase,
+  FiX,
 } from "react-icons/fi";
 import Village from "../components/assets/Village.png";
 
-// Technology logos mapping - all working original logos
+// Technology logos mapping – fixed Cloudinary URL
 const techLogos = {
-  // Databases
   MongoDB:
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg",
-
-  // Backend
   "Node.js":
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
   Express:
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg",
   JWT: "https://jwt.io/img/pic_logo.svg",
-
-  // Frontend
   React:
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
   "Tailwind CSS":
@@ -52,45 +48,35 @@ const techLogos = {
   "Material UI":
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg",
   Vite: "https://vitejs.dev/logo.svg",
-
-  // Authentication & Services
   Firebase:
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/firebase/firebase-plain.svg",
   "Firebase Authentication":
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/firebase/firebase-plain.svg",
   OAuth: "https://oauth.net/images/oauth-logo-square.png",
-
-  // Cloud & Storage
-  Cloudinary: "https://res.cloudinary.com/cloudinary/image/upload/v1/logo/cloudinary_icon_for_white_bg.png",
-
-  // Tools & Libraries
+  Cloudinary: "https://cloudinary.com/favicon.ico",
   "Node Mailer":
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
   Nodemailer:
     "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
   Multer: "https://raw.githubusercontent.com/expressjs/multer/master/logo.png",
-
-  // Payment
   Razorpay: "https://razorpay.com/favicon.ico",
-
-  // APIs & Utilities
   API: "https://raw.githubusercontent.com/devicons/devicon/master/icons/api/api-original.svg",
-  LocalStorage: "https://raw.githubusercontent.com/devicons/devicon/master/icons/localstorage/localstorage-original.svg",
-  "Notifications API": "https://raw.githubusercontent.com/devicons/devicon/master/icons/notifications/notifications-original.svg",
-  "ChatGPT API": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-  "OpenAI": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-
-  // Weather APIs
-  "OpenWeatherMap API": "https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png",
-
-  // Fun APIs
+  LocalStorage:
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/localstorage/localstorage-original.svg",
+  "Notifications API":
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/notifications/notifications-original.svg",
+  "ChatGPT API":
+    "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+  OpenAI:
+    "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+  "OpenWeatherMap API":
+    "https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png",
   "Chuck Norris API": "https://api.chucknorris.io/img/chucknorris_logogo.png",
-
-  // Additional
-  "Puter.JS": "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
+  "Puter.JS":
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
 };
 
-// Fallback icons for all technologies (guaranteed to show)
+// Fallback icons
 const techFallbackIcons = {
   MongoDB: <FiDatabase className="w-4 h-4 text-green-400" />,
   "Node.js": <FiServer className="w-4 h-4 text-green-500" />,
@@ -112,13 +98,13 @@ const techFallbackIcons = {
   LocalStorage: <FiDatabase className="w-4 h-4 text-gray-400" />,
   "Notifications API": <FiBell className="w-4 h-4 text-red-400" />,
   "ChatGPT API": <FiMessageCircle className="w-4 h-4 text-green-400" />,
-  "OpenAI": <FiCpu className="w-4 h-4 text-green-500" />,
+  OpenAI: <FiCpu className="w-4 h-4 text-green-500" />,
   "OpenWeatherMap API": <FiCloud className="w-4 h-4 text-blue-300" />,
   "Chuck Norris API": <FiSmile className="w-4 h-4 text-yellow-400" />,
   "Puter.JS": <FiCpu className="w-4 h-4 text-blue-400" />,
 };
 
-// Technology component with logo + fallback
+// Technology badge with fallback
 const TechBadge = ({ tech }) => {
   const logo = techLogos[tech];
   const fallbackIcon = techFallbackIcons[tech] || (
@@ -154,6 +140,26 @@ const TechBadge = ({ tech }) => {
 const projects = [
   {
     id: 1,
+    title: "AI Launch Kit",
+    description:
+      "AI Launch Kit is an AI-powered website generation platform developed for Innovation City to help newly licensed businesses establish a professional online presence as part of a complimentary digital onboarding service. Business owners simply enter their business category, company name, tagline, contact details, preferred color theme, and desired website sections. The AI then generates a modern, fully responsive company website tailored to their brand within minutes. Users can preview the generated website, download the complete HTML source code, or deploy it directly to Vercel with a single click, making website creation fast, accessible, and code-free.",
+    technologies: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Tailwind CSS",
+      "OpenAI",
+    ],
+    githubLink: "https://github.com/AbishekSathiyan/",
+    demoLink: "https://github.com/AbishekSathiyan/",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8QUl8ZW58MHx8MHx8fDA%3D", // New AI-related image
+    featured: true,
+    icon: <FiBriefcase className="text-amber-400 w-4 h-4" />,
+  },
+  {
+    id: 2,
     title: "Founder AI - Intelligent Business Assistant",
     description:
       "An AI-powered business recommendation platform that helps entrepreneurs find the perfect free zone for their business setup with intelligent insights and real-time assistance.",
@@ -166,7 +172,7 @@ const projects = [
     icon: <FiBriefcase className="text-amber-400 w-4 h-4" />,
   },
   {
-    id: 2,
+    id: 3,
     title: "ChatBot-Aura Mind (MERN + AI)",
     description:
       "An Intelligent AI-Powered ChatBot Web Application that provides Real-Time Conversational Responses, external JavaScript API Integration.",
@@ -179,7 +185,7 @@ const projects = [
     icon: <FiMessageCircle className="text-blue-400 w-4 h-4" />,
   },
   {
-    id: 3,
+    id: 4,
     title: "AS Ecommerce (MERN)",
     description:
       "A modern full-stack eCommerce platform with Firebase Authentication, Razorpay payments, and admin dashboard.",
@@ -201,7 +207,7 @@ const projects = [
     icon: <FiShoppingCart className="text-green-400 w-4 h-4" />,
   },
   {
-    id: 4,
+    id: 5,
     title: "Methalodai Village Community",
     description:
       "Instagram-like community platform for village communication with posts, follows, likes, and comments.",
@@ -222,7 +228,7 @@ const projects = [
     icon: <FiUsers className="text-purple-400 w-4 h-4" />,
   },
   {
-    id: 5,
+    id: 6,
     title: "Campus Lost & Found",
     description:
       "Campus MERN app for reporting and recovering lost items with image uploads and email notifications.",
@@ -243,7 +249,7 @@ const projects = [
     icon: <FiMapPin className="text-yellow-400 w-4 h-4" />,
   },
   {
-    id: 6,
+    id: 7,
     title: "Bulk Mail System",
     description:
       "Send personalized bulk emails from Excel sheets using Nodemailer with custom templates.",
@@ -255,7 +261,7 @@ const projects = [
     icon: <FiMail className="text-red-400 w-4 h-4" />,
   },
   {
-    id: 7,
+    id: 8,
     title: "FileShare MERN App",
     description:
       "Secure file-sharing platform with JWT authentication, file preview, and unique sharing links.",
@@ -276,7 +282,7 @@ const projects = [
     icon: <FiLock className="text-indigo-400 w-4 h-4" />,
   },
   {
-    id: 8,
+    id: 9,
     title: "Portfolio (MERN)",
     description:
       "Responsive portfolio with admin-secured contact form using OTP verification for modern recruiters.",
@@ -297,7 +303,7 @@ const projects = [
     icon: <FiCode className="text-cyan-400 w-4 h-4" />,
   },
   {
-    id: 9,
+    id: 10,
     title: "Weather Dashboard",
     description:
       "Sleek weather app with real-time temperature, humidity, and conditions using OpenWeatherMap API.",
@@ -309,7 +315,7 @@ const projects = [
     icon: <FiCloud className="text-blue-300 w-4 h-4" />,
   },
   {
-    id: 10,
+    id: 11,
     title: "Task Manager",
     description:
       "Productivity app with notifications, reminders, dark mode, and localStorage persistence.",
@@ -327,7 +333,7 @@ const projects = [
     icon: <FiCalendar className="text-orange-400 w-4 h-4" />,
   },
   {
-    id: 11,
+    id: 12,
     title: "Joke Generator",
     description:
       "A fun and interactive web app that fetches random jokes from the Chuck Norris API.",
@@ -341,16 +347,17 @@ const projects = [
 ];
 
 export default function Projects() {
-  // State for tracking logo errors
+  const [selectedProject, setSelectedProject] = useState(null);
   const [logoErrors, setLogoErrors] = React.useState({});
+
+  const openModal = (project) => setSelectedProject(project);
+  const closeModal = () => setSelectedProject(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
+      transition: { staggerChildren: 0.15 },
     },
   };
 
@@ -359,15 +366,10 @@ export default function Projects() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-      },
+      transition: { type: "spring", stiffness: 100, damping: 12 },
     },
   };
 
-  // Technology stack for display (unique technologies only)
   const uniqueTechStack = [
     {
       name: "MongoDB",
@@ -433,13 +435,22 @@ export default function Projects() {
     },
   ];
 
+  const additionalTechs = [
+    "API",
+    "LocalStorage",
+    "OpenWeatherMap API",
+    "Chuck Norris API",
+    "Puter.JS",
+    "OpenAI",
+  ];
+
   return (
     <section
       id="projects"
       className="min-h-screen py-16 sm:py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-800"
     >
       <div className="container mx-auto px-3 sm:px-4 lg:px-8">
-        {/* Enhanced Header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -479,7 +490,8 @@ export default function Projects() {
                 scale: 1.02,
                 transition: { type: "spring", stiffness: 400, damping: 25 },
               }}
-              className="group relative bg-white backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300"
+              onClick={() => openModal(project)} // Open modal on card click
+              className="group relative bg-white backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
               {/* Featured Badge */}
               {project.featured && (
@@ -498,7 +510,7 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Image Container */}
+              {/* Image */}
               <div className="h-36 sm:h-44 md:h-48 overflow-hidden relative">
                 <motion.img
                   src={project.image}
@@ -512,8 +524,6 @@ export default function Projects() {
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/20 to-transparent" />
-
-                {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
@@ -522,20 +532,19 @@ export default function Projects() {
                 <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-2 text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
                   {project.title}
                 </h3>
-
                 <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3">
                   {project.description}
                 </p>
 
-                {/* Technologies with Logos */}
+                {/* Technologies */}
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                   {project.technologies.map((tech, index) => (
                     <TechBadge key={`${project.id}-${index}`} tech={tech} />
                   ))}
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-2 sm:gap-3">
+                {/* Action Buttons – stop propagation so they don't open modal */}
+                <div className="flex gap-2 sm:gap-3" onClick={(e) => e.stopPropagation()}>
                   <motion.a
                     href={project.githubLink}
                     whileHover={{ scale: 1.05 }}
@@ -545,11 +554,8 @@ export default function Projects() {
                     rel="noopener noreferrer"
                   >
                     <FiGithub className="w-3 h-3 sm:w-4 sm:h-4 group-hover/btn:scale-110 transition-transform" />
-                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">
-                      Code
-                    </span>
+                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">Code</span>
                   </motion.a>
-
                   <motion.a
                     href={project.demoLink}
                     whileHover={{ scale: 1.05 }}
@@ -559,20 +565,16 @@ export default function Projects() {
                     rel="noopener noreferrer"
                   >
                     <FiExternalLink className="w-3 h-3 sm:w-4 sm:h-4 group-hover/btn:scale-110 transition-transform" />
-                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">
-                      Live
-                    </span>
+                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">Live</span>
                   </motion.a>
                 </div>
               </div>
-
-              {/* Glow Effect */}
               <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Technology Stack Summary - Fully Visible with Logos */}
+        {/* Technology Stack Summary (unchanged) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -583,8 +585,6 @@ export default function Projects() {
           <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-gray-800 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Technology Stack
           </h3>
-
-          {/* Mobile: 3 columns, Tablet: 4 columns, Desktop: 6 columns */}
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2 sm:gap-3 md:gap-4 max-w-5xl mx-auto px-2">
             {uniqueTechStack.map((tech) => (
               <motion.div
@@ -609,165 +609,28 @@ export default function Projects() {
                     {tech.icon}
                   </span>
                 )}
-
                 <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium text-center">
-                  {tech.name.includes(" ")
-                    ? tech.name.split(" ")[0]
-                    : tech.name}
+                  {tech.name.includes(" ") ? tech.name.split(" ")[0] : tech.name}
                 </span>
               </motion.div>
             ))}
           </div>
-
-          {/* Additional Tech Row for remaining items */}
-          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 gap-2 sm:gap-3 md:gap-4 max-w-4xl mx-auto mt-3 sm:mt-4 px-2">
-            <motion.div
-              whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
-            >
-              <img
-                src={techLogos["API"]}
-                alt="API"
-                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.style.display = "none";
-                  e.target.parentElement
-                    .querySelector(".fallback")
-                    ?.classList.remove("hidden");
-                }}
-              />
-              <span className="hidden fallback">
-                {techFallbackIcons["API"]}
-              </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
-                API
-              </span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
-            >
-              <img
-                src={techLogos["LocalStorage"]}
-                alt="Storage"
-                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.style.display = "none";
-                  e.target.parentElement
-                    .querySelector(".fallback")
-                    ?.classList.remove("hidden");
-                }}
-              />
-              <span className="hidden fallback">
-                {techFallbackIcons["LocalStorage"]}
-              </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
-                Storage
-              </span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
-            >
-              <img
-                src={techLogos["OpenWeatherMap API"]}
-                alt="Weather"
-                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.style.display = "none";
-                  e.target.parentElement
-                    .querySelector(".fallback")
-                    ?.classList.remove("hidden");
-                }}
-              />
-              <span className="hidden fallback">
-                {techFallbackIcons["OpenWeatherMap API"]}
-              </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
-                Weather
-              </span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
-            >
-              <img
-                src={techLogos["Chuck Norris API"]}
-                alt="Chuck"
-                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.style.display = "none";
-                  e.target.parentElement
-                    .querySelector(".fallback")
-                    ?.classList.remove("hidden");
-                }}
-              />
-              <span className="hidden fallback">
-                {techFallbackIcons["Chuck Norris API"]}
-              </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
-                Chuck
-              </span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
-            >
-              <img
-                src={techLogos["Puter.JS"]}
-                alt="Puter"
-                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.style.display = "none";
-                  e.target.parentElement
-                    .querySelector(".fallback")
-                    ?.classList.remove("hidden");
-                }}
-              />
-              <span className="hidden fallback">
-                {techFallbackIcons["Puter.JS"]}
-              </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
-                Puter
-              </span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.1, y: -5 }}
-              className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
-            >
-              <img
-                src={techLogos["OpenAI"]}
-                alt="OpenAI"
-                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.style.display = "none";
-                  e.target.parentElement
-                    .querySelector(".fallback")
-                    ?.classList.remove("hidden");
-                }}
-              />
-              <span className="hidden fallback">
-                {techFallbackIcons["OpenAI"]}
-              </span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium">
-                OpenAI
-              </span>
-            </motion.div>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 max-w-4xl mx-auto mt-4 px-2">
+            {additionalTechs.map((tech) => (
+              <motion.div
+                key={tech}
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-200"
+              >
+                <TechBadge tech={tech} />
+                <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-600 font-medium text-center">
+                  {tech.includes(" ") ? tech.split(" ")[0] : tech}
+                </span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Footer Note */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -780,6 +643,93 @@ export default function Projects() {
           </p>
         </motion.div>
       </div>
+
+      {/* ========== Modal Overlay ========== */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              className="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-auto max-h-[90vh]"
+              initial={{ scale: 0.9, y: 30, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 30, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+            >
+              {/* Close button */}
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 hover:bg-gray-100 transition"
+              >
+                <FiX className="w-5 h-5 text-gray-600" />
+              </button>
+
+              {/* Header image */}
+              <div className="h-48 sm:h-64 w-full overflow-hidden">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.src =
+                      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+                  }}
+                />
+              </div>
+
+              {/* Content */}
+              <div className="p-6 sm:p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="text-2xl">{selectedProject.icon}</div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                    {selectedProject.title}
+                  </h2>
+                </div>
+
+                <p className="text-gray-600 leading-relaxed mb-6">
+                  {selectedProject.description}
+                </p>
+
+                <div className="mb-8">
+                  <h3 className="text-lg font-semibold mb-3">Technologies Used</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.technologies.map((tech) => (
+                      <TechBadge key={tech} tech={tech} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <a
+                    href={selectedProject.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition"
+                  >
+                    <FiGithub className="w-5 h-5" />
+                    View Code
+                  </a>
+                  <a
+                    href={selectedProject.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition"
+                  >
+                    <FiExternalLink className="w-5 h-5" />
+                    Live Demo
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -327,9 +327,16 @@ export default function Contact() {
                   <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
                   <a
                     href="tel:+917092085864"
+                    className="text-black-600 hover:text-blue-600 transition-all duration-200"
+                  >
+                    +917092085864{" "}
+                  </a>
+                  <br></br>
+                  <a
+                    href="tel:+917092085864"
                     className="text-gray-600 hover:text-blue-600 transition-all duration-200"
                   >
-                    +91 7092085864
+                    +971 52 290 4847
                   </a>
                 </div>
               </div>
@@ -378,7 +385,7 @@ export default function Contact() {
                   <FaLinkedin className="text-2xl" />
                 </a>
                 <a
-                  href="https://www.instagram.com/velsakatech/"
+                  href="https://www.instagram.com/abishek_sathiyan/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-500 hover:text-[#e2183d] transition-all duration-200 transform hover:scale-110"

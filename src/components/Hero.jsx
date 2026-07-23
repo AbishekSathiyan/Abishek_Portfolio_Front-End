@@ -3,6 +3,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import {
   FaGithub,
   FaLinkedin,
+  FaInstagram,
   FaFileAlt,
   FaMapMarkerAlt,
   FaGlobeAsia,
@@ -23,53 +24,37 @@ export default function Hero() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // Array of images to cycle through
   const images = [Mine];
 
-  // Animation orchestration
   useEffect(() => {
     if (isInView) {
       const sequence = async () => {
         await controls.start("visible");
-
-        // Name typing effect
         for (let i = 0; i <= fullName.length; i++) {
           setNameText(fullName.substring(0, i));
           await new Promise((resolve) => setTimeout(resolve, 100));
         }
-
-        // Title typing effect
         for (let i = 0; i <= fullTitle.length; i++) {
           setTitleText(fullTitle.substring(0, i));
           await new Promise((resolve) => setTimeout(resolve, 100));
         }
       };
-
       sequence();
     }
   }, [isInView, controls]);
 
-  // Split location effect - shows after some time
   useEffect(() => {
     if (isInView) {
-      // After name and title are typed, show split location
-      const timer = setTimeout(() => {
-        setShowLocationSplit(true);
-      }, 4000); // Show split after 4 seconds
-
+      const timer = setTimeout(() => setShowLocationSplit(true), 4000);
       return () => clearTimeout(timer);
     }
   }, [isInView]);
 
-  // Animation variants
   const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
     },
   };
 
@@ -88,12 +73,7 @@ export default function Hero() {
   };
 
   const imageVariants = {
-    hidden: {
-      scale: 0.9,
-      opacity: 0,
-      rotate: -5,
-      filter: "blur(4px)",
-    },
+    hidden: { scale: 0.9, opacity: 0, rotate: -5, filter: "blur(4px)" },
     visible: {
       scale: 1,
       opacity: 1,
@@ -110,25 +90,16 @@ export default function Hero() {
   };
 
   const imageTransitionVariants = {
-    enter: {
-      opacity: 0,
-      scale: 0.95,
-    },
+    enter: { opacity: 0, scale: 0.95 },
     center: {
       opacity: 1,
       scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-      },
+      transition: { duration: 0.8, ease: "easeInOut" },
     },
     exit: {
       opacity: 0,
       scale: 1.05,
-      transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-      },
+      transition: { duration: 0.8, ease: "easeInOut" },
     },
   };
 
@@ -136,11 +107,7 @@ export default function Hero() {
     hidden: { backgroundPosition: "0% 50%" },
     visible: {
       backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        ease: "linear",
-      },
+      transition: { duration: 8, repeat: Infinity, ease: "linear" },
     },
   };
 
@@ -159,11 +126,7 @@ export default function Hero() {
     hover: {
       y: -3,
       boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 10,
-      },
+      transition: { type: "spring", stiffness: 400, damping: 10 },
     },
     tap: { scale: 0.95 },
   };
@@ -183,11 +146,7 @@ export default function Hero() {
     hover: {
       y: -5,
       scale: 1.15,
-      transition: {
-        type: "spring",
-        stiffness: 500,
-        damping: 10,
-      },
+      transition: { type: "spring", stiffness: 500, damping: 10 },
     },
   };
 
@@ -196,55 +155,33 @@ export default function Hero() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        delay: 2.8,
-        duration: 0.8,
-      },
+      transition: { delay: 2.8, duration: 0.8 },
     },
     bounce: {
       y: [0, 10, 0],
-      transition: {
-        duration: 1.8,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
+      transition: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
     },
   };
 
   const imageContainerVariants = {
-    normal: {
-      scale: 1,
-    },
+    normal: { scale: 1 },
     hover: {
       scale: 1.05,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 25,
-      },
+      transition: { type: "spring", stiffness: 400, damping: 25 },
     },
   };
 
   const splitLocationVariants = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-    },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.8, ease: "easeOut" },
     },
   };
 
   const locationItemVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.8,
-    },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: (i) => ({
       opacity: 1,
       scale: 1,
@@ -257,48 +194,29 @@ export default function Hero() {
     }),
     hover: {
       scale: 1.05,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 10,
-      },
+      transition: { type: "spring", stiffness: 400, damping: 10 },
     },
   };
 
   const arrowVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0,
-      x: -10,
-    },
+    hidden: { opacity: 0, scale: 0, x: -10 },
     visible: {
       opacity: 1,
       scale: 1,
       x: 0,
-      transition: {
-        delay: 0.5,
-        type: "spring",
-        stiffness: 200,
-        damping: 15,
-      },
+      transition: { delay: 0.5, type: "spring", stiffness: 200, damping: 15 },
     },
     bounce: {
       x: [0, 8, 0],
-      transition: {
-        duration: 1.5,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
+      transition: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
     },
   };
 
-  // Add image rotation effect
   useEffect(() => {
     if (isInView) {
       const interval = setInterval(() => {
         setCurrentImage((prev) => (prev + 1) % images.length);
       }, 4000);
-
       return () => clearInterval(interval);
     }
   }, [isInView, images.length]);
@@ -309,21 +227,12 @@ export default function Hero() {
       className="min-h-screen flex items-center bg-gradient-to-br from-gray-50 to-white text-gray-800 pt-20 overflow-hidden relative"
       ref={ref}
     >
-      {/* Decorative elements with subtle animations */}
       <motion.div
         className="absolute top-20 right-20 w-40 h-40 rounded-full bg-blue-500 opacity-10 blur-xl"
         initial={{ scale: 0.8, opacity: 0 }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.15, 0.1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-
       <motion.div
         className="absolute bottom-1/4 left-10 w-32 h-32 rounded-full bg-purple-500 opacity-10 blur-xl"
         initial={{ scale: 0.8, opacity: 0 }}
@@ -341,7 +250,6 @@ export default function Hero() {
       />
 
       <div className="container mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-between relative z-10">
-        {/* Text Content */}
         <motion.div
           className="md:w-1/2 mb-12 md:mb-0"
           initial="hidden"
@@ -366,22 +274,15 @@ export default function Hero() {
               />
             </motion.div>
 
-            {/* Name with Blue+Green Gradient */}
             <motion.div className="flex flex-col gap-2">
               <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 leading-tight">
                 <motion.span
                   className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-500 bg-clip-text text-transparent"
-                  style={{
-                    backgroundSize: "200% 200%",
-                  }}
+                  style={{ backgroundSize: "200% 200%" }}
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                 >
                   {nameText}
                 </motion.span>
@@ -389,9 +290,7 @@ export default function Hero() {
                   <motion.span
                     className="inline-block h-10 w-1 bg-gradient-to-r from-blue-400 to-green-400 ml-1"
                     initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: [0, 0, 1, 1],
-                    }}
+                    animate={{ opacity: [0, 0, 1, 1] }}
                     transition={{
                       duration: 1,
                       repeat: Infinity,
@@ -404,7 +303,6 @@ export default function Hero() {
                 )}
               </motion.h1>
 
-              {/* Split Location - Methalodai → Al Ain (Same Size) */}
               {showLocationSplit ? (
                 <motion.div
                   className="flex items-center justify-start gap-2 sm:gap-3 md:gap-4 flex-wrap"
@@ -412,7 +310,6 @@ export default function Hero() {
                   initial="hidden"
                   animate="visible"
                 >
-                  {/* Methalodai - Starting Point */}
                   <motion.div
                     className="flex items-center gap-1.5 bg-purple-100 px-4 py-2 rounded-full border border-purple-300"
                     variants={locationItemVariants}
@@ -424,8 +321,6 @@ export default function Hero() {
                       Methalodai, India
                     </span>
                   </motion.div>
-
-                  {/* Single Animated Arrow */}
                   <motion.div
                     variants={arrowVariants}
                     initial="hidden"
@@ -434,8 +329,6 @@ export default function Hero() {
                   >
                     <FiArrowRight className="text-xl" />
                   </motion.div>
-
-                  {/* Al Ain - Destination (Same Size) */}
                   <motion.div
                     className="flex items-center gap-1.5 bg-blue-100 px-4 py-2 rounded-full border border-blue-300"
                     variants={locationItemVariants}
@@ -444,12 +337,11 @@ export default function Hero() {
                   >
                     <FaGlobeAsia className="text-blue-600 text-sm" />
                     <span className="text-sm font-medium text-blue-700">
-                      Al Ain, UAE
+                      Ras Al Khaimah, UAE
                     </span>
                   </motion.div>
                 </motion.div>
               ) : (
-                /* Initial Full Location */
                 <motion.div
                   className="flex items-center gap-1.5 text-gray-600"
                   initial={{ opacity: 0, y: 10 }}
@@ -474,18 +366,14 @@ export default function Hero() {
               variants={gradientVariants}
               initial="hidden"
               animate="visible"
-              style={{
-                backgroundSize: "200% 200%",
-              }}
+              style={{ backgroundSize: "200% 200%" }}
             >
               {titleText}
               {isInView && (
                 <motion.span
                   className="inline-block h-6 w-1 bg-purple-500 ml-1"
                   initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: [0, 0, 1, 1],
-                  }}
+                  animate={{ opacity: [0, 0, 1, 1] }}
                   transition={{
                     duration: 1,
                     repeat: Infinity,
@@ -539,7 +427,6 @@ export default function Hero() {
             </motion.a>
           </motion.div>
 
-          {/* Social Icons */}
           <motion.div className="flex gap-6 text-xl">
             <motion.a
               href="https://github.com/AbishekSathiyan"
@@ -569,10 +456,24 @@ export default function Hero() {
             >
               <FaLinkedin />
             </motion.a>
+            {/* Fixed Instagram: brand red on hover + scale */}
+            <motion.a
+              href="https://www.instagram.com/abishek_sathiyan/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-[#e2183d] transition-all duration-200 transform hover:scale-110"
+              variants={socialVariants}
+              custom={2}
+              initial="hidden"
+              animate="visible"
+              whileHover="hover"
+              aria-label="Instagram"
+            >
+              <FaInstagram className="text-2xl" />
+            </motion.a>
           </motion.div>
         </motion.div>
 
-        {/* Image Content */}
         <motion.div
           className="md:w-2/5 flex justify-center relative"
           variants={imageVariants}
@@ -597,7 +498,6 @@ export default function Hero() {
                 variants={imageTransitionVariants}
               />
             </div>
-
             <motion.div
               className="absolute inset-0 rounded-full border-4 border-transparent"
               animate={{
@@ -618,21 +518,13 @@ export default function Hero() {
             />
             <motion.div
               className="absolute -z-10 inset-0 bg-blue-400 rounded-full blur-md opacity-20"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.1, 0.2, 0.1],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             />
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-blue-600"
         variants={scrollIndicator}
@@ -655,13 +547,8 @@ export default function Hero() {
         </motion.div>
         <motion.p
           className="text-sm mt-2 font-mono"
-          animate={{
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-          }}
+          animate={{ opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2.5, repeat: Infinity }}
         >
           Scroll to explore
         </motion.p>

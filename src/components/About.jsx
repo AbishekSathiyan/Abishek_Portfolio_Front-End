@@ -115,7 +115,7 @@ export default function About() {
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={`bubble-${i}`}
-            className="absolute rounded-full bg-primary/10"
+            className="absolute rounded-full bg-blue-400/10"
             style={{
               width: Math.random() * 60 + 20,
               height: Math.random() * 60 + 20,
@@ -145,7 +145,7 @@ export default function About() {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               backgroundColor: `rgba(${
-                Math.random() > 0.5 ? "97, 218, 251" : "104, 160, 99"
+                Math.random() > 0.5 ? "96, 165, 250" : "34, 197, 94"
               }, ${Math.random() * 0.3 + 0.1})`,
             }}
             animate={{
@@ -198,7 +198,7 @@ export default function About() {
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold relative z-10">
             About{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-500">
               Me
             </span>
           </h2>
@@ -207,7 +207,7 @@ export default function About() {
             whileInView={{ scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
-            className="h-1 bg-gradient-to-r from-transparent via-primary to-transparent mt-4 mx-auto w-32"
+            className="h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent mt-4 mx-auto w-32"
           />
         </motion.div>
 
@@ -225,7 +225,7 @@ export default function About() {
             className="w-full lg:w-1/3 flex justify-center relative"
           >
             <motion.div
-              className="absolute inset-0 rounded-full border border-primary/20 pointer-events-none"
+              className="absolute inset-0 rounded-full border border-blue-400/20 pointer-events-none"
               animate={{ rotate: 360 }}
               transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             >
@@ -313,7 +313,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
       {codeSnippets.map((snippet, i) => (
         <motion.div
           key={`code-${i}`}
-          className="absolute text-xs sm:text-sm font-mono bg-primary/10 text-primary px-3 py-1 rounded-full backdrop-blur-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute text-xs sm:text-sm font-mono bg-blue-400/10 text-blue-500 px-3 py-1 rounded-full backdrop-blur-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{ left: `${snippet.x}%`, top: `${snippet.y}%` }}
           animate={{ y: [0, -10, 0], x: [0, 5, -5, 0] }}
           transition={{
@@ -339,7 +339,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary origin-left"
+          className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-green-500 origin-left"
         />
       </motion.h3>
       <div className="space-y-4">
@@ -426,7 +426,7 @@ const EducationCard = ({ backgroundAnimation }) => {
         {educationIcons.map((item, i) => (
           <motion.div
             key={`edu-icon-${i}`}
-            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-blue-400/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -480,15 +480,15 @@ const EducationCard = ({ backgroundAnimation }) => {
           viewport={{ once: true }}
         >
           <motion.span
-            className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300"
+            className="bg-blue-400/10 p-2 rounded-lg group-hover:bg-blue-400/20 transition-colors duration-300"
             whileHover={{ rotate: [0, 15, -10, 0] }}
             transition={{ duration: 0.6 }}
           >
-            <FaGraduationCap className="w-5 h-5 text-primary" />
+            <FaGraduationCap className="w-5 h-5 text-blue-400" />
           </motion.span>
           <span>Education</span>
           <motion.div
-            className="h-px bg-gradient-to-r from-primary to-transparent flex-1 ml-2"
+            className="h-px bg-gradient-to-r from-blue-400 to-transparent flex-1 ml-2"
             initial={{ width: 0 }}
             whileInView={{ width: "100%" }}
             transition={{ delay: 0.3 }}
@@ -523,13 +523,13 @@ const EducationCard = ({ backgroundAnimation }) => {
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-primary transition-colors duration-300">
+                  <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-blue-500 transition-colors duration-300">
                     {item.title}
                   </h4>
                   <p className="text-gray-600">{item.subtitle}</p>
                 </div>
                 <motion.span
-                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
+                  className="text-sm sm:text-base font-medium text-blue-500 bg-blue-400/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-blue-400/20 transition-colors duration-300"
                   whileHover={{ scale: 1.05 }}
                 >
                   {item.meta}
@@ -599,7 +599,7 @@ const CertificationsCard = ({ backgroundAnimation }) => {
         {certIcons.map((item, i) => (
           <motion.div
             key={`cert-icon-${i}`}
-            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-blue-400/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -646,15 +646,15 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           viewport={{ once: true }}
         >
           <motion.span
-            className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300"
+            className="bg-blue-400/10 p-2 rounded-lg group-hover:bg-blue-400/20 transition-colors duration-300"
             whileHover={{ rotate: [0, 15, -10, 0] }}
             transition={{ duration: 0.6 }}
           >
-            <FaCertificate className="w-5 h-5 text-primary" />
+            <FaCertificate className="w-5 h-5 text-blue-400" />
           </motion.span>
           <span>Certifications</span>
           <motion.div
-            className="h-px bg-gradient-to-r from-primary to-transparent flex-1 ml-2"
+            className="h-px bg-gradient-to-r from-blue-400 to-transparent flex-1 ml-2"
             initial={{ width: 0 }}
             whileInView={{ width: "100%" }}
             transition={{ delay: 0.3 }}
@@ -694,7 +694,7 @@ const CertificationsCard = ({ backgroundAnimation }) => {
               }}
             >
               <div>
-                <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-primary transition-colors duration-300">
+                <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-blue-500 transition-colors duration-300">
                   {item.title}
                 </h4>
                 <p className="text-gray-600">{item.subtitle}</p>
@@ -756,7 +756,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
         {internshipIcons.map((item, i) => (
           <motion.div
             key={`intern-icon-${i}`}
-            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-blue-400/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -783,7 +783,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
       >
         <div className="w-12 h-8 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg border-2 border-gray-600 opacity-30">
           <motion.div
-            className="w-full h-1 bg-gradient-to-r from-primary to-secondary mt-1"
+            className="w-full h-1 bg-gradient-to-r from-blue-400 to-green-500 mt-1"
             animate={{ width: ["30%", "70%", "50%", "90%", "30%"] }}
             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
           />
@@ -798,15 +798,15 @@ const InternshipsCard = ({ backgroundAnimation }) => {
           viewport={{ once: true }}
         >
           <motion.span
-            className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300"
+            className="bg-blue-400/10 p-2 rounded-lg group-hover:bg-blue-400/20 transition-colors duration-300"
             whileHover={{ rotate: [0, 15, -10, 0] }}
             transition={{ duration: 0.6 }}
           >
-            <FaLaptopCode className="w-5 h-5 text-primary" />
+            <FaLaptopCode className="w-5 h-5 text-blue-400" />
           </motion.span>
           <span>Internships</span>
           <motion.div
-            className="h-px bg-gradient-to-r from-primary to-transparent flex-1 ml-2"
+            className="h-px bg-gradient-to-r from-blue-400 to-transparent flex-1 ml-2"
             initial={{ width: 0 }}
             whileInView={{ width: "100%" }}
             transition={{ delay: 0.3 }}
@@ -827,7 +827,14 @@ const InternshipsCard = ({ backgroundAnimation }) => {
               subtitle: "kaashiv Infotech",
               meta: "April 2025",
               description: "Programming, DataStructures, Algorithms",
-              link: "www.kaashivinfotech.com/",
+              link: "https://www.kaashivinfotech.com/",
+            },
+            {
+              title: "AI and Tech",
+              subtitle: "Innovation City",
+              meta: "June - july 2026",
+              description: "AI Tools, Prompting, Building Applications using AI",
+              link: "https://innovationcity.com/",
             },
           ].map((item, idx) => (
             <motion.div
@@ -844,7 +851,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-primary transition-colors duration-300">
+                  <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-blue-500 transition-colors duration-300">
                     {item.title}
                   </h4>
                   <p className="text-gray-600">
@@ -853,7 +860,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline transition-all duration-300 hover:tracking-wide"
+                        className="text-blue-500 hover:underline transition-all duration-300 hover:tracking-wide"
                       >
                         {item.subtitle}
                       </a>
@@ -866,7 +873,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
                   </p>
                 </div>
                 <motion.span
-                  className="text-sm sm:text-base font-medium text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-primary/20 transition-colors duration-300"
+                  className="text-sm sm:text-base font-medium text-blue-500 bg-blue-400/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-blue-400/20 transition-colors duration-300"
                   whileHover={{ scale: 1.05 }}
                 >
                   {item.meta}
@@ -933,7 +940,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
         {resumeIcons.map((item, i) => (
           <motion.div
             key={`resume-icon-${i}`}
-            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-primary/20"
+            className="bg-white/90 p-2 rounded-full shadow-lg backdrop-blur-sm border border-blue-400/20"
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -958,7 +965,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
         animate={{ rotateZ: [0, 5, -5, 0], y: [0, -10, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <FaFilePdf className="text-6xl text-primary opacity-20" />
+        <FaFilePdf className="text-6xl text-blue-400 opacity-20" />
       </motion.div>
       <motion.div
         className="absolute left-8 bottom-4 w-16 pointer-events-none hidden lg:block"
@@ -970,7 +977,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
           delay: 1,
         }}
       >
-        <FaFilePdf className="text-4xl text-secondary opacity-20" />
+        <FaFilePdf className="text-4xl text-green-400 opacity-20" />
       </motion.div>
       <div className="ml-16">
         <motion.div
@@ -980,13 +987,13 @@ const ResumeCard = ({ backgroundAnimation }) => {
           viewport={{ once: true }}
         >
           <h4 className="text-xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
-            <FaFilePdf className="text-primary" />
+            <FaFilePdf className="text-blue-500" />
             Get My Full Profile
           </h4>
           <motion.a
-            href="/Abishek Sathiyan - MERN Fullstack Developer Resume India.pdf"
-            download="Abishek Sathiyan - MERN Fullstack Developer Resume India.pdf"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
+            href="/Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
+            download="Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-400 to-green-500 text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 8px 25px -5px rgba(59, 130, 246, 0.6)",

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Mine from "./assets/Mine.jpeg"; // <-- Import your image
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
@@ -32,39 +33,50 @@ export default function Header() {
   return (
     <header className="fixed w-full bg-white/90 backdrop-blur-sm text-gray-800 shadow-md z-50">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        {/* Animated Name with Blue+Green Gradient */}
-        <motion.p
-          className="text-2xl font-bold cursor-pointer flex items-center flex-wrap gap-1"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          <motion.span
-            className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-500 bg-clip-text text-transparent inline-block"
-            style={{ backgroundSize: "200% 200%" }}
-            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          >
-            Abishek Sathiyan
-          </motion.span>{" "}
-          {/* Portfolio with Blue to Purple Gradient */}
-          <motion.span
-            className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent inline-block"
-            style={{ backgroundSize: "200% 200%" }}
-            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-          >
-            Portfolio
-          </motion.span>
-        </motion.p>
+        {/* Left side: Image + Name */}
+        <div className="flex items-center gap-3">
+          {/* Profile Image */}
+          <motion.img
+            src={Mine}
+            alt="Abishek Sathiyan"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-blue-400 shadow-md"
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          />
 
-        {/* Desktop Navigation */}
+          {/* Animated Name */}
+          <motion.p
+            className="text-2xl font-bold cursor-pointer flex items-center flex-wrap gap-1"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            <motion.span
+              className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-500 bg-clip-text text-transparent inline-block"
+              style={{ backgroundSize: "200% 200%" }}
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            >
+              Abishek Sathiyan
+            </motion.span>{" "}
+            <motion.span
+              className="bg-gradient-to-r from-blue-400 to-green-500 bg-clip-text text-transparent inline-block"
+              style={{ backgroundSize: "200% 200%" }}
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            >
+              Portfolio
+            </motion.span>
+          </motion.p>
+        </div>
+
+        {/* Desktop Navigation (unchanged) */}
         <nav className="hidden md:flex space-x-6 items-center">
           {links.map((link, index) => (
             <div key={link.name} className="relative group">
               {link.subLinks ? (
                 <>
                   <button
-                    className="flex items-center px-2 py-2 hover:text-primary transition-colors"
+                    className="flex items-center px-2 py-2 hover:text-green-500 transition-colors"
                     onClick={() => toggleDropdown(index)}
                     onMouseEnter={() => setActiveDropdown(index)}
                     onMouseLeave={() => setActiveDropdown(null)}
@@ -76,7 +88,6 @@ export default function Header() {
                       }`}
                     />
                   </button>
-
                   {activeDropdown === index && (
                     <div
                       className="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-sm rounded-md shadow-lg py-1 border border-gray-200 z-50 animate-slideDown"
@@ -86,7 +97,7 @@ export default function Header() {
                         <a
                           key={subLink.name}
                           href={subLink.href}
-                          className="block px-4 py-2 text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors"
+                          className="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-500 transition-colors"
                         >
                           {subLink.name}
                         </a>
@@ -97,17 +108,17 @@ export default function Header() {
               ) : (
                 <a
                   href={link.href}
-                  className="relative group px-2 py-2 hover:text-primary transition-colors"
+                  className="relative group px-2 py-2 hover:text-green-500 transition-colors"
                 >
                   {link.name}
-                  <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-gradient-to-r from-blue-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-gradient-to-r from-blue-400 to-green-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               )}
             </div>
           ))}
         </nav>
 
-        {/* Mobile Nav Toggle */}
+        {/* Mobile Nav Toggle (unchanged) */}
         <button
           className="md:hidden text-xl p-2 rounded hover:bg-gray-100 transition-colors"
           onClick={() => {
@@ -119,7 +130,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Right Corner Menu */}
+      {/* Mobile Menu (unchanged) */}
       {navOpen && (
         <div className="md:hidden fixed top-16 right-0 z-40 animate-slideDown">
           <div className="bg-white w-64 rounded-l-lg shadow-lg py-4 border-l border-gray-200 text-gray-800">
@@ -129,7 +140,7 @@ export default function Header() {
                   {link.subLinks ? (
                     <>
                       <button
-                        className="flex items-center justify-between w-full py-3 hover:text-primary transition-colors"
+                        className="flex items-center justify-between w-full py-3 hover:text-green-500 transition-colors"
                         onClick={() => toggleDropdown(index)}
                       >
                         {link.name}
@@ -145,7 +156,7 @@ export default function Header() {
                             <a
                               key={subLink.name}
                               href={subLink.href}
-                              className="block py-2 hover:text-primary transition-colors"
+                              className="block py-2 hover:text-green-500 transition-colors"
                               onClick={() => setNavOpen(false)}
                             >
                               {subLink.name}
@@ -157,7 +168,7 @@ export default function Header() {
                   ) : (
                     <a
                       href={link.href}
-                      className="block py-3 hover:text-primary transition-colors"
+                      className="block py-3 hover:text-green-500 transition-colors"
                       onClick={() => setNavOpen(false)}
                     >
                       {link.name}

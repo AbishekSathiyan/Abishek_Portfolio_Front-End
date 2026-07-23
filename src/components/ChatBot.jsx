@@ -1,11 +1,17 @@
-// src/components/ChatBot.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaRobot, FaTimes, FaPaperPlane, FaUser, FaTrash } from "react-icons/fa";
+import {
+  FaRobot,
+  FaTimes,
+  FaPaperPlane,
+  FaUser,
+  FaTrash,
+} from "react-icons/fa";
 import { FiMessageCircle } from "react-icons/fi";
-import { getBotResponse, quickReplies } from "../data/chatbotData";
+import { getBotResponse } from "../data/chatbotData";
+import { submitContactForm } from "../services/api";
 
-// ─── helper to convert **bold**, \n, URLs, emails, and phone numbers into JSX ───
+/* ─── message formatter (unchanged) ─── */
 const formatMessage = (text) => {
   const lines = text.split("\n");
   return lines.map((line, i) => (
@@ -13,14 +19,12 @@ const formatMessage = (text) => {
       {i > 0 && <br />}
       {line
         .split(
-          /(\*\*.*?\*\*|https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\+\d{1,3}\s?\d{4,14}(?:\s?\d{2,14})*)/
+          /(\*\*.*?\*\*|https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\+\d{1,3}\s?\d{4,14}(?:\s?\d{2,14})*)/,
         )
         .map((part, j) => {
-          // Bold
           if (part.startsWith("**") && part.endsWith("**")) {
             return <strong key={j}>{part.slice(2, -2)}</strong>;
           }
-          // URL (http / https)
           if (part.startsWith("http://") || part.startsWith("https://")) {
             return (
               <a
@@ -34,10 +38,7 @@ const formatMessage = (text) => {
               </a>
             );
           }
-          // Email address
-          if (
-            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(part)
-          ) {
+          if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(part)) {
             return (
               <a
                 key={j}
@@ -48,7 +49,6 @@ const formatMessage = (text) => {
               </a>
             );
           }
-          // Phone number (international or 10-digit)
           if (/^\+?\d[\d\s]{5,}$/.test(part.replace(/\s/g, ""))) {
             return (
               <a
@@ -68,8 +68,16 @@ const formatMessage = (text) => {
 
 const INITIAL_MESSAGE = {
   sender: "bot",
-  text: "Hi! I'm Abishek Sathiyan's virtual assistant. Ask me about his skills, projects, internship, or contact info.",
+  text: `Hi! I'm **Abishek Sathiyan**'s virtual assistant. 👋\n\nI can tell you about his **Skills**, **Projects**, **Internship**, or share his **Contact Details**. You can also send him a direct message by clicking **Message Now**.\n\nJust use the buttons below or type your question!`,
 };
+
+const SUBJECT_OPTIONS = [
+  "General Inquiry",
+  "Project Proposal",
+  "Freelance Work",
+  "Collaboration",
+  "Other",
+];
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,6 +85,16 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const [formMode, setFormMode] = useState(false);
+  const [formStep, setFormStep] = useState("name"); // name → email → contact → subject → message
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    contact: "",
+    subject: "General Inquiry",
+    message: "",
+  });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -86,33 +104,200 @@ export default function ChatBot() {
     scrollToBottom();
   }, [messages]);
 
+  // ── Quick‑reply handler ──
   const handleQuickReply = (reply) => {
-    setInput(reply);
-    sendMessage(reply);
+    addUserMessage(reply);
+    switch (reply) {
+      case "Contact Details":
+        addBotMessage(
+          "📞 **Contact Details**\n\n" +
+            "📧 **Email:** abishek.sathiyan.2002@gmail.com\n" +
+            "📱 **Phone (UAE):** +971 52 290 4847  ([Call](tel:+971522904847) | [WhatsApp](https://wa.me/971522904847))\n" +
+            "📱 **Phone (India):** +91 70920 85864  ([Call](tel:+917092085864) | [WhatsApp](https://wa.me/917092085864))\n" +
+            "📍 **Location:** Chennai,TamilNadu,India\n\n" +
+            "Feel free to reach out anytime!",
+        );
+        break;
+      case "Message Now":
+        startFormMode();
+        break;
+      default:
+        // For Skills, Projects, Internship, etc.
+        getBotReply(reply);
+        break;
+    }
   };
 
-  const sendMessage = async (messageText = input) => {
-    if (!messageText.trim() || loading) return;
+  // ── enter form mode ──
+  const startFormMode = () => {
+    setFormMode(true);
+    setFormStep("name");
+    setFormData({
+      name: "",
+      email: "",
+      contact: "",
+      subject: "General Inquiry",
+      message: "",
+    });
+    addBotMessage("Sure! Let's get your details. What's your **full name**?");
+  };
 
-    const userMsg = { sender: "user", text: messageText };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput("");
+  // ── handle each step of the form ──
+  const processFormStep = (userText) => {
+    switch (formStep) {
+      case "name":
+        if (!userText.trim()) {
+          addBotMessage("Please enter a valid name.");
+          return;
+        }
+        setFormData((prev) => ({ ...prev, name: userText.trim() }));
+        setFormStep("email");
+        addBotMessage(
+          `Thanks, ${userText.trim()}! What's your **email address**?`,
+        );
+        break;
+
+      case "email":
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userText)) {
+          addBotMessage(
+            "Hmm, that doesn't look like a valid email. Please try again.",
+          );
+          return;
+        }
+        setFormData((prev) => ({ ...prev, email: userText.trim() }));
+        setFormStep("contact");
+        addBotMessage("Got it! What's your **phone number**? (10 digits)");
+        break;
+
+      case "contact":
+        const digits = userText.replace(/\D/g, "");
+        if (digits.length < 10) {
+          addBotMessage("Please provide a valid 10‑digit phone number.");
+          return;
+        }
+        setFormData((prev) => ({ ...prev, contact: digits.slice(0, 10) }));
+        setFormStep("subject");
+        addBotMessage("What is the **subject** of your message?");
+        // Show subject options as quick replies
+        setSubjectQuickReplies(true);
+        break;
+
+      case "subject":
+        // If user typed a custom subject (not from buttons), accept it
+        const trimmedSubject = userText.trim();
+        if (!trimmedSubject) {
+          addBotMessage("Please select or type a subject.");
+          return;
+        }
+        // Check if it matches one of the predefined options; if not, use "Other"
+        const matchedSubject = SUBJECT_OPTIONS.find(
+          (opt) => opt.toLowerCase() === trimmedSubject.toLowerCase(),
+        );
+        setFormData((prev) => ({
+          ...prev,
+          subject: matchedSubject || trimmedSubject,
+        }));
+        setSubjectQuickReplies(false);
+        setFormStep("message");
+        addBotMessage("Almost done! What **message** would you like to send?");
+        break;
+
+      case "message":
+        if (!userText.trim()) {
+          addBotMessage("Message cannot be empty. Please type something.");
+          return;
+        }
+        setFormData((prev) => ({ ...prev, message: userText.trim() }));
+        // all fields collected → submit
+        submitForm({ ...formData, message: userText.trim() });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  // ── Submit the form via API (shows real errors) ──
+  const submitForm = async (data) => {
     setLoading(true);
-
+    addBotMessage("Sending your message...");
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      const botReply = getBotResponse(messageText);
-      setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
+      const res = await submitContactForm(data); // expects { success, message, errors? }
+
+      if (res.success) {
+        addBotMessage(
+          "✅ Your message has been sent! **Abishek Sathiyan** will get back to you soon.",
+        );
+      } else {
+        let errorText = res.message || "Something went wrong.";
+        if (res.errors && res.errors.length > 0) {
+          errorText += "\n\n" + res.errors.map((e) => "• " + e).join("\n");
+        }
+        addBotMessage(`❌ ${errorText}`);
+      }
     } catch (error) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: "Sorry, something went wrong. Please use the contact form.",
-        },
-      ]);
+      addBotMessage(
+        "❌ Connection error. Please check your internet and try again.",
+      );
     } finally {
       setLoading(false);
+      setFormMode(false);
+      setSubjectQuickReplies(false);
+      setFormStep("name");
+      setFormData({
+        name: "",
+        email: "",
+        contact: "",
+        subject: "General Inquiry",
+        message: "",
+      });
+    }
+  };
+
+  // ── Helpers ──
+  const addUserMessage = (text) => {
+    setMessages((prev) => [...prev, { sender: "user", text }]);
+  };
+
+  const addBotMessage = (text) => {
+    setMessages((prev) => [...prev, { sender: "bot", text }]);
+  };
+
+  const getBotReply = (userText) => {
+    const reply = getBotResponse(userText);
+    if (!reply) {
+      addBotMessage(
+        "I'm not sure about that. You can ask about **Skills**, **Projects**, **Internship**, **Contact Details**, or send a message by clicking **Message Now**.",
+      );
+    } else {
+      addBotMessage(reply);
+    }
+  };
+
+  // ── Subject quick reply flag ──
+  const [subjectQuickReplies, setSubjectQuickReplies] = useState(false);
+
+  // ── Send message (unified entry point) ──
+  const sendMessage = async (messageText = input) => {
+    if (!messageText.trim() || loading) return;
+    setInput("");
+    addUserMessage(messageText);
+
+    if (formMode) {
+      processFormStep(messageText);
+    } else {
+      const lower = messageText.toLowerCase().trim();
+      if (lower === "contact details" || lower === "contact") {
+        handleQuickReply("Contact Details");
+      } else if (
+        lower === "message now" ||
+        lower === "message" ||
+        lower === "send message"
+      ) {
+        handleQuickReply("Message Now");
+      } else {
+        getBotReply(messageText);
+      }
     }
   };
 
@@ -125,7 +310,26 @@ export default function ChatBot() {
 
   const clearChat = () => {
     setMessages([INITIAL_MESSAGE]);
+    setFormMode(false);
+    setSubjectQuickReplies(false);
+    setFormStep("name");
+    setFormData({
+      name: "",
+      email: "",
+      contact: "",
+      subject: "General Inquiry",
+      message: "",
+    });
   };
+
+  // ── Quick reply buttons for main menu ──
+  const quickReplies = [
+    "Skills",
+    "Projects",
+    "Internship",
+    "Contact Details",
+    "Message Now",
+  ];
 
   return (
     <>
@@ -154,9 +358,10 @@ export default function ChatBot() {
               <FaRobot size={20} />
               <div className="flex-1">
                 <h4 className="font-semibold">Abishek Sathiyan's Assistant</h4>
-                <p className="text-xs opacity-90">Ask me anything</p>
+                <p className="text-xs opacity-90">
+                  Ask me anything or send a message
+                </p>
               </div>
-              {/* Clear chat button */}
               <button
                 onClick={clearChat}
                 className="text-white hover:text-gray-200 mr-2"
@@ -164,7 +369,6 @@ export default function ChatBot() {
               >
                 <FaTrash size={16} />
               </button>
-              {/* Close button */}
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-white hover:text-gray-200"
@@ -228,18 +432,30 @@ export default function ChatBot() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick replies */}
-            <div className="flex flex-wrap gap-2 px-4 py-2 bg-white border-t border-gray-200">
-              {quickReplies.map((reply, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleQuickReply(reply)}
-                  className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full transition-colors"
-                >
-                  {reply}
-                </button>
-              ))}
-            </div>
+            {/* Quick replies – hidden when formMode is active (except subject step) */}
+            {(!formMode || subjectQuickReplies) && (
+              <div className="flex flex-wrap gap-2 px-4 py-2 bg-white border-t border-gray-200">
+                {(subjectQuickReplies ? SUBJECT_OPTIONS : quickReplies).map(
+                  (reply, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        if (subjectQuickReplies) {
+                          // When selecting subject, treat as a quick reply
+                          addUserMessage(reply);
+                          processFormStep(reply);
+                        } else {
+                          handleQuickReply(reply);
+                        }
+                      }}
+                      className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full transition-colors"
+                    >
+                      {reply}
+                    </button>
+                  ),
+                )}
+              </div>
+            )}
 
             {/* Input */}
             <div className="p-4 bg-white border-t border-gray-200">
@@ -249,7 +465,13 @@ export default function ChatBot() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Type your message..."
+                  placeholder={
+                    formMode
+                      ? subjectQuickReplies
+                        ? "Or type a custom subject..."
+                        : `Enter your ${formStep}...`
+                      : "Type your question..."
+                  }
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   disabled={loading}
                 />
