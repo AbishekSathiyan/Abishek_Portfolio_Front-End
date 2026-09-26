@@ -3,50 +3,88 @@ import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Mine from "./assets/Mine.jpeg";
 
+/* =========================================================
+   NAVIGATION LINKS
+   Keep this outside the component so it remains stable.
+========================================================= */
+
+const links = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Contact", href: "#contact" },
+];
+
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeSection, setActiveSection] = useState("home");
 
-  const links = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contact", href: "#contact" },
-  ];
+  /* =======================================================
+     DROPDOWN
+  ======================================================= */
 
   const toggleDropdown = (index) => {
-    setActiveDropdown(activeDropdown === index ? null : index);
+    setActiveDropdown((current) =>
+      current === index ? null : index
+    );
   };
 
-  // Smooth scroll and highlight on click
+  /* =======================================================
+     SMOOTH SCROLL
+  ======================================================= */
+
   const handleNavClick = (e, href) => {
     e.preventDefault();
+
     const id = href.replace("#", "");
     const element = document.getElementById(id);
+
     if (element) {
-      const offset = 80; // adjust for fixed header
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+      const offset = 80;
+
+      const bodyRect =
+        document.body.getBoundingClientRect().top;
+
+      const elementRect =
+        element.getBoundingClientRect().top;
+
+      const elementPosition =
+        elementRect - bodyRect;
+
+      const offsetPosition =
+        elementPosition - offset;
 
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
       });
+
       setActiveSection(id);
     }
   };
 
-  // Highlight nav on scroll (Intersection Observer)
-  useEffect(() => {
-    const sections = links.map((link) =>
-      document.getElementById(link.href.replace("#", ""))
-    ).filter(Boolean);
+  /* =======================================================
+     HIGHLIGHT NAVIGATION ON SCROLL
+     
+     FIX:
+     `links` is now outside the component, so the dependency
+     array can safely remain empty.
+  ======================================================= */
 
-    if (!sections.length) return;
+  useEffect(() => {
+    const sections = links
+      .map((link) =>
+        document.getElementById(
+          link.href.replace("#", "")
+        )
+      )
+      .filter(Boolean);
+
+    if (!sections.length) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -56,13 +94,28 @@ export default function Header() {
           }
         });
       },
-      { rootMargin: "-50% 0px -50% 0px", threshold: 0 }
+      {
+        rootMargin: "-50% 0px -50% 0px",
+        threshold: 0,
+      }
     );
 
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
 
-    return () => sections.forEach((section) => observer.unobserve(section));
+    return () => {
+      sections.forEach((section) => {
+        observer.unobserve(section);
+      });
+
+      observer.disconnect();
+    };
   }, []);
+
+  /* =======================================================
+     RESPONSIVE NAVIGATION
+  ======================================================= */
 
   useEffect(() => {
     const handleResize = () => {
@@ -71,105 +124,294 @@ export default function Header() {
         setActiveDropdown(null);
       }
     };
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+    };
   }, []);
 
   return (
-    <header className="fixed w-full bg-white/90 backdrop-blur-sm text-gray-800 shadow-md z-50">
-      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        {/* Left side: Image + Name */}
+    <header
+      className="
+        fixed
+        z-50
+        w-full
+        bg-white/90
+        text-gray-800
+        shadow-md
+        backdrop-blur-sm
+      "
+    >
+      <div
+        className="
+          container
+          mx-auto
+          flex
+          items-center
+          justify-between
+          px-6
+          py-3
+        "
+      >
+        {/* =================================================
+            LEFT SIDE
+        ================================================= */}
+
         <div className="flex items-center gap-3">
           <motion.img
             src={Mine}
             alt="Abishek Sathiyan"
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-blue-400 shadow-md"
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="
+              h-10
+              w-10
+              rounded-full
+              border-2
+              border-blue-400
+              object-cover
+              shadow-md
+              md:h-12
+              md:w-12
+            "
+            whileHover={{
+              scale: 1.1,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 10,
+            }}
           />
 
           <motion.p
-            className="text-2xl font-bold cursor-pointer flex items-center flex-wrap gap-1"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="
+              flex
+              cursor-pointer
+              flex-wrap
+              items-center
+              gap-1
+              text-xl
+              font-bold
+              md:text-2xl
+            "
+            whileHover={{
+              scale: 1.05,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 10,
+            }}
           >
             <motion.span
-              className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-500 bg-clip-text text-transparent inline-block"
-              style={{ backgroundSize: "200% 200%" }}
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+              className="
+                inline-block
+                bg-gradient-to-r
+                from-blue-400
+                via-green-400
+                to-blue-500
+                bg-clip-text
+                text-transparent
+              "
+              style={{
+                backgroundSize: "200% 200%",
+              }}
+              animate={{
+                backgroundPosition: [
+                  "0% 50%",
+                  "100% 50%",
+                  "0% 50%",
+                ],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "linear",
+              }}
             >
               Abishek Sathiyan
-            </motion.span>{" "}
+            </motion.span>
+
             <motion.span
-              className="bg-gradient-to-r from-blue-400 to-green-500 bg-clip-text text-transparent inline-block"
-              style={{ backgroundSize: "200% 200%" }}
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+              className="
+                inline-block
+                bg-gradient-to-r
+                from-blue-400
+                to-green-500
+                bg-clip-text
+                text-transparent
+              "
+              style={{
+                backgroundSize: "200% 200%",
+              }}
+              animate={{
+                backgroundPosition: [
+                  "0% 50%",
+                  "100% 50%",
+                  "0% 50%",
+                ],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "linear",
+              }}
             >
               Portfolio
             </motion.span>
           </motion.p>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-6 items-center">
+        {/* =================================================
+            DESKTOP NAVIGATION
+        ================================================= */}
+
+        <nav className="hidden items-center space-x-6 md:flex">
           {links.map((link, index) => {
-            const isActive = activeSection === link.href.replace("#", "");
+            const sectionId =
+              link.href.replace("#", "");
+
+            const isActive =
+              activeSection === sectionId;
 
             return (
-              <div key={link.name} className="relative group">
+              <div
+                key={link.name}
+                className="group relative"
+              >
                 {link.subLinks ? (
                   <>
                     <button
-                      className={`flex items-center px-2 py-2 transition-colors ${
-                        isActive ? "text-green-500" : "hover:text-green-500"
-                      }`}
-                      onClick={() => toggleDropdown(index)}
-                      onMouseEnter={() => setActiveDropdown(index)}
-                      onMouseLeave={() => setActiveDropdown(null)}
+                      type="button"
+                      className={`
+                        flex
+                        items-center
+                        px-2
+                        py-2
+                        transition-colors
+                        ${
+                          isActive
+                            ? "text-green-500"
+                            : "hover:text-green-500"
+                        }
+                      `}
+                      onClick={() =>
+                        toggleDropdown(index)
+                      }
+                      onMouseEnter={() =>
+                        setActiveDropdown(index)
+                      }
+                      onMouseLeave={() =>
+                        setActiveDropdown(null)
+                      }
                     >
                       {link.name}
+
                       <FaChevronDown
-                        className={`ml-1 text-xs transition-transform duration-200 ${
-                          activeDropdown === index ? "rotate-180" : ""
-                        }`}
+                        className={`
+                          ml-1
+                          text-xs
+                          transition-transform
+                          duration-200
+                          ${
+                            activeDropdown === index
+                              ? "rotate-180"
+                              : ""
+                          }
+                        `}
                       />
                     </button>
+
                     {activeDropdown === index && (
                       <div
-                        className="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-sm rounded-md shadow-lg py-1 border border-gray-200 z-50 animate-slideDown"
-                        onMouseLeave={() => setActiveDropdown(null)}
+                        className="
+                          absolute
+                          right-0
+                          z-50
+                          mt-2
+                          w-48
+                          animate-slideDown
+                          rounded-md
+                          border
+                          border-gray-200
+                          bg-white/95
+                          py-1
+                          shadow-lg
+                          backdrop-blur-sm
+                        "
+                        onMouseLeave={() =>
+                          setActiveDropdown(null)
+                        }
                       >
-                        {link.subLinks.map((subLink) => (
-                          <a
-                            key={subLink.name}
-                            href={subLink.href}
-                            className="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-500 transition-colors"
-                          >
-                            {subLink.name}
-                          </a>
-                        ))}
+                        {link.subLinks.map(
+                          (subLink) => (
+                            <a
+                              key={subLink.name}
+                              href={subLink.href}
+                              className="
+                                block
+                                px-4
+                                py-2
+                                text-gray-700
+                                transition-colors
+                                hover:bg-green-50
+                                hover:text-green-500
+                              "
+                            >
+                              {subLink.name}
+                            </a>
+                          )
+                        )}
                       </div>
                     )}
                   </>
                 ) : (
                   <a
                     href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className={`relative px-2 py-2 transition-colors group ${
-                      isActive
-                        ? "text-green-600 font-semibold"
-                        : "hover:text-green-500"
-                    }`}
+                    onClick={(e) =>
+                      handleNavClick(
+                        e,
+                        link.href
+                      )
+                    }
+                    className={`
+                      group
+                      relative
+                      px-2
+                      py-2
+                      transition-colors
+                      ${
+                        isActive
+                          ? "font-semibold text-green-600"
+                          : "hover:text-green-500"
+                      }
+                    `}
                   >
                     {link.name}
-                    {/* Underline highlight */}
+
+                    {/* Underline */}
                     <span
-                      className={`absolute left-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-400 to-green-500 transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
-                    ></span>
+                      className={`
+                        absolute
+                        bottom-0
+                        left-0
+                        h-0.5
+                        bg-gradient-to-r
+                        from-blue-400
+                        to-green-500
+                        transition-all
+                        duration-300
+                        ${
+                          isActive
+                            ? "w-full"
+                            : "w-0 group-hover:w-full"
+                        }
+                      `}
+                    />
                   </a>
                 )}
               </div>
@@ -177,11 +419,27 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Mobile Nav Toggle */}
+        {/* =================================================
+            MOBILE MENU BUTTON
+        ================================================= */}
+
         <button
-          className="md:hidden text-xl p-2 rounded hover:bg-gray-100 transition-colors"
+          type="button"
+          aria-label={
+            navOpen
+              ? "Close navigation menu"
+              : "Open navigation menu"
+          }
+          className="
+            rounded
+            p-2
+            text-xl
+            transition-colors
+            hover:bg-gray-100
+            md:hidden
+          "
           onClick={() => {
-            setNavOpen(!navOpen);
+            setNavOpen((current) => !current);
             setActiveDropdown(null);
           }}
         >
@@ -189,43 +447,105 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ===================================================
+          MOBILE MENU
+      =================================================== */}
+
       {navOpen && (
-        <div className="md:hidden fixed top-16 right-0 z-40 animate-slideDown">
-          <div className="bg-white w-64 rounded-l-lg shadow-lg py-4 border-l border-gray-200 text-gray-800">
+        <div
+          className="
+            fixed
+            right-0
+            top-16
+            z-40
+            animate-slideDown
+            md:hidden
+          "
+        >
+          <div
+            className="
+              w-64
+              rounded-l-lg
+              border-l
+              border-gray-200
+              bg-white
+              py-4
+              text-gray-800
+              shadow-lg
+            "
+          >
             <nav className="flex flex-col px-6">
               {links.map((link, index) => {
-                const isActive = activeSection === link.href.replace("#", "");
+                const sectionId =
+                  link.href.replace("#", "");
+
+                const isActive =
+                  activeSection === sectionId;
 
                 return (
-                  <div key={link.name} className="border-b border-gray-200">
+                  <div
+                    key={link.name}
+                    className="border-b border-gray-200"
+                  >
                     {link.subLinks ? (
                       <>
                         <button
-                          className={`flex items-center justify-between w-full py-3 transition-colors ${
-                            isActive ? "text-green-500 font-semibold" : "hover:text-green-500"
-                          }`}
-                          onClick={() => toggleDropdown(index)}
+                          type="button"
+                          className={`
+                            flex
+                            w-full
+                            items-center
+                            justify-between
+                            py-3
+                            transition-colors
+                            ${
+                              isActive
+                                ? "font-semibold text-green-500"
+                                : "hover:text-green-500"
+                            }
+                          `}
+                          onClick={() =>
+                            toggleDropdown(index)
+                          }
                         >
                           {link.name}
+
                           <FaChevronDown
-                            className={`text-xs transition-transform duration-200 ${
-                              activeDropdown === index ? "rotate-180" : ""
-                            }`}
+                            className={`
+                              text-xs
+                              transition-transform
+                              duration-200
+                              ${
+                                activeDropdown ===
+                                index
+                                  ? "rotate-180"
+                                  : ""
+                              }
+                            `}
                           />
                         </button>
+
                         {activeDropdown === index && (
-                          <div className="text-right pr-2 pb-2">
-                            {link.subLinks.map((subLink) => (
-                              <a
-                                key={subLink.name}
-                                href={subLink.href}
-                                className="block py-2 hover:text-green-500 transition-colors"
-                                onClick={() => setNavOpen(false)}
-                              >
-                                {subLink.name}
-                              </a>
-                            ))}
+                          <div className="pb-2 pr-2 text-right">
+                            {link.subLinks.map(
+                              (subLink) => (
+                                <a
+                                  key={subLink.name}
+                                  href={subLink.href}
+                                  className="
+                                    block
+                                    py-2
+                                    transition-colors
+                                    hover:text-green-500
+                                  "
+                                  onClick={() =>
+                                    setNavOpen(false)
+                                  }
+                                >
+                                  {subLink.name}
+                                </a>
+                              )
+                            )}
                           </div>
                         )}
                       </>
@@ -233,14 +553,22 @@ export default function Header() {
                       <a
                         href={link.href}
                         onClick={(e) => {
-                          handleNavClick(e, link.href);
+                          handleNavClick(
+                            e,
+                            link.href
+                          );
                           setNavOpen(false);
                         }}
-                        className={`block py-3 transition-colors ${
-                          isActive
-                            ? "text-green-600 font-semibold border-l-4 border-green-500 pl-2"
-                            : "hover:text-green-500"
-                        }`}
+                        className={`
+                          block
+                          py-3
+                          transition-colors
+                          ${
+                            isActive
+                              ? "border-l-4 border-green-500 pl-2 font-semibold text-green-600"
+                              : "hover:text-green-500"
+                          }
+                        `}
                       >
                         {link.name}
                       </a>
