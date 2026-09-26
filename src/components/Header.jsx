@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Mine from "./assets/Mine.jpeg"; // <-- Import your image
+import Mine from "./assets/Mine.jpeg";
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeSection, setActiveSection] = useState("home");
 
   const links = [
     { name: "Home", href: "#home" },
@@ -18,6 +19,50 @@ export default function Header() {
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
+
+  // Smooth scroll and highlight on click
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const id = href.replace("#", "");
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80; // adjust for fixed header
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      setActiveSection(id);
+    }
+  };
+
+  // Highlight nav on scroll (Intersection Observer)
+  useEffect(() => {
+    const sections = links.map((link) =>
+      document.getElementById(link.href.replace("#", ""))
+    ).filter(Boolean);
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => sections.forEach((section) => observer.unobserve(section));
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,7 +80,6 @@ export default function Header() {
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         {/* Left side: Image + Name */}
         <div className="flex items-center gap-3">
-          {/* Profile Image */}
           <motion.img
             src={Mine}
             alt="Abishek Sathiyan"
@@ -44,7 +88,6 @@ export default function Header() {
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           />
 
-          {/* Animated Name */}
           <motion.p
             className="text-2xl font-bold cursor-pointer flex items-center flex-wrap gap-1"
             whileHover={{ scale: 1.05 }}
@@ -69,56 +112,72 @@ export default function Header() {
           </motion.p>
         </div>
 
-        {/* Desktop Navigation (unchanged) */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6 items-center">
-          {links.map((link, index) => (
-            <div key={link.name} className="relative group">
-              {link.subLinks ? (
-                <>
-                  <button
-                    className="flex items-center px-2 py-2 hover:text-green-500 transition-colors"
-                    onClick={() => toggleDropdown(index)}
-                    onMouseEnter={() => setActiveDropdown(index)}
-                    onMouseLeave={() => setActiveDropdown(null)}
-                  >
-                    {link.name}
-                    <FaChevronDown
-                      className={`ml-1 text-xs transition-transform duration-200 ${
-                        activeDropdown === index ? "rotate-180" : ""
+          {links.map((link, index) => {
+            const isActive = activeSection === link.href.replace("#", "");
+
+            return (
+              <div key={link.name} className="relative group">
+                {link.subLinks ? (
+                  <>
+                    <button
+                      className={`flex items-center px-2 py-2 transition-colors ${
+                        isActive ? "text-green-500" : "hover:text-green-500"
                       }`}
-                    />
-                  </button>
-                  {activeDropdown === index && (
-                    <div
-                      className="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-sm rounded-md shadow-lg py-1 border border-gray-200 z-50 animate-slideDown"
+                      onClick={() => toggleDropdown(index)}
+                      onMouseEnter={() => setActiveDropdown(index)}
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
-                      {link.subLinks.map((subLink) => (
-                        <a
-                          key={subLink.name}
-                          href={subLink.href}
-                          className="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-500 transition-colors"
-                        >
-                          {subLink.name}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <a
-                  href={link.href}
-                  className="relative group px-2 py-2 hover:text-green-500 transition-colors"
-                >
-                  {link.name}
-                  <span className="absolute left-0 bottom-0 h-0.5 w-0 bg-gradient-to-r from-blue-400 to-green-500 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-              )}
-            </div>
-          ))}
+                      {link.name}
+                      <FaChevronDown
+                        className={`ml-1 text-xs transition-transform duration-200 ${
+                          activeDropdown === index ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    {activeDropdown === index && (
+                      <div
+                        className="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-sm rounded-md shadow-lg py-1 border border-gray-200 z-50 animate-slideDown"
+                        onMouseLeave={() => setActiveDropdown(null)}
+                      >
+                        {link.subLinks.map((subLink) => (
+                          <a
+                            key={subLink.name}
+                            href={subLink.href}
+                            className="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-500 transition-colors"
+                          >
+                            {subLink.name}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`relative px-2 py-2 transition-colors group ${
+                      isActive
+                        ? "text-green-600 font-semibold"
+                        : "hover:text-green-500"
+                    }`}
+                  >
+                    {link.name}
+                    {/* Underline highlight */}
+                    <span
+                      className={`absolute left-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-400 to-green-500 transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    ></span>
+                  </a>
+                )}
+              </div>
+            );
+          })}
         </nav>
 
-        {/* Mobile Nav Toggle (unchanged) */}
+        {/* Mobile Nav Toggle */}
         <button
           className="md:hidden text-xl p-2 rounded hover:bg-gray-100 transition-colors"
           onClick={() => {
@@ -130,52 +189,65 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu (unchanged) */}
+      {/* Mobile Menu */}
       {navOpen && (
         <div className="md:hidden fixed top-16 right-0 z-40 animate-slideDown">
           <div className="bg-white w-64 rounded-l-lg shadow-lg py-4 border-l border-gray-200 text-gray-800">
             <nav className="flex flex-col px-6">
-              {links.map((link, index) => (
-                <div key={link.name} className="border-b border-gray-200">
-                  {link.subLinks ? (
-                    <>
-                      <button
-                        className="flex items-center justify-between w-full py-3 hover:text-green-500 transition-colors"
-                        onClick={() => toggleDropdown(index)}
+              {links.map((link, index) => {
+                const isActive = activeSection === link.href.replace("#", "");
+
+                return (
+                  <div key={link.name} className="border-b border-gray-200">
+                    {link.subLinks ? (
+                      <>
+                        <button
+                          className={`flex items-center justify-between w-full py-3 transition-colors ${
+                            isActive ? "text-green-500 font-semibold" : "hover:text-green-500"
+                          }`}
+                          onClick={() => toggleDropdown(index)}
+                        >
+                          {link.name}
+                          <FaChevronDown
+                            className={`text-xs transition-transform duration-200 ${
+                              activeDropdown === index ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                        {activeDropdown === index && (
+                          <div className="text-right pr-2 pb-2">
+                            {link.subLinks.map((subLink) => (
+                              <a
+                                key={subLink.name}
+                                href={subLink.href}
+                                className="block py-2 hover:text-green-500 transition-colors"
+                                onClick={() => setNavOpen(false)}
+                              >
+                                {subLink.name}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <a
+                        href={link.href}
+                        onClick={(e) => {
+                          handleNavClick(e, link.href);
+                          setNavOpen(false);
+                        }}
+                        className={`block py-3 transition-colors ${
+                          isActive
+                            ? "text-green-600 font-semibold border-l-4 border-green-500 pl-2"
+                            : "hover:text-green-500"
+                        }`}
                       >
                         {link.name}
-                        <FaChevronDown
-                          className={`text-xs transition-transform duration-200 ${
-                            activeDropdown === index ? "rotate-180" : ""
-                          }`}
-                        />
-                      </button>
-                      {activeDropdown === index && (
-                        <div className="text-right pr-2 pb-2">
-                          {link.subLinks.map((subLink) => (
-                            <a
-                              key={subLink.name}
-                              href={subLink.href}
-                              className="block py-2 hover:text-green-500 transition-colors"
-                              onClick={() => setNavOpen(false)}
-                            >
-                              {subLink.name}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <a
-                      href={link.href}
-                      className="block py-3 hover:text-green-500 transition-colors"
-                      onClick={() => setNavOpen(false)}
-                    >
-                      {link.name}
-                    </a>
-                  )}
-                </div>
-              ))}
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
             </nav>
           </div>
         </div>

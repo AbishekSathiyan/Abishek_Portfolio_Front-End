@@ -25,7 +25,9 @@ import {
   FaFileAlt,
   FaFileWord,
   FaFileArchive,
+  FaBrain,
 } from "react-icons/fa";
+
 import {
   SiTailwindcss,
   SiTypescript,
@@ -36,31 +38,70 @@ import {
   SiPython,
   SiReact,
 } from "react-icons/si";
+
 import { motion } from "framer-motion";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Banner from "./assets/Banner.png";
 
 export default function About() {
   const techStack = [
-    { icon: <FaReact className="text-[#61DAFB]" />, name: "React" },
-    { icon: <FaNodeJs className="text-[#68A063]" />, name: "Node.js" },
-    { icon: <FaJs className="text-[#F7DF1E]" />, name: "JavaScript" },
-    { icon: <FaCss3Alt className="text-[#2965F1]" />, name: "CSS3" },
-    { icon: <SiTailwindcss className="text-[#06B6D4]" />, name: "Tailwind" },
-    { icon: <SiMongodb className="text-[#47A248]" />, name: "MongoDB" },
-    { icon: <FaGitAlt className="text-[#F05032]" />, name: "Git" },
-    { icon: <SiRedux className="text-[#764ABC]" />, name: "Redux" },
-    { icon: <SiFirebase className="text-[#FFCA28]" />, name: "Firebase" },
-    { icon: <FaPython className="text-[#3776AB]" />, name: "Python" },
+    {
+      icon: <FaReact className="text-[#61DAFB]" />,
+      name: "React",
+    },
+    {
+      icon: <FaNodeJs className="text-[#68A063]" />,
+      name: "Node.js",
+    },
+    {
+      icon: <FaJs className="text-[#F7DF1E]" />,
+      name: "JavaScript",
+    },
+    {
+      icon: <FaCss3Alt className="text-[#2965F1]" />,
+      name: "CSS3",
+    },
+    {
+      icon: <SiTailwindcss className="text-[#06B6D4]" />,
+      name: "Tailwind",
+    },
+    {
+      icon: <SiMongodb className="text-[#47A248]" />,
+      name: "MongoDB",
+    },
+    {
+      icon: <FaGitAlt className="text-[#F05032]" />,
+      name: "Git",
+    },
+    {
+      icon: <SiRedux className="text-[#764ABC]" />,
+      name: "Redux",
+    },
+    {
+      icon: <SiFirebase className="text-[#FFCA28]" />,
+      name: "Firebase",
+    },
+    {
+      icon: <FaPython className="text-[#3776AB]" />,
+      name: "Python",
+    },
+    {
+      icon: <FaBrain className="text-[#8B5CF6]" />,
+      name: "Machine Learning",
+    },
   ];
 
   const sectionBackgrounds = {
-    whoIAm: "https://assets1.lottiefiles.com/packages/lf20_5tkzkblw.json",
-    education: "https://assets1.lottiefiles.com/packages/lf20_gn0tojcq.json",
+    whoIAm:
+      "https://assets1.lottiefiles.com/packages/lf20_5tkzkblw.json",
+    education:
+      "https://assets1.lottiefiles.com/packages/lf20_gn0tojcq.json",
     certifications:
       "https://assets1.lottiefiles.com/packages/lf20_obhph3sh.json",
-    internships: "https://assets1.lottiefiles.com/packages/lf20_2naa2t2e.json",
-    profile: "https://assets1.lottiefiles.com/packages/lf20_6wutsrox.json",
+    internships:
+      "https://assets1.lottiefiles.com/packages/lf20_2naa2t2e.json",
+    profile:
+      "https://assets1.lottiefiles.com/packages/lf20_6wutsrox.json",
   };
 
   const floatingTechIcons = [
@@ -112,6 +153,7 @@ export default function About() {
             style={{ width: "100%", height: "100%" }}
           />
         </div>
+
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={`bubble-${i}`}
@@ -135,6 +177,7 @@ export default function About() {
             }}
           />
         ))}
+
         {[...Array(30)].map((_, i) => (
           <motion.div
             key={`particle-${i}`}
@@ -145,7 +188,9 @@ export default function About() {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               backgroundColor: `rgba(${
-                Math.random() > 0.5 ? "96, 165, 250" : "34, 197, 94"
+                Math.random() > 0.5
+                  ? "96, 165, 250"
+                  : "34, 197, 94"
               }, ${Math.random() * 0.3 + 0.1})`,
             }}
             animate={{
@@ -162,6 +207,7 @@ export default function About() {
             }}
           />
         ))}
+
         {floatingTechIcons.map((tech, i) => (
           <motion.div
             key={`tech-icon-${i}`}
@@ -202,6 +248,7 @@ export default function About() {
               Me
             </span>
           </h2>
+
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -227,7 +274,11 @@ export default function About() {
             <motion.div
               className="absolute inset-0 rounded-full border border-blue-400/20 pointer-events-none"
               animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              transition={{
+                duration: 40,
+                repeat: Infinity,
+                ease: "linear",
+              }}
             >
               {techStack.slice(0, 6).map((tech, i) => (
                 <motion.div
@@ -236,18 +287,24 @@ export default function About() {
                   style={{
                     transform: `rotate(${
                       (360 / 6) * i
-                    }deg) translateX(100px) rotate(-${(360 / 6) * i}deg)`,
+                    }deg) translateX(100px) rotate(-${
+                      (360 / 6) * i
+                    }deg)`,
                   }}
-                  whileHover={{ scale: 1.2, transition: { duration: 0.2 } }}
+                  whileHover={{
+                    scale: 1.2,
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   {tech.icon}
                 </motion.div>
               ))}
             </motion.div>
+
             <div className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-200 group isolate">
               <motion.img
                 src={Banner}
-                alt="Abishek S"
+                alt="Abishek Sathiyan"
                 className="w-full h-full object-cover object-top"
                 initial={{ scale: 1.1 }}
                 whileInView={{ scale: 1 }}
@@ -265,15 +322,25 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="w-full lg:w-2/3 space-y-12"
           >
-            <WhoIAmCard backgroundAnimation={sectionBackgrounds.whoIAm} />
-            <EducationCard backgroundAnimation={sectionBackgrounds.education} />
+            <WhoIAmCard
+              backgroundAnimation={sectionBackgrounds.whoIAm}
+            />
+
+            <EducationCard
+              backgroundAnimation={sectionBackgrounds.education}
+            />
+
             <CertificationsCard
               backgroundAnimation={sectionBackgrounds.certifications}
             />
+
             <InternshipsCard
               backgroundAnimation={sectionBackgrounds.internships}
             />
-            <ResumeCard backgroundAnimation={sectionBackgrounds.profile} />
+
+            <ResumeCard
+              backgroundAnimation={sectionBackgrounds.profile}
+            />
           </motion.div>
         </div>
       </div>
@@ -281,7 +348,10 @@ export default function About() {
   );
 }
 
+// =====================================================
 // Who I Am Card
+// =====================================================
+
 const WhoIAmCard = ({ backgroundAnimation }) => {
   const codeSnippets = [
     { text: "console.log('Hello World')", x: -20, y: -30, delay: 0 },
@@ -299,7 +369,10 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
-      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
+      whileHover={{
+        boxShadow:
+          "0 20px 40px -15px rgba(59, 130, 246, 0.3)",
+      }}
     >
       <div className="absolute inset-0 opacity-10 -z-10">
         <Player
@@ -310,12 +383,19 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
+
       {codeSnippets.map((snippet, i) => (
         <motion.div
           key={`code-${i}`}
           className="absolute text-xs sm:text-sm font-mono bg-blue-400/10 text-blue-500 px-3 py-1 rounded-full backdrop-blur-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ left: `${snippet.x}%`, top: `${snippet.y}%` }}
-          animate={{ y: [0, -10, 0], x: [0, 5, -5, 0] }}
+          style={{
+            left: `${snippet.x}%`,
+            top: `${snippet.y}%`,
+          }}
+          animate={{
+            y: [0, -10, 0],
+            x: [0, 5, -5, 0],
+          }}
           transition={{
             duration: 4,
             delay: snippet.delay,
@@ -326,6 +406,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           {snippet.text}
         </motion.div>
       ))}
+
       <motion.h3
         className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-800 inline-block relative"
         initial={{ opacity: 0, x: -20 }}
@@ -334,6 +415,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
         viewport={{ once: true }}
       >
         Who I Am
+
         <motion.span
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -342,6 +424,7 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-green-500 origin-left"
         />
       </motion.h3>
+
       <div className="space-y-4">
         <motion.p
           className="text-base sm:text-lg leading-relaxed text-gray-700"
@@ -350,12 +433,14 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          I'm a passionate Full-Stack Developer from Methalodai, Ramanathapuram,
-          Tamil Nadu, India, with 1 year of hands-on experience building
-          responsive and user-friendly web applications. I specialize in React,
-          JavaScript, AI-based chatbots, and modern CSS frameworks, creating
-          elegant solutions and seamless user experiences.
+          I'm a passionate Full-Stack Developer from Methalodai,
+          Ramanathapuram, Tamil Nadu, India, with 1 year of hands-on
+          experience building responsive and user-friendly web
+          applications. I specialize in React, JavaScript, AI-based
+          chatbots, and modern CSS frameworks, creating elegant
+          solutions and seamless user experiences.
         </motion.p>
+
         <motion.p
           className="text-base sm:text-lg leading-relaxed text-gray-700"
           initial={{ opacity: 0, y: 20 }}
@@ -363,15 +448,19 @@ const WhoIAmCard = ({ backgroundAnimation }) => {
           transition={{ delay: 0.3 }}
           viewport={{ once: true }}
         >
-          My approach combines technical expertise with an eye for design to
-          create seamless digital experiences that users love.
+          My approach combines technical expertise with an eye for
+          design to create seamless digital experiences that users
+          love.
         </motion.p>
       </div>
     </motion.div>
   );
 };
 
+// =====================================================
 // Education Card
+// =====================================================
+
 const EducationCard = ({ backgroundAnimation }) => {
   const educationIcons = [
     {
@@ -389,19 +478,42 @@ const EducationCard = ({ backgroundAnimation }) => {
       delay: 2,
       y: -30,
     },
-    { icon: <SiReact className="text-2xl text-cyan-400" />, delay: 3, y: 20 },
+    {
+      icon: <SiReact className="text-2xl text-cyan-400" />,
+      delay: 3,
+      y: 20,
+    },
     {
       icon: <SiJavascript className="text-2xl text-yellow-400" />,
       delay: 4,
       y: -10,
     },
-    { icon: <SiPython className="text-2xl text-blue-500" />, delay: 5, y: 15 },
+    {
+      icon: <SiPython className="text-2xl text-blue-500" />,
+      delay: 5,
+      y: 15,
+    },
   ];
 
   const floatingBooks = [
-    { color: "from-blue-400 to-purple-400", rotate: -5, left: 0, top: 10 },
-    { color: "from-green-400 to-teal-400", rotate: 8, left: 20, top: 40 },
-    { color: "from-yellow-400 to-orange-400", rotate: -3, left: -10, top: 70 },
+    {
+      color: "from-blue-400 to-purple-400",
+      rotate: -5,
+      left: 0,
+      top: 10,
+    },
+    {
+      color: "from-green-400 to-teal-400",
+      rotate: 8,
+      left: 20,
+      top: 40,
+    },
+    {
+      color: "from-yellow-400 to-orange-400",
+      rotate: -3,
+      left: -10,
+      top: 70,
+    },
   ];
 
   return (
@@ -411,7 +523,10 @@ const EducationCard = ({ backgroundAnimation }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
-      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
+      whileHover={{
+        boxShadow:
+          "0 20px 40px -15px rgba(59, 130, 246, 0.3)",
+      }}
     >
       <div className="absolute inset-0 opacity-10 -z-10">
         <Player
@@ -422,6 +537,7 @@ const EducationCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
+
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {educationIcons.map((item, i) => (
           <motion.div
@@ -430,7 +546,10 @@ const EducationCard = ({ backgroundAnimation }) => {
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
-            animate={{ y: [0, item.y, 0], rotate: [0, 10, -10, 0] }}
+            animate={{
+              y: [0, item.y, 0],
+              rotate: [0, 10, -10, 0],
+            }}
             transition={{
               duration: 3,
               delay: item.delay,
@@ -442,6 +561,7 @@ const EducationCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
+
       <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
         {floatingBooks.map((book, i) => (
           <motion.div
@@ -471,6 +591,7 @@ const EducationCard = ({ backgroundAnimation }) => {
           />
         ))}
       </div>
+
       <div className="ml-16">
         <motion.h3
           className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 group"
@@ -486,7 +607,9 @@ const EducationCard = ({ backgroundAnimation }) => {
           >
             <FaGraduationCap className="w-5 h-5 text-blue-400" />
           </motion.span>
+
           <span>Education</span>
+
           <motion.div
             className="h-px bg-gradient-to-r from-blue-400 to-transparent flex-1 ml-2"
             initial={{ width: 0 }}
@@ -495,11 +618,13 @@ const EducationCard = ({ backgroundAnimation }) => {
             viewport={{ once: true }}
           />
         </motion.h3>
+
         <motion.div className="space-y-4">
           {[
             {
               title: "MCA – Master of Computer Applications",
-              subtitle: "Karpagam University, Coimbatore, Tamil Nadu, India",
+              subtitle:
+                "Karpagam University, Coimbatore, Tamil Nadu, India",
               meta: "2023 – 2025",
             },
             {
@@ -513,11 +638,15 @@ const EducationCard = ({ backgroundAnimation }) => {
               key={idx}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * idx, type: "spring" }}
+              transition={{
+                delay: 0.1 * idx,
+                type: "spring",
+              }}
               viewport={{ once: true }}
               className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
               whileHover={{
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                boxShadow:
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                 borderColor: "rgba(59, 130, 246, 0.3)",
               }}
             >
@@ -526,8 +655,12 @@ const EducationCard = ({ backgroundAnimation }) => {
                   <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-blue-500 transition-colors duration-300">
                     {item.title}
                   </h4>
-                  <p className="text-gray-600">{item.subtitle}</p>
+
+                  <p className="text-gray-600">
+                    {item.subtitle}
+                  </p>
                 </div>
+
                 <motion.span
                   className="text-sm sm:text-base font-medium text-blue-500 bg-blue-400/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-blue-400/20 transition-colors duration-300"
                   whileHover={{ scale: 1.05 }}
@@ -543,7 +676,10 @@ const EducationCard = ({ backgroundAnimation }) => {
   );
 };
 
+// =====================================================
 // Certifications Card
+// =====================================================
+
 const CertificationsCard = ({ backgroundAnimation }) => {
   const certIcons = [
     {
@@ -556,13 +692,21 @@ const CertificationsCard = ({ backgroundAnimation }) => {
       delay: 1,
       y: 15,
     },
-    { icon: <FaStar className="text-2xl text-purple-400" />, delay: 2, y: -25 },
+    {
+      icon: <FaStar className="text-2xl text-purple-400" />,
+      delay: 2,
+      y: -25,
+    },
     {
       icon: <FaTrophy className="text-2xl text-orange-400" />,
       delay: 3,
       y: 10,
     },
-    { icon: <FaAward className="text-2xl text-blue-400" />, delay: 4, y: -15 },
+    {
+      icon: <FaAward className="text-2xl text-blue-400" />,
+      delay: 4,
+      y: -15,
+    },
     {
       icon: <FaCheckCircle className="text-2xl text-cyan-400" />,
       delay: 5,
@@ -571,10 +715,26 @@ const CertificationsCard = ({ backgroundAnimation }) => {
   ];
 
   const badges = [
-    { icon: <FaTrophy className="text-yellow-400" />, left: 10, top: 20 },
-    { icon: <FaStar className="text-blue-400" />, left: -5, top: 45 },
-    { icon: <FaMedal className="text-red-400" />, left: 15, top: 70 },
-    { icon: <FaAward className="text-green-400" />, left: 0, top: 90 },
+    {
+      icon: <FaTrophy className="text-yellow-400" />,
+      left: 10,
+      top: 20,
+    },
+    {
+      icon: <FaStar className="text-blue-400" />,
+      left: -5,
+      top: 45,
+    },
+    {
+      icon: <FaMedal className="text-red-400" />,
+      left: 15,
+      top: 70,
+    },
+    {
+      icon: <FaAward className="text-green-400" />,
+      left: 0,
+      top: 90,
+    },
   ];
 
   return (
@@ -584,7 +744,10 @@ const CertificationsCard = ({ backgroundAnimation }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
-      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
+      whileHover={{
+        boxShadow:
+          "0 20px 40px -15px rgba(59, 130, 246, 0.3)",
+      }}
     >
       <div className="absolute inset-0 opacity-10 -z-10">
         <Player
@@ -595,6 +758,7 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
+
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {certIcons.map((item, i) => (
           <motion.div
@@ -619,13 +783,21 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
+
       <div className="absolute left-4 top-0 bottom-0 w-20 pointer-events-none hidden lg:block">
         {badges.map((badge, i) => (
           <motion.div
             key={`badge-${i}`}
             className="absolute text-3xl opacity-30"
-            style={{ left: `${badge.left}px`, top: `${badge.top}%` }}
-            animate={{ rotate: [0, 360], scale: [1, 1.3, 1], y: [0, -10, 0] }}
+            style={{
+              left: `${badge.left}px`,
+              top: `${badge.top}%`,
+            }}
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.3, 1],
+              y: [0, -10, 0],
+            }}
             transition={{
               duration: 5,
               delay: i * 1,
@@ -637,6 +809,7 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
+
       <div className="ml-16">
         <motion.h3
           className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 group"
@@ -652,7 +825,9 @@ const CertificationsCard = ({ backgroundAnimation }) => {
           >
             <FaCertificate className="w-5 h-5 text-blue-400" />
           </motion.span>
+
           <span>Certifications</span>
+
           <motion.div
             className="h-px bg-gradient-to-r from-blue-400 to-transparent flex-1 ml-2"
             initial={{ width: 0 }}
@@ -661,10 +836,17 @@ const CertificationsCard = ({ backgroundAnimation }) => {
             viewport={{ once: true }}
           />
         </motion.h3>
+
         <motion.div className="space-y-4">
           {[
-            { title: "Introduction to AI Agents", subtitle: "Microsoft" },
-            { title: "Claude Code in Action", subtitle: "Anthropic" },
+            {
+              title: "Introduction to AI Agents",
+              subtitle: "Microsoft",
+            },
+            {
+              title: "Claude Code in Action",
+              subtitle: "Anthropic",
+            },
             {
               title: "AI Vibe Coding Workshop",
               subtitle: "Digital India | Intel",
@@ -673,23 +855,37 @@ const CertificationsCard = ({ backgroundAnimation }) => {
               title: "Full-Stack Developer (MERN Stack)",
               subtitle: "Error Makes Clever",
             },
-            { title: "Namaste JavaScript Completion", subtitle: "NamasteDev" },
-            { title: "Mastering Python", subtitle: "Infosys" },
             {
-              title: "National Conference on Data Science & Analytics",
+              title: "Namaste JavaScript Completion",
+              subtitle: "NamasteDev",
+            },
+            {
+              title: "Mastering Python",
+              subtitle: "Infosys",
+            },
+            {
+              title:
+                "National Conference on Data Science & Analytics",
               subtitle: "TCS iON",
             },
-            { title: "AI for All", subtitle: "Digital India | Intel" },
+            {
+              title: "AI for All",
+              subtitle: "Digital India | Intel",
+            },
           ].map((item, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * idx, type: "spring" }}
+              transition={{
+                delay: 0.1 * idx,
+                type: "spring",
+              }}
               viewport={{ once: true }}
               className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
               whileHover={{
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                boxShadow:
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                 borderColor: "rgba(59, 130, 246, 0.3)",
               }}
             >
@@ -697,7 +893,10 @@ const CertificationsCard = ({ backgroundAnimation }) => {
                 <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-blue-500 transition-colors duration-300">
                   {item.title}
                 </h4>
-                <p className="text-gray-600">{item.subtitle}</p>
+
+                <p className="text-gray-600">
+                  {item.subtitle}
+                </p>
               </div>
             </motion.div>
           ))}
@@ -707,7 +906,10 @@ const CertificationsCard = ({ backgroundAnimation }) => {
   );
 };
 
+// =====================================================
 // Internships Card
+// =====================================================
+
 const InternshipsCard = ({ backgroundAnimation }) => {
   const internshipIcons = [
     {
@@ -720,7 +922,11 @@ const InternshipsCard = ({ backgroundAnimation }) => {
       delay: 1,
       y: 15,
     },
-    { icon: <FaCode className="text-2xl text-purple-400" />, delay: 2, y: -25 },
+    {
+      icon: <FaCode className="text-2xl text-purple-400" />,
+      delay: 2,
+      y: -25,
+    },
     {
       icon: <FaServer className="text-2xl text-orange-400" />,
       delay: 3,
@@ -731,7 +937,11 @@ const InternshipsCard = ({ backgroundAnimation }) => {
       delay: 4,
       y: -15,
     },
-    { icon: <FaCloud className="text-2xl text-blue-300" />, delay: 5, y: 20 },
+    {
+      icon: <FaCloud className="text-2xl text-blue-300" />,
+      delay: 5,
+      y: 20,
+    },
   ];
 
   return (
@@ -741,7 +951,10 @@ const InternshipsCard = ({ backgroundAnimation }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring" }}
       viewport={{ once: true, margin: "-50px" }}
-      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.3)" }}
+      whileHover={{
+        boxShadow:
+          "0 20px 40px -15px rgba(59, 130, 246, 0.3)",
+      }}
     >
       <div className="absolute inset-0 opacity-10 -z-10">
         <Player
@@ -752,6 +965,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
+
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {internshipIcons.map((item, i) => (
           <motion.div
@@ -776,19 +990,34 @@ const InternshipsCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
+
       <motion.div
         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
-        animate={{ y: [0, -10, 0], rotateZ: [0, 5, -5, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        animate={{
+          y: [0, -10, 0],
+          rotateZ: [0, 5, -5, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       >
         <div className="w-12 h-8 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg border-2 border-gray-600 opacity-30">
           <motion.div
             className="w-full h-1 bg-gradient-to-r from-blue-400 to-green-500 mt-1"
-            animate={{ width: ["30%", "70%", "50%", "90%", "30%"] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            animate={{
+              width: ["30%", "70%", "50%", "90%", "30%"],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "linear",
+            }}
           />
         </div>
       </motion.div>
+
       <div className="ml-16">
         <motion.h3
           className="text-xl sm:text-2xl font-semibold flex items-center gap-3 mb-6 text-gray-800 group"
@@ -804,7 +1033,9 @@ const InternshipsCard = ({ backgroundAnimation }) => {
           >
             <FaLaptopCode className="w-5 h-5 text-blue-400" />
           </motion.span>
+
           <span>Internships</span>
+
           <motion.div
             className="h-px bg-gradient-to-r from-blue-400 to-transparent flex-1 ml-2"
             initial={{ width: 0 }}
@@ -813,39 +1044,48 @@ const InternshipsCard = ({ backgroundAnimation }) => {
             viewport={{ once: true }}
           />
         </motion.h3>
+
         <motion.div className="space-y-4">
           {[
+            {
+              title: "AI and Tech",
+              subtitle: "Innovation City",
+              meta: "June - July 2026",
+              description:
+                "AI Tools, Prompting, Building Applications using AI",
+              link: "https://innovationcity.com/",
+            },
             {
               title: "MERN Stack Intern – Full Stack Projects",
               subtitle: "Skillmate.ai",
               meta: "Aug 2024 – Sep 2024",
-              description: "React.js, Next.js, Tailwind CSS",
+              description:
+                "React.js, Next.js, Tailwind CSS",
               link: "https://skillmate.ai/",
             },
             {
-              title: "Data Structures and Algorithms – Learning DSA",
-              subtitle: "kaashiv Infotech",
+              title:
+                "Data Structures and Algorithms – Learning DSA",
+              subtitle: "Kaashiv Infotech",
               meta: "April 2025",
-              description: "Programming, DataStructures, Algorithms",
+              description:
+                "Programming, Data Structures, Algorithms",
               link: "https://www.kaashivinfotech.com/",
-            },
-            {
-              title: "AI and Tech",
-              subtitle: "Innovation City",
-              meta: "June - july 2026",
-              description: "AI Tools, Prompting, Building Applications using AI",
-              link: "https://innovationcity.com/",
             },
           ].map((item, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * idx, type: "spring" }}
+              transition={{
+                delay: 0.1 * idx,
+                type: "spring",
+              }}
               viewport={{ once: true }}
               className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group/item"
               whileHover={{
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                boxShadow:
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                 borderColor: "rgba(59, 130, 246, 0.3)",
               }}
             >
@@ -854,6 +1094,7 @@ const InternshipsCard = ({ backgroundAnimation }) => {
                   <h4 className="text-lg font-medium text-gray-800 group-hover/item:text-blue-500 transition-colors duration-300">
                     {item.title}
                   </h4>
+
                   <p className="text-gray-600">
                     {item.link ? (
                       <a
@@ -868,10 +1109,12 @@ const InternshipsCard = ({ backgroundAnimation }) => {
                       item.subtitle
                     )}
                   </p>
+
                   <p className="text-sm text-gray-500 mt-1 group-hover/item:text-gray-700 transition-colors duration-300">
                     {item.description}
                   </p>
                 </div>
+
                 <motion.span
                   className="text-sm sm:text-base font-medium text-blue-500 bg-blue-400/10 px-3 py-1 rounded-full whitespace-nowrap group-hover/item:bg-blue-400/20 transition-colors duration-300"
                   whileHover={{ scale: 1.05 }}
@@ -887,10 +1130,17 @@ const InternshipsCard = ({ backgroundAnimation }) => {
   );
 };
 
+// =====================================================
 // Resume Card
+// =====================================================
+
 const ResumeCard = ({ backgroundAnimation }) => {
   const resumeIcons = [
-    { icon: <FaFilePdf className="text-2xl text-red-400" />, delay: 0, y: -20 },
+    {
+      icon: <FaFilePdf className="text-2xl text-red-400" />,
+      delay: 0,
+      y: -20,
+    },
     {
       icon: <FaDownload className="text-2xl text-green-400" />,
       delay: 1,
@@ -923,9 +1173,15 @@ const ResumeCard = ({ backgroundAnimation }) => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, type: "spring" }}
+      transition={{
+        duration: 0.6,
+        type: "spring",
+      }}
       className="relative p-8 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200 group"
-      whileHover={{ boxShadow: "0 20px 40px -15px rgba(59, 130, 246, 0.4)" }}
+      whileHover={{
+        boxShadow:
+          "0 20px 40px -15px rgba(59, 130, 246, 0.4)",
+      }}
     >
       <div className="absolute inset-0 opacity-10 -z-10">
         <Player
@@ -936,6 +1192,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
           style={{ width: "100%", height: "100%" }}
         />
       </div>
+
       <div className="absolute left-0 top-0 bottom-0 w-16 flex flex-col items-center justify-center gap-4 pointer-events-none">
         {resumeIcons.map((item, i) => (
           <motion.div
@@ -960,16 +1217,28 @@ const ResumeCard = ({ backgroundAnimation }) => {
           </motion.div>
         ))}
       </div>
+
       <motion.div
         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 pointer-events-none hidden lg:block"
-        animate={{ rotateZ: [0, 5, -5, 0], y: [0, -10, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        animate={{
+          rotateZ: [0, 5, -5, 0],
+          y: [0, -10, 0],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       >
         <FaFilePdf className="text-6xl text-blue-400 opacity-20" />
       </motion.div>
+
       <motion.div
         className="absolute left-8 bottom-4 w-16 pointer-events-none hidden lg:block"
-        animate={{ rotateZ: [0, -5, 5, 0], x: [0, 10, 0] }}
+        animate={{
+          rotateZ: [0, -5, 5, 0],
+          x: [0, 10, 0],
+        }}
         transition={{
           duration: 6,
           repeat: Infinity,
@@ -979,6 +1248,7 @@ const ResumeCard = ({ backgroundAnimation }) => {
       >
         <FaFilePdf className="text-4xl text-green-400 opacity-20" />
       </motion.div>
+
       <div className="ml-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -990,13 +1260,15 @@ const ResumeCard = ({ backgroundAnimation }) => {
             <FaFilePdf className="text-blue-500" />
             Get My Full Profile
           </h4>
+
           <motion.a
-            href="/Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
-            download="Abishek Sathiyan UAE Fresher FullStack Developer Resume.pdf"
+            href="/Abishek Sathiyan - MERN Fullstack Developer Resume India.pdf"
+            download="Abishek Sathiyan - MERN Fullstack Developer Resume India.pdf"
             className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-400 to-green-500 text-white px-8 py-3.5 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 group relative overflow-hidden"
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 8px 25px -5px rgba(59, 130, 246, 0.6)",
+              boxShadow:
+                "0 8px 25px -5px rgba(59, 130, 246, 0.6)",
             }}
             whileTap={{ scale: 0.97 }}
           >
@@ -1010,15 +1282,21 @@ const ResumeCard = ({ backgroundAnimation }) => {
             >
               <FaDownload className="text-lg" />
             </motion.span>
+
             <span>Download Resume</span>
+
             <motion.span
               className="ml-1 transition-all duration-300 group-hover:translate-x-1"
               animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1, repeat: Infinity }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+              }}
             >
               →
             </motion.span>
           </motion.a>
+
           <motion.p
             className="mt-3 text-sm text-gray-500"
             initial={{ opacity: 0 }}

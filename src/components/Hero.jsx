@@ -337,7 +337,7 @@ export default function Hero() {
                   >
                     <FaGlobeAsia className="text-blue-600 text-sm" />
                     <span className="text-sm font-medium text-blue-700">
-                      Ras Al Khaimah, UAE
+                      Coimbatore,TamilNadu
                     </span>
                   </motion.div>
                 </motion.div>
