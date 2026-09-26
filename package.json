@@ -2,9 +2,9 @@
   "name": "portfolio-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://abishek-portfolio-front-mnllrih5a-abisheksathiyans-projects.vercel.app",
+  "homepage": "https://abisheksathiyan-portfolio-front-end.vercel.app/",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "dependencies": {
     "@iconscout/react-unicons": "^2.2.5",
